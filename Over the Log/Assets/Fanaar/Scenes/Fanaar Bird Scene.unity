@@ -304,7 +304,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6b911390c5825014e8377183a7837d3f, type: 2}
+  - {fileID: 2100000, guid: 7f5ec2f98d6be44489ddffbed8c1917f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -516,10 +516,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 273006d6733076d4a84260bfa31f3525, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentState: 0
   walkSpeed: 5
   sprintSpeed: 8
   gravity: -9.81
   jumpHeight: 1.5
+  flightSpeed: 8
+  flightAcceleration: 20
+  takeOffTime: 5
+  flightGravity: -2
+  initialLiftOffVelocity: 5
   mouseSensitivity: 2
   playerCamera: {fileID: 966782502}
   cameraClampAngle: 85
@@ -527,6 +533,10 @@ MonoBehaviour:
   interactableLayer:
     serializedVersion: 2
     m_Bits: 0
+  maxFlightHeight: 20
+  minFlightHeight: 15
+  ascentSpeed: 2.5
+  approachSpeed: 2
 --- !u!143 &1732575014
 CharacterController:
   m_ObjectHideFlags: 0
@@ -561,7 +571,7 @@ Transform:
   m_GameObject: {fileID: 1732575012}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -0.7399998}
+  m_LocalPosition: {x: 0, y: 0.1, z: -0.7399998}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
