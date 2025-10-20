@@ -30,8 +30,8 @@ public class FirstPersonController : MonoBehaviour
     public LayerMask interactableLayer;
 
     [Header("Flight Height Settings")]
-    public float maxFlightHeight = 50f;
-    public float minFlightHeight = 5f;
+    public float maxFlightHeight = 20f;
+    public float minFlightHeight = 15f;
     public float ascentSpeed = 5f;      // how fast you move up/down
     public float approachSpeed = 2f;    // how quickly velocity slows near ceiling/floor
 
