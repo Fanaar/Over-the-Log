@@ -233,6 +233,7 @@ public class FirstPersonController : MonoBehaviour
     // --------------------------
     // Flight Zone Trigger Example
     // --------------------------
+    /*
     private void OnTriggerEnter(Collider other)
     {
         // Example: adjust max flight height dynamically
@@ -242,5 +243,5 @@ public class FirstPersonController : MonoBehaviour
             maxFlightHeight = 40f;
         else if (other.CompareTag("FlightZone3"))
             maxFlightHeight = 60f;
-    }
+    }*/
 }
