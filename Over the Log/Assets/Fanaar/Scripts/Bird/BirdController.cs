@@ -45,19 +45,27 @@ public class BirdController : MonoBehaviour
 
         Transform target = waypoints[currentWaypoint];
         transform.position = Vector3.MoveTowards(transform.position, target.position, flySpeed * Time.deltaTime);
-        transform.LookAt(target.position);
+
+        // Alleen de visuele vogel (child) draait naar de richting
+        if (transform.childCount > 0)
+        {
+            Transform birdModel = transform.GetChild(0);
+            Vector3 direction = (target.position - transform.position).normalized;
+            direction.y = 0; // horizontaal houden
+            if (direction != Vector3.zero)
+                birdModel.forward = Vector3.Lerp(birdModel.forward, direction, Time.deltaTime * 5f);
+        }
 
         if (Vector3.Distance(transform.position, target.position) < 0.1f)
         {
             isFlying = false;
-
-            // Laatste waypoint bereikt?
             if (currentWaypoint == waypoints.Length - 1)
             {
                 FlyForward();
             }
         }
     }
+
 
     public void GoToNextWaypoint()
     {
