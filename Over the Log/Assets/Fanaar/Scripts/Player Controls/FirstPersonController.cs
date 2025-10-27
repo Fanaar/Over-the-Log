@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonController : MonoBehaviour
@@ -44,6 +44,7 @@ public class FirstPersonController : MonoBehaviour
     private bool justTookOff = false;
     private bool isFlying = false;
     private bool isLanding = false;
+    private float birdYaw = 0f;
 
     private bool isSprinting => Input.GetKey(KeyCode.LeftShift);
 
@@ -208,12 +209,30 @@ public class FirstPersonController : MonoBehaviour
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
+        // --- Verticale rotatie ---
         verticalRotation -= mouseY;
         verticalRotation = Mathf.Clamp(verticalRotation, -cameraClampAngle, cameraClampAngle);
 
-        playerCamera.localEulerAngles = Vector3.right * verticalRotation;
-        transform.Rotate(Vector3.up * mouseX);
+        // --- Horizontale rotatie ---
+        if (currentState == MovementState.Human)
+        {
+            // Normale FPS-rotatie (draait het hele lichaam)
+            transform.Rotate(Vector3.up * mouseX);
+            playerCamera.localEulerAngles = Vector3.right * verticalRotation;
+        }
+        else if (currentState == MovementState.Bird)
+        {
+            // In Bird-modus: camera kan rondkijken, maar beperkt
+            birdYaw += mouseX;
+
+            // Limiteer horizontaal zicht, zodat je niet helemaal achterom kunt kijken
+            birdYaw = Mathf.Clamp(birdYaw, -75f, 75f); // ← pas deze waarden aan naar wens
+
+            playerCamera.localRotation = Quaternion.Euler(verticalRotation, birdYaw, 0f);
+        }
     }
+
+
 
     // --------------------------
     // Interaction
