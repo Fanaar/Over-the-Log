@@ -221,7 +221,8 @@ public class FirstPersonController : MonoBehaviour
     // --------------------------
     void CheckTakeOff()
     {
-        if (currentState != MovementState.Human || !controller.isGrounded || !isSprinting)
+        // Speler mag alleen vliegen als hij ook mag sprinten
+        if (!canSprint || currentState != MovementState.Human || !controller.isGrounded || !isSprinting)
         {
             sprintTimer = 0f;
             return;
@@ -231,6 +232,7 @@ public class FirstPersonController : MonoBehaviour
         if (sprintTimer >= takeOffTime)
             StartFlying();
     }
+
 
     void StartFlying()
     {
