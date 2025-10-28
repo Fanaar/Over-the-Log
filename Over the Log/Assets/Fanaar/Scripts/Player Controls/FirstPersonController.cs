@@ -35,6 +35,17 @@ public class FirstPersonController : MonoBehaviour
     public float ascentSpeed = 5f;      // how fast you move up/down
     public float approachSpeed = 2f;    // how quickly velocity slows near ceiling/floor
 
+    [Header("Lift-Off Curve (Inspector Controlled)")]
+    public AnimationCurve liftCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    public float liftDuration = 2f;     // hoelang de curve duurt
+    public float maxLiftSpeed = 12f;    // maximale stijgsnelheid aan het einde
+    private float liftProgress = 0f;    // interne timer
+    private bool isLiftAccelerating = false;
+
+    [HideInInspector] public bool canSprint = false;    // sprint mag pas na trigger
+    public bool rotationLocked = false;
+    public Quaternion lockedRotation;
+
 
     private CharacterController controller;
     private Vector3 velocity;
@@ -82,6 +93,13 @@ public class FirstPersonController : MonoBehaviour
     // --------------------------
     // Movement
     // --------------------------
+
+    public void LockRotation(Vector3 euler)
+    {
+        rotationLocked = true;
+        lockedRotation = Quaternion.Euler(euler);
+    }
+
     void HandleMovement()
     {
         switch (currentState)
@@ -101,8 +119,14 @@ public class FirstPersonController : MonoBehaviour
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
+        // bepaal snelheid
+        float speed = walkSpeed;
+        if (canSprint && Input.GetKey(KeyCode.LeftShift))
+        {
+            speed = sprintSpeed;
+        }
+
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
-        float speed = isSprinting ? sprintSpeed : walkSpeed;
         controller.Move(move * speed * Time.deltaTime);
 
         // Gravity & jump
@@ -114,6 +138,7 @@ public class FirstPersonController : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
+
     }
 
     void HandleBirdMovement()
@@ -161,7 +186,27 @@ public class FirstPersonController : MonoBehaviour
             }
         }
 
-        velocity.y = targetYVelocity;
+        // --- Lift-Off met AnimationCurve ---
+        if (isLiftAccelerating)
+        {
+            liftProgress += Time.deltaTime / liftDuration;
+            float t = Mathf.Clamp01(liftProgress);
+
+            // Gebruik de curvewaarde om de snelheid te bepalen
+            float curveValue = liftCurve.Evaluate(t);
+            float currentLiftSpeed = Mathf.Lerp(initialLiftOffVelocity, maxLiftSpeed, curveValue);
+            velocity.y = currentLiftSpeed;
+
+            // Stop zodra de curve klaar is
+            if (t >= 1f)
+                isLiftAccelerating = false;
+        }
+        else
+        {
+            // Normale vliegbeweging
+            velocity.y = targetYVelocity;
+        }
+
 
         // Move player
         controller.Move(velocity * Time.deltaTime);
@@ -191,9 +236,16 @@ public class FirstPersonController : MonoBehaviour
     {
         currentState = MovementState.Bird;
         isFlying = true;
-        velocity = Vector3.up * initialLiftOffVelocity;
         justTookOff = true;
+
+        // Start met lage verticale snelheid
+        velocity = Vector3.up * initialLiftOffVelocity;
+
+        // Start de lift curve
+        liftProgress = 0f;
+        isLiftAccelerating = true;
     }
+
 
     void Land()
     {
@@ -216,10 +268,14 @@ public class FirstPersonController : MonoBehaviour
         // --- Horizontale rotatie ---
         if (currentState == MovementState.Human)
         {
-            // Normale FPS-rotatie (draait het hele lichaam)
-            transform.Rotate(Vector3.up * mouseX);
+            if (!rotationLocked)
+                transform.Rotate(Vector3.up * mouseX); // normale rotatie
+            else
+                transform.rotation = lockedRotation;  // gefixeerde rotatie
+
             playerCamera.localEulerAngles = Vector3.right * verticalRotation;
         }
+
         else if (currentState == MovementState.Bird)
         {
             // In Bird-modus: camera kan rondkijken, maar beperkt
@@ -248,19 +304,4 @@ public class FirstPersonController : MonoBehaviour
             }
         }
     }
-
-    // --------------------------
-    // Flight Zone Trigger Example
-    // --------------------------
-    /*
-    private void OnTriggerEnter(Collider other)
-    {
-        // Example: adjust max flight height dynamically
-        if (other.CompareTag("FlightZone1"))
-            maxFlightHeight = 25f;
-        else if (other.CompareTag("FlightZone2"))
-            maxFlightHeight = 40f;
-        else if (other.CompareTag("FlightZone3"))
-            maxFlightHeight = 60f;
-    }*/
 }
