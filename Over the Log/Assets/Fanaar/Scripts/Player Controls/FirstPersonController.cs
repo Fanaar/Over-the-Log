@@ -30,8 +30,8 @@ public class FirstPersonController : MonoBehaviour
     public LayerMask interactableLayer;
 
     [Header("Flight Height Settings")]
-    public float maxFlightHeight = 20f;
-    public float minFlightHeight = 15f;
+    public float maxFlightHeight = 120f;
+    public float minFlightHeight = 100f;
     public float ascentSpeed = 5f;      // how fast you move up/down
     public float approachSpeed = 2f;    // how quickly velocity slows near ceiling/floor
 
@@ -41,6 +41,11 @@ public class FirstPersonController : MonoBehaviour
     public float maxLiftSpeed = 12f;    // maximale stijgsnelheid aan het einde
     private float liftProgress = 0f;    // interne timer
     private bool isLiftAccelerating = false;
+
+    [Header("Bird Tilt Settings")]
+    public float maxTiltAngle = 20f;    // maximale lean in graden
+    public float tiltSpeed = 5f;        // hoe snel de lean volgt
+    private float currentTiltZ = 0f; // hou tilt bij
 
     [HideInInspector] public bool canSprint = false;    // sprint mag pas na trigger
     public bool rotationLocked = false;
@@ -141,6 +146,7 @@ public class FirstPersonController : MonoBehaviour
 
     }
 
+
     void HandleBirdMovement()
     {
         float moveX = Input.GetAxis("Horizontal");
@@ -162,23 +168,20 @@ public class FirstPersonController : MonoBehaviour
         velocity.x = horizontalVelocity.x;
         velocity.z = horizontalVelocity.z;
 
-        // Vertical movement
-        float targetYVelocity = moveY * ascentSpeed;
+        // --- Tilt the bird when strafing (stabilized) ---
+        float targetTilt = -moveX * maxTiltAngle;
+        currentTiltZ = Mathf.Lerp(currentTiltZ, targetTilt, Time.deltaTime * tiltSpeed);
+        transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y, currentTiltZ);
 
-        // Smoothly reduce vertical speed near ceiling/floor
-        if (transform.position.y >= maxFlightHeight && targetYVelocity > 0f)
-            targetYVelocity *= Mathf.Clamp01(1f - ((transform.position.y - maxFlightHeight) / approachSpeed));
-        if (transform.position.y <= minFlightHeight && targetYVelocity < 0f)
-            targetYVelocity *= Mathf.Clamp01(1f - ((minFlightHeight - transform.position.y) / approachSpeed));
+        // --- Vertical movement ---
+        float targetYVelocity = moveY * ascentSpeed;
 
         // Gradual landing
         if (isLanding)
         {
-            // Slowly reduce upward velocity
-            targetYVelocity = Mathf.Max(-ascentSpeed, velocity.y - 9.81f * Time.deltaTime); // simulate gravity
+            targetYVelocity = Mathf.Max(-ascentSpeed, velocity.y - 9.81f * Time.deltaTime);
             if (controller.isGrounded)
             {
-                // Finished landing
                 isLanding = false;
                 currentState = MovementState.Human;
                 velocity = Vector3.zero;
@@ -192,28 +195,32 @@ public class FirstPersonController : MonoBehaviour
             liftProgress += Time.deltaTime / liftDuration;
             float t = Mathf.Clamp01(liftProgress);
 
-            // Gebruik de curvewaarde om de snelheid te bepalen
             float curveValue = liftCurve.Evaluate(t);
             float currentLiftSpeed = Mathf.Lerp(initialLiftOffVelocity, maxLiftSpeed, curveValue);
             velocity.y = currentLiftSpeed;
 
-            // Stop zodra de curve klaar is
             if (t >= 1f)
                 isLiftAccelerating = false;
         }
         else
         {
-            // Normale vliegbeweging
-            velocity.y = targetYVelocity;
+            if (transform.position.y < minFlightHeight)
+                velocity.y = ascentSpeed;
+            else
+                velocity.y = targetYVelocity;
         }
 
+        if (transform.position.y >= maxFlightHeight && velocity.y > 0f)
+            velocity.y *= Mathf.Clamp01(1f - ((transform.position.y - maxFlightHeight) / approachSpeed));
 
-        // Move player
         controller.Move(velocity * Time.deltaTime);
 
         if (justTookOff)
             justTookOff = false;
+
+        Debug.Log("Flight Height: " + transform.position.y);
     }
+
 
 
     // --------------------------

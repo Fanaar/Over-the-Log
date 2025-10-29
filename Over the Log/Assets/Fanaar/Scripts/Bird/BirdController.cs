@@ -84,8 +84,25 @@ public class BirdController : MonoBehaviour
     {
         // Laatste fase: recht vooruit blijven vliegen
         isFlying = false;
+
+        // Zorg dat de vogel vooruit kijkt in de richting van zijn laatste vlucht
+        if (currentWaypoint > 0)
+        {
+            Vector3 lastDirection = (waypoints[currentWaypoint].position - waypoints[currentWaypoint - 1].position).normalized;
+            lastDirection.y = 0; // horizontaal houden
+            transform.forward = lastDirection;
+
+            // Als je een visuele vogel (child) hebt, uitlijnen met parent
+            if (transform.childCount > 0)
+            {
+                Transform birdModel = transform.GetChild(0);
+                birdModel.forward = lastDirection;
+            }
+        }
+
         StartCoroutine(FlyStraightForward());
     }
+
 
     IEnumerator FlyStraightForward()
     {
