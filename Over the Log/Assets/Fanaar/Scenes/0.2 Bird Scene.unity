@@ -9359,6 +9359,7 @@ MonoBehaviour:
   underTheTreesVolume: {fileID: 420929023}
   aboveTheTreesVolume: {fileID: 450164845}
   transitionSpeed: 1
+  toggleFog: 1
 --- !u!1001 &820563120
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11833,7 +11834,7 @@ Transform:
   m_GameObject: {fileID: 990208689}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 6, y: 0, z: 0}
   m_LocalScale: {x: 40.326897, y: 52.455, z: 1086.4661}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21747,8 +21748,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -54, y: -331}
-  m_SizeDelta: {x: 265.024, y: 50}
+  m_AnchoredPosition: {x: -52.5, y: -330.5}
+  m_SizeDelta: {x: 355.1615, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1877964605
 CanvasRenderer:
@@ -21778,7 +21779,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: L SHIFT - SPRINT
+  m_text: Left SHIFT - SPRINT
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -21843,7 +21844,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: -41.668457, w: 0}
+  m_margin: {x: 0, y: 0, z: -0.14416504, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
