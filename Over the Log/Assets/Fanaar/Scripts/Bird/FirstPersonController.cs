@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonController : MonoBehaviour
@@ -51,6 +52,11 @@ public class FirstPersonController : MonoBehaviour
     public bool rotationLocked = false;
     public Quaternion lockedRotation;
 
+    [Header("Hunting Settings")]
+    public float catchRange = 3f;          // afstand om prooi te kunnen grijpen
+    public LayerMask preyLayer;            // layer waarin de prooi zit
+    public KeyCode diveKey = KeyCode.Mouse0;
+    public float diveSpeed = 30f; // snelheid van de duik
 
     private CharacterController controller;
     private Vector3 velocity;
@@ -62,7 +68,10 @@ public class FirstPersonController : MonoBehaviour
     private bool isLanding = false;
     private float birdYaw = 0f;
 
+    public PreyDetector preyDetector; // sleep je trigger hiernaartoe in inspector
     private bool isSprinting => Input.GetKey(KeyCode.LeftShift);
+    [HideInInspector] public bool hasLandedOnPrey = false;
+
 
     void Start()
     {
@@ -90,9 +99,8 @@ public class FirstPersonController : MonoBehaviour
 
     void HandleBirdInput()
     {
-        // Manual landing
-        if (Input.GetKeyDown(KeyCode.L))
-            Land();
+        if (Input.GetKeyDown(diveKey))
+            TryCatchPrey();
     }
 
     // --------------------------
@@ -121,6 +129,9 @@ public class FirstPersonController : MonoBehaviour
 
     void HandleHumanMovement()
     {
+        if (hasLandedOnPrey)
+            return; // geen beweging meer
+
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
@@ -146,18 +157,10 @@ public class FirstPersonController : MonoBehaviour
 
     }
 
-
     void HandleBirdMovement()
     {
         float moveX = Input.GetAxis("Horizontal");
         float moveY = 0f;
-
-        // W = up, S = down (disabled during landing)
-        if (!isLanding)
-        {
-            if (Input.GetKey(KeyCode.W)) moveY = 1f;
-            if (Input.GetKey(KeyCode.S)) moveY = -1f;
-        }
 
         // Auto-forward + strafing
         Vector3 inputDir = transform.right * moveX + transform.forward * 1f;
@@ -175,19 +178,6 @@ public class FirstPersonController : MonoBehaviour
 
         // --- Vertical movement ---
         float targetYVelocity = moveY * ascentSpeed;
-
-        // Gradual landing
-        if (isLanding)
-        {
-            targetYVelocity = Mathf.Max(-ascentSpeed, velocity.y - 9.81f * Time.deltaTime);
-            if (controller.isGrounded)
-            {
-                isLanding = false;
-                currentState = MovementState.Human;
-                velocity = Vector3.zero;
-                sprintTimer = 0f;
-            }
-        }
 
         // --- Lift-Off met AnimationCurve ---
         if (isLiftAccelerating)
@@ -217,10 +207,35 @@ public class FirstPersonController : MonoBehaviour
 
         if (justTookOff)
             justTookOff = false;
-
-        Debug.Log("Flight Height: " + transform.position.y);
     }
+    void TryCatchPrey()
+    {
+        if (currentState != MovementState.Bird)
+            return;
 
+        if (preyDetector.preyInRange && preyDetector.currentPrey != null)
+        {
+            // Prey stopt 0.5 sec na duik
+            PreyMovement prey = preyDetector.currentPrey.GetComponent<PreyMovement>();
+            if (prey != null)
+                prey.PrepareForStop(0.5f);
+
+            // Start duik
+            StartCoroutine(DiveToPrey(preyDetector.currentPrey.transform));
+
+            // reset detector
+            preyDetector.preyInRange = false;
+            preyDetector.currentPrey = null;
+
+            Debug.Log("Diving to prey!");
+        }
+        else
+        {
+            // Gemist → terug omhoog
+            velocity = Vector3.up * ascentSpeed;
+            Debug.Log("Missed prey!");
+        }
+    }
 
 
     // --------------------------
@@ -240,7 +255,6 @@ public class FirstPersonController : MonoBehaviour
             StartFlying();
     }
 
-
     void StartFlying()
     {
         currentState = MovementState.Bird;
@@ -253,13 +267,6 @@ public class FirstPersonController : MonoBehaviour
         // Start de lift curve
         liftProgress = 0f;
         isLiftAccelerating = true;
-    }
-
-
-    void Land()
-    {
-        isLanding = true; // start gradual descent
-        currentState = MovementState.Bird; // stay in bird state during landing
     }
 
     // --------------------------
@@ -295,9 +302,68 @@ public class FirstPersonController : MonoBehaviour
 
             playerCamera.localRotation = Quaternion.Euler(verticalRotation, birdYaw, 0f);
         }
+
+        if (currentState == MovementState.Human)
+        {
+            if (hasLandedOnPrey)
+            {
+                // speler staat stil maar kan rondkijken
+                transform.Rotate(Vector3.up * mouseX);
+            }
+            else
+            {
+                if (!rotationLocked)
+                    transform.Rotate(Vector3.up * mouseX);
+                else
+                    transform.rotation = lockedRotation;
+            }
+
+            playerCamera.localEulerAngles = Vector3.right * verticalRotation;
+        }
+
+    }
+    public IEnumerator DiveToPrey(Transform prey)
+    {
+        hasLandedOnPrey = false;   // reset landing state
+        rotationLocked = true;     // camera locked tijdens duik
+        isFlying = true;           // bird mode
+
+        float diveSpeed = 50f;      // snelheid van duik
+        float t = 0f;
+
+        // Bereken exact landpunt bovenop de prooi
+        Collider preyCollider = prey.GetComponent<Collider>();
+        Vector3 targetPos = preyCollider.bounds.center + Vector3.up * (preyCollider.bounds.extents.y + controller.height * 0.5f);
+
+        Vector3 startPos = transform.position;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime * 2f; // kan speed aanpassen
+            transform.position = Vector3.Lerp(startPos, targetPos, t);
+            yield return null;
+        }
+
+        // Forceer exacte positie, CharacterController tijdelijk uit
+        controller.enabled = false;
+        transform.position = targetPos;
+        controller.enabled = true;
+
+        // ✅ Landing complete
+        currentState = MovementState.Human;  // blijf in human mode
+        rotationLocked = false;               // camera vrij draaien
+        hasLandedOnPrey = true;               // gebruikt door PlayerTriggerLock
+        velocity = Vector3.zero;              // stop alle beweging
+
+        Debug.Log("✅ Landed perfectly on prey!");
     }
 
 
+
+    public void UnlockRotation()
+    {
+        rotationLocked = false;
+    }
 
     // --------------------------
     // Interaction
