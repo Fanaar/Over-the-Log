@@ -26718,6 +26718,10 @@ PrefabInstance:
       propertyPath: m_VolumeLayerMask.m_Bits
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3810367444595826014, guid: 15d588873c0797e4d906453b631df9cd, type: 3}
+      propertyPath: walkSpeed
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4672139367216273163, guid: 15d588873c0797e4d906453b631df9cd, type: 3}
       propertyPath: m_Name
       value: Player
