@@ -1491,38 +1491,6 @@ Transform:
   - {fileID: 1637128079}
   m_Father: {fileID: 342273203}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &474882526
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 474882527}
-  m_Layer: 0
-  m_Name: Movement Trigger
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &474882527
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 474882526}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 510889669}
-  m_Father: {fileID: 1208961932}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &510889664
 GameObject:
   m_ObjectHideFlags: 0
@@ -1641,11 +1609,11 @@ Transform:
   m_GameObject: {fileID: 510889664}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1643.1, y: -60, z: 40.13}
-  m_LocalScale: {x: 8.81, y: 52.455, z: 1086.4661}
+  m_LocalPosition: {x: -0.29508904, y: 0, z: 0}
+  m_LocalScale: {x: 0.21846463, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 474882527}
+  m_Father: {fileID: 990208690}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &569577114
 GameObject:
@@ -3366,7 +3334,8 @@ Transform:
   m_LocalPosition: {x: -157, y: 0, z: 0}
   m_LocalScale: {x: 40.326897, y: 52.455, z: 1086.4661}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 510889669}
   m_Father: {fileID: 1222382401}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &990208691
@@ -4746,7 +4715,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 80111347}
-  - {fileID: 474882527}
   - {fileID: 1222382401}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7119,17 +7087,15 @@ MonoBehaviour:
   maxLiftSpeed: 12
   maxTiltAngle: 7
   tiltSpeed: 1
-  canSprint: 0
-  rotationLocked: 0
-  lockedRotation: {x: 0, y: 0, z: 0, w: 0}
   catchRange: 3
   preyLayer:
     serializedVersion: 2
     m_Bits: 0
   diveKey: 323
-  diveSpeed: 60
-  preyDetector: {fileID: 1592729899}
+  diveSpeed: 50
+  canSprint: 0
   hasLandedOnPrey: 0
+  preyDetector: {fileID: 1592729899}
 --- !u!4 &1931754742
 Transform:
   m_ObjectHideFlags: 0
