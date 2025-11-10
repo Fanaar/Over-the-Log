@@ -16,10 +16,9 @@ public class FirstPersonController : MonoBehaviour
     [Header("Bird Settings")]
     public float flightSpeed = 10f;
     public float flightAcceleration = 20f;
-    public float takeOffTime = 2f; // seconds sprinting before lift-off
+    public float takeOffTime = 2f;
     public float flightGravity = -2f;
     public float initialLiftOffVelocity = 5f;
-    //public float maxFlightHeight = 20f; // default maximum flight height
 
     [Header("Mouse Settings")]
     public float mouseSensitivity = 2f;
@@ -33,44 +32,44 @@ public class FirstPersonController : MonoBehaviour
     [Header("Flight Height Settings")]
     public float maxFlightHeight = 120f;
     public float minFlightHeight = 100f;
-    public float ascentSpeed = 5f;      // how fast you move up/down
-    public float approachSpeed = 2f;    // how quickly velocity slows near ceiling/floor
+    public float ascentSpeed = 5f;
+    public float approachSpeed = 2f;
 
-    [Header("Lift-Off Curve (Inspector Controlled)")]
+    [Header("Lift-Off Curve")]
     public AnimationCurve liftCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-    public float liftDuration = 2f;     // hoelang de curve duurt
-    public float maxLiftSpeed = 12f;    // maximale stijgsnelheid aan het einde
-    private float liftProgress = 0f;    // interne timer
+    public float liftDuration = 2f;
+    public float maxLiftSpeed = 12f;
+    private float liftProgress = 0f;
     private bool isLiftAccelerating = false;
 
     [Header("Bird Tilt Settings")]
-    public float maxTiltAngle = 20f;    // maximale lean in graden
-    public float tiltSpeed = 5f;        // hoe snel de lean volgt
-    private float currentTiltZ = 0f; // hou tilt bij
-
-    [HideInInspector] public bool canSprint = false;    // sprint mag pas na trigger
-    public bool rotationLocked = false;
-    public Quaternion lockedRotation;
+    public float maxTiltAngle = 20f;
+    public float tiltSpeed = 5f;
+    private float currentTiltZ = 0f;
 
     [Header("Hunting Settings")]
-    public float catchRange = 3f;          // afstand om prooi te kunnen grijpen
-    public LayerMask preyLayer;            // layer waarin de prooi zit
+    public float catchRange = 3f;
+    public LayerMask preyLayer;
     public KeyCode diveKey = KeyCode.Mouse0;
-    public float diveSpeed = 30f; // snelheid van de duik
+    public float diveSpeed = 30f; 
 
     private CharacterController controller;
     private Vector3 velocity;
     private float verticalRotation = 0f;
-
-    private float sprintTimer = 0f;
-    private bool justTookOff = false;
-    private bool isFlying = false;
-    private bool isLanding = false;
     private float birdYaw = 0f;
 
-    public PreyDetector preyDetector; // sleep je trigger hiernaartoe in inspector
-    private bool isSprinting => Input.GetKey(KeyCode.LeftShift);
+    private float sprintTimer = 0f;
+    public bool canSprint = false;
+
     [HideInInspector] public bool hasLandedOnPrey = false;
+    public PreyDetector preyDetector;
+
+    private bool rotationLocked = false;
+    private Quaternion lockedRotation;
+
+    private bool isFlying = false;
+
+    private bool isDiving = false;
 
 
     void Start()
@@ -89,32 +88,18 @@ public class FirstPersonController : MonoBehaviour
     }
 
     // --------------------------
-    // Input Handling
+    // Input / Movement Flow
     // --------------------------
     void HandleInput()
     {
-        if (currentState == MovementState.Bird)
-            HandleBirdInput();
-    }
-
-    void HandleBirdInput()
-    {
-        if (Input.GetKeyDown(diveKey))
+        if (currentState == MovementState.Bird && Input.GetKeyDown(diveKey))
             TryCatchPrey();
-    }
-
-    // --------------------------
-    // Movement
-    // --------------------------
-
-    public void LockRotation(Vector3 euler)
-    {
-        rotationLocked = true;
-        lockedRotation = Quaternion.Euler(euler);
     }
 
     void HandleMovement()
     {
+        if (isDiving) return; // ✅ stop moving while diving
+
         switch (currentState)
         {
             case MovementState.Human:
@@ -129,23 +114,15 @@ public class FirstPersonController : MonoBehaviour
 
     void HandleHumanMovement()
     {
-        if (hasLandedOnPrey)
-            return; // geen beweging meer
+        if (hasLandedOnPrey) return;
 
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
 
-        // bepaal snelheid
-        float speed = walkSpeed;
-        if (canSprint && Input.GetKey(KeyCode.LeftShift))
-        {
-            speed = sprintSpeed;
-        }
-
+        float speed = (canSprint && Input.GetKey(KeyCode.LeftShift)) ? sprintSpeed : walkSpeed;
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
         controller.Move(move * speed * Time.deltaTime);
 
-        // Gravity & jump
         if (controller.isGrounded && velocity.y < 0)
             velocity.y = -2f;
 
@@ -154,97 +131,94 @@ public class FirstPersonController : MonoBehaviour
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
-
     }
 
     void HandleBirdMovement()
     {
         float moveX = Input.GetAxis("Horizontal");
-        float moveY = 0f;
 
-        // Auto-forward + strafing
         Vector3 inputDir = transform.right * moveX + transform.forward * 1f;
         Vector3 horizontalVelocity = inputDir.normalized * flightSpeed;
-        if (isSprinting)
-            horizontalVelocity += transform.forward * flightAcceleration * Time.deltaTime;
-
         velocity.x = horizontalVelocity.x;
         velocity.z = horizontalVelocity.z;
 
-        // --- Tilt the bird when strafing (stabilized) ---
         float targetTilt = -moveX * maxTiltAngle;
         currentTiltZ = Mathf.Lerp(currentTiltZ, targetTilt, Time.deltaTime * tiltSpeed);
         transform.localRotation = Quaternion.Euler(transform.localRotation.eulerAngles.x, transform.localRotation.eulerAngles.y, currentTiltZ);
 
-        // --- Vertical movement ---
-        float targetYVelocity = moveY * ascentSpeed;
-
-        // --- Lift-Off met AnimationCurve ---
-        if (isLiftAccelerating)
-        {
-            liftProgress += Time.deltaTime / liftDuration;
-            float t = Mathf.Clamp01(liftProgress);
-
-            float curveValue = liftCurve.Evaluate(t);
-            float currentLiftSpeed = Mathf.Lerp(initialLiftOffVelocity, maxLiftSpeed, curveValue);
-            velocity.y = currentLiftSpeed;
-
-            if (t >= 1f)
-                isLiftAccelerating = false;
-        }
+        if (transform.position.y < minFlightHeight)
+            velocity.y = ascentSpeed;
         else
-        {
-            if (transform.position.y < minFlightHeight)
-                velocity.y = ascentSpeed;
-            else
-                velocity.y = targetYVelocity;
-        }
+            velocity.y = (velocity.y > 0) ? velocity.y : 0;
 
         if (transform.position.y >= maxFlightHeight && velocity.y > 0f)
             velocity.y *= Mathf.Clamp01(1f - ((transform.position.y - maxFlightHeight) / approachSpeed));
 
         controller.Move(velocity * Time.deltaTime);
-
-        if (justTookOff)
-            justTookOff = false;
     }
+
+    // --------------------------
+    // Flying / Dive to prey
+    // --------------------------
     void TryCatchPrey()
     {
-        if (currentState != MovementState.Bird)
-            return;
+        if (currentState != MovementState.Bird) return;
 
         if (preyDetector.preyInRange && preyDetector.currentPrey != null)
         {
-            // Prey stopt 0.5 sec na duik
             PreyMovement prey = preyDetector.currentPrey.GetComponent<PreyMovement>();
-            if (prey != null)
-                prey.PrepareForStop(0.5f);
+            prey.PrepareForStop(0.5f);
 
-            // Start duik
             StartCoroutine(DiveToPrey(preyDetector.currentPrey.transform));
-
-            // reset detector
             preyDetector.preyInRange = false;
             preyDetector.currentPrey = null;
-
-            Debug.Log("Diving to prey!");
         }
         else
         {
-            // Gemist → terug omhoog
-            velocity = Vector3.up * ascentSpeed;
             Debug.Log("Missed prey!");
         }
     }
 
+    // ✅ Updated dive with homing + no disabling CharacterController
+    public IEnumerator DiveToPrey(Transform prey)
+    {
+        isDiving = true;
+        rotationLocked = true;
+        velocity = Vector3.zero;
+
+        while (prey != null)
+        {
+            Collider preyCollider = prey.GetComponent<Collider>();
+
+            Vector3 liveTargetPos = preyCollider.bounds.center +
+                Vector3.up * (preyCollider.bounds.extents.y + controller.height * 0.5f);
+
+            // ✅ Uses the inspector value:
+            transform.position = Vector3.MoveTowards(transform.position, liveTargetPos, diveSpeed * Time.deltaTime);
+
+            if (Vector3.Distance(transform.position, liveTargetPos) < 0.1f)
+                break;
+
+            yield return null;
+        }
+
+        currentState = MovementState.Human;
+        rotationLocked = false;
+        hasLandedOnPrey = true;
+
+        Debug.Log("✅ Landed perfectly on prey!");
+
+        isDiving = false; // ✅ movement re-enabled
+    }
+
 
     // --------------------------
-    // Take-Off & Landing
+    // Take-Off / Mouse Look / Interaction
     // --------------------------
+
     void CheckTakeOff()
     {
-        // Speler mag alleen vliegen als hij ook mag sprinten
-        if (!canSprint || currentState != MovementState.Human || !controller.isGrounded || !isSprinting)
+        if (!canSprint || currentState != MovementState.Human || !controller.isGrounded || !Input.GetKey(KeyCode.LeftShift))
         {
             sprintTimer = 0f;
             return;
@@ -259,124 +233,32 @@ public class FirstPersonController : MonoBehaviour
     {
         currentState = MovementState.Bird;
         isFlying = true;
-        justTookOff = true;
-
-        // Start met lage verticale snelheid
         velocity = Vector3.up * initialLiftOffVelocity;
-
-        // Start de lift curve
         liftProgress = 0f;
         isLiftAccelerating = true;
     }
 
-    // --------------------------
-    // Mouse Look
-    // --------------------------
     void HandleMouseLook()
     {
+        if (rotationLocked) return;
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
-        // --- Verticale rotatie ---
         verticalRotation -= mouseY;
         verticalRotation = Mathf.Clamp(verticalRotation, -cameraClampAngle, cameraClampAngle);
 
-        // --- Horizontale rotatie ---
-        if (currentState == MovementState.Human)
-        {
-            if (!rotationLocked)
-                transform.Rotate(Vector3.up * mouseX); // normale rotatie
-            else
-                transform.rotation = lockedRotation;  // gefixeerde rotatie
-
-            playerCamera.localEulerAngles = Vector3.right * verticalRotation;
-        }
-
-        else if (currentState == MovementState.Bird)
-        {
-            // In Bird-modus: camera kan rondkijken, maar beperkt
-            birdYaw += mouseX;
-
-            // Limiteer horizontaal zicht, zodat je niet helemaal achterom kunt kijken
-            birdYaw = Mathf.Clamp(birdYaw, -75f, 75f); // ← pas deze waarden aan naar wens
-
-            playerCamera.localRotation = Quaternion.Euler(verticalRotation, birdYaw, 0f);
-        }
-
-        if (currentState == MovementState.Human)
-        {
-            if (hasLandedOnPrey)
-            {
-                // speler staat stil maar kan rondkijken
-                transform.Rotate(Vector3.up * mouseX);
-            }
-            else
-            {
-                if (!rotationLocked)
-                    transform.Rotate(Vector3.up * mouseX);
-                else
-                    transform.rotation = lockedRotation;
-            }
-
-            playerCamera.localEulerAngles = Vector3.right * verticalRotation;
-        }
-
-    }
-    public IEnumerator DiveToPrey(Transform prey)
-    {
-        hasLandedOnPrey = false;   // reset landing state
-        rotationLocked = true;     // camera locked tijdens duik
-        isFlying = true;           // bird mode
-
-        float diveSpeed = 50f;      // snelheid van duik
-        float t = 0f;
-
-        // Bereken exact landpunt bovenop de prooi
-        Collider preyCollider = prey.GetComponent<Collider>();
-        Vector3 targetPos = preyCollider.bounds.center + Vector3.up * (preyCollider.bounds.extents.y + controller.height * 0.5f);
-
-        Vector3 startPos = transform.position;
-
-        while (t < 1f)
-        {
-            t += Time.deltaTime * 2f; // kan speed aanpassen
-            transform.position = Vector3.Lerp(startPos, targetPos, t);
-            yield return null;
-        }
-
-        // Forceer exacte positie, CharacterController tijdelijk uit
-        controller.enabled = false;
-        transform.position = targetPos;
-        controller.enabled = true;
-
-        // ✅ Landing complete
-        currentState = MovementState.Human;  // blijf in human mode
-        rotationLocked = false;               // camera vrij draaien
-        hasLandedOnPrey = true;               // gebruikt door PlayerTriggerLock
-        velocity = Vector3.zero;              // stop alle beweging
-
-        Debug.Log("✅ Landed perfectly on prey!");
+        transform.Rotate(Vector3.up * mouseX);
+        playerCamera.localEulerAngles = Vector3.right * verticalRotation;
     }
 
-
-
-    public void UnlockRotation()
-    {
-        rotationLocked = false;
-    }
-
-    // --------------------------
-    // Interaction
-    // --------------------------
     void HandleInteraction()
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
             Ray ray = new Ray(playerCamera.position, playerCamera.forward);
             if (Physics.Raycast(ray, out RaycastHit hit, interactionDistance, interactableLayer))
-            {
                 hit.collider.SendMessage("Interact", SendMessageOptions.DontRequireReceiver);
-            }
         }
     }
 }
