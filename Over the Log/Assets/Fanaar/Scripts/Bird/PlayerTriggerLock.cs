@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PlayerTriggerLock : MonoBehaviour
 {
@@ -21,17 +21,24 @@ public class PlayerTriggerLock : MonoBehaviour
         rotationLockActive = true;
         targetRotation = Quaternion.Euler(lockedRotationEuler);
     }
-
     private void Update()
     {
-        if (rotationLockActive && playerController != null)
+        if (!rotationLockActive || playerController == null)
+            return;
+
+        // Stop lock zodra speler geland is
+        if (playerController.hasLandedOnPrey)
         {
-            // Smoothly rotate the player toward the target direction
-            playerController.transform.rotation = Quaternion.Slerp(
-                playerController.transform.rotation,
-                targetRotation,
-                Time.deltaTime * rotationLerpSpeed
-            );
+            rotationLockActive = false;
+            return;
         }
+
+        // Smooth rotation tijdens sprint
+        playerController.transform.rotation = Quaternion.Slerp(
+            playerController.transform.rotation,
+            targetRotation,
+            Time.deltaTime * rotationLerpSpeed
+        );
     }
+
 }
