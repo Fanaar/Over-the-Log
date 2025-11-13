@@ -1,15 +1,17 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 
 public class RabbitCircleBeatRotator : MonoBehaviour
 {
+    // ✅ Only ONE event definition here
+    public static event System.Action OnBeat;
+
     [Header("Beat Settings")]
     public float bpm = 120f;                // Beats per minute
     public float rotationPerBeat = 30f;     // Degrees to rotate each beat
-    public float rotationDuration = 0.2f;   // Duration of the rotation animation
+    public float rotationDuration = 0.2f;   // Duration of rotation animation
 
     private float beatInterval;
-    private bool isRotating = false;
 
     void Start()
     {
@@ -21,6 +23,9 @@ public class RabbitCircleBeatRotator : MonoBehaviour
     {
         while (true)
         {
+            // ✅ FIRE BEAT EVENT HERE
+            OnBeat?.Invoke();
+
             // Rotate smoothly on beat
             yield return StartCoroutine(RotateByDegrees(rotationPerBeat, rotationDuration));
 
