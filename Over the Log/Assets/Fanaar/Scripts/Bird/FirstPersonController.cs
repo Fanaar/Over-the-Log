@@ -143,35 +143,44 @@ public class FirstPersonController : MonoBehaviour
 
     void HandleBirdMovement()
     {
-        float moveX = Input.GetAxis("Horizontal");
+        float moveX = Input.GetAxis("Horizontal"); // A/D
+        float verticalInput = Input.GetAxis("Vertical"); // S/W for up/down
 
-        // Use birdYaw as forward
+        // Bird forward/right in world space
         Quaternion fixedHeading = Quaternion.Euler(0f, birdYaw, 0f);
         Vector3 forwardHeading = fixedHeading * Vector3.forward;
         Vector3 rightHeading = fixedHeading * Vector3.right;
 
-        Vector3 inputDir = rightHeading * moveX + forwardHeading;
-        Vector3 horizontalVelocity = inputDir.normalized * flightSpeed;
-        velocity.x = horizontalVelocity.x;
-        velocity.z = horizontalVelocity.z;
+        // Automatic forward movement
+        Vector3 forwardVelocity = forwardHeading * flightSpeed;
 
-        // Tilt wings visually
+        // Horizontal strafe
+        Vector3 strafeVelocity = rightHeading * moveX * flightSpeed;
+
+        // Combine horizontal velocities
+        velocity.x = forwardVelocity.x + strafeVelocity.x;
+        velocity.z = forwardVelocity.z + strafeVelocity.z;
+
+        // Vertical movement (clamped)
+        if (verticalInput > 0f && transform.position.y >= maxFlightHeight)
+            velocity.y = 0f;
+        else if (verticalInput < 0f && transform.position.y <= minFlightHeight)
+            velocity.y = 0f;
+        else
+            velocity.y = verticalInput * ascentSpeed;
+
+        // Tilt wings visually based on horizontal input
         float targetTilt = -moveX * maxTiltAngle;
         currentTiltZ = Mathf.Lerp(currentTiltZ, targetTilt, Time.deltaTime * tiltSpeed);
         Vector3 localAngles = transform.localRotation.eulerAngles;
         transform.localRotation = Quaternion.Euler(localAngles.x, localAngles.y, currentTiltZ);
 
-        // Maintain flight height
-        if (transform.position.y < minFlightHeight)
-            velocity.y = ascentSpeed;
-        else
-            velocity.y = Mathf.Max(velocity.y, 0f);
-
-        if (transform.position.y >= maxFlightHeight && velocity.y > 0f)
-            velocity.y *= Mathf.Clamp01(1f - ((transform.position.y - maxFlightHeight) / approachSpeed));
-
+        // Move the bird
         controller.Move(velocity * Time.deltaTime);
     }
+
+
+
 
     void TryCatchPrey()
     {
