@@ -554,38 +554,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 245357252}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &240133011
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 240133012}
-  m_Layer: 6
-  m_Name: 'CameraPivot '
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &240133012
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240133011}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 1.3, z: 0.62}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1664231789}
-  m_Father: {fileID: 1931754742}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &245357251
 GameObject:
   m_ObjectHideFlags: 0
@@ -3474,7 +3442,7 @@ Transform:
   m_GameObject: {fileID: 990208689}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -150, y: 0, z: 0}
+  m_LocalPosition: {x: -23, y: 0, z: 0}
   m_LocalScale: {x: 40.326897, y: 52.455, z: 1086.4661}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6824,11 +6792,11 @@ Transform:
   m_GameObject: {fileID: 1664231788}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.1, z: 0.23}
+  m_LocalPosition: {x: 0, y: 0.98, z: 0.90299976}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 240133012}
+  m_Father: {fileID: 1931754742}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1664231790
 MonoBehaviour:
@@ -7515,9 +7483,8 @@ MonoBehaviour:
   flightGravity: -2
   initialLiftOffVelocity: 10
   mouseSensitivity: 2
-  cameraClampAngle: 85
-  cameraPivot: {fileID: 240133012}
   playerCamera: {fileID: 1664231789}
+  cameraClampAngle: 85
   interactionDistance: 100
   interactableLayer:
     serializedVersion: 2
@@ -7569,8 +7536,7 @@ MonoBehaviour:
     m_Bits: 0
   diveKey: 323
   diveSpeed: 50
-  maxYawOffset: 90
-  canSprint: 1
+  canSprint: 0
   hasLandedOnPrey: 0
   preyDetector: {fileID: 1592729899}
 --- !u!4 &1931754742
@@ -7587,8 +7553,8 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1592729898}
+  - {fileID: 1664231789}
   - {fileID: 1166073961}
-  - {fileID: 240133012}
   - {fileID: 569577115}
   - {fileID: 2082638789}
   m_Father: {fileID: 0}
