@@ -2,11 +2,23 @@
 
 public class PreyMovement : MonoBehaviour
 {
+    public enum MovementType
+    {
+        None,
+        SideToSide,
+        FrontToBack,
+        Circle
+    }
+
+    [Header("Movement Settings")]
+    public MovementType movementType = MovementType.SideToSide;
     public float moveSpeed = 3f;
     public float moveDistance = 5f;
+    public float circleRadius = 2f;
 
     private Vector3 startPos;
     private bool isCaught = false;
+    private float timeCounter = 0f;
     private float direction = 1f;
 
     private void Start()
@@ -19,15 +31,56 @@ public class PreyMovement : MonoBehaviour
         if (isCaught)
             return;
 
-        // Simple left-right movement
-        transform.position += Vector3.right * direction * moveSpeed * Time.deltaTime;
+        switch (movementType)
+        {
+            case MovementType.SideToSide:
+                MoveSideToSide();
+                break;
 
-        // Flip direction at range limits
-        if (Vector3.Distance(startPos, transform.position) >= moveDistance)
-            direction *= -1f;
+            case MovementType.FrontToBack:
+                MoveFrontToBack();
+                break;
+
+            case MovementType.Circle:
+                MoveInCircle();
+                break;
+
+            case MovementType.None:
+            default:
+                break;
+        }
     }
 
-    // ✅ Called when player wants the prey to stop soon
+    // ------------------------------------
+    // MOVEMENT PATTERNS
+    // ------------------------------------
+    private void MoveSideToSide()
+    {
+        float offset = Mathf.Sin(Time.time * moveSpeed) * moveDistance;
+        transform.position = startPos + new Vector3(offset, 0, 0);
+    }
+
+    private void MoveFrontToBack()
+    {
+        float offset = Mathf.Sin(Time.time * moveSpeed) * moveDistance;
+        transform.position = startPos + new Vector3(0, 0, offset);
+    }
+
+    private void MoveInCircle()
+    {
+        timeCounter += Time.deltaTime * moveSpeed;
+
+        float x = Mathf.Cos(timeCounter) * circleRadius;
+        float z = Mathf.Sin(timeCounter) * circleRadius;
+
+        transform.position = startPos + new Vector3(x, 0f, z);
+    }
+
+
+    // ------------------------------------
+    // CAUGHT / STOPPING LOGIC
+    // ------------------------------------
+
     public void PrepareForStop(float delay = 0.5f)
     {
         StartCoroutine(StopAfterDelay(delay));
@@ -39,7 +92,6 @@ public class PreyMovement : MonoBehaviour
         OnCaught();
     }
 
-    // ✅ Now callable from other scripts
     public void OnCaught()
     {
         isCaught = true;
