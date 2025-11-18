@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class PreyDetector : MonoBehaviour
 {
@@ -11,7 +11,7 @@ public class PreyDetector : MonoBehaviour
         {
             preyInRange = true;
             currentPrey = other.gameObject;
-            Debug.Log("Prey in range!");
+            Debug.Log("🎯 Prey entered CATCH range: " + other.name);
         }
     }
 
@@ -21,7 +21,13 @@ public class PreyDetector : MonoBehaviour
         {
             preyInRange = false;
             currentPrey = null;
-            Debug.Log("Prey out of range!");
+            Debug.Log("⚠️ Prey left CATCH range: " + other.name);
         }
+    }
+
+    void Update()
+    {
+        if (preyInRange && currentPrey != null)
+            Debug.Log("✅ Prey still in CATCH range: " + currentPrey.name);
     }
 }

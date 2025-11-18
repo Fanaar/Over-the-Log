@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 7110910719508695701}
   - component: {fileID: 3008783312081621812}
   - component: {fileID: 3474239054761205618}
-  - component: {fileID: 8139438236771880170}
-  m_Layer: 0
+  - component: {fileID: 3530268423414141169}
+  m_Layer: 9
   m_Name: Prey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 28.61, y: 19.8, z: -7.7}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -66,7 +66,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 81ccc66ac6176984f9e6d7a0ab08c8f5, type: 2}
+  - {fileID: 2100000, guid: fc3925f19d351cc4b9e811367a0fb5c6, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -109,7 +109,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &8139438236771880170
+--- !u!114 &3530268423414141169
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -118,15 +118,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8088937725397821647}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5bddaa256de108c428a84c2895ba631c, type: 3}
+  m_Script: {fileID: 11500000, guid: db48a3269c3c7f747b819ac918d4aa8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circleRadius: 7
-  circleSpeed: 1
-  flySpeed: 9
-  waypoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  movementType: 1
+  moveSpeed: 3
+  moveDistance: 5
+  circleRadius: 2
