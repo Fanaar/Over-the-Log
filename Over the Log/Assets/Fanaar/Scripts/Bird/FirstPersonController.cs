@@ -58,6 +58,16 @@ public class FirstPersonController : MonoBehaviour
     public float guidedPanDuration = 1f;        // time to pan toward prey
     public float guidedPanReturnDuration = 0.5f; // time to return
 
+    [Header("Near Miss Settings")]
+    public float missOffsetDistance = 3f;       // how far the miss point is from prey
+    public float missCurveHeight = 2f;          // how much the dive curves
+
+    [Header("Dive Cooldown")]
+    public float diveCooldown = 1.5f;   // adjust in Inspector
+    private bool canDive = true;
+
+    private bool cameraLocked = false; // new
+
     private CharacterController controller;
     private Vector3 velocity;
     private float birdYaw = 0f;
@@ -185,6 +195,8 @@ public class FirstPersonController : MonoBehaviour
 
     void HandleMouseLook()
     {
+        if (cameraLocked) return; // skip mouse input during dive
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
@@ -203,6 +215,7 @@ public class FirstPersonController : MonoBehaviour
             cameraPivot.localEulerAngles = new Vector3(0f, relativeYaw, 0f);
         }
     }
+
 
     void HandleInteraction()
     {
@@ -248,23 +261,35 @@ public class FirstPersonController : MonoBehaviour
 
     void TryCatchPrey()
     {
-        if (currentState != MovementState.Bird) return;
+        // Block dive if already diving or on cooldown
+        if (isDiving || !canDive || currentState != MovementState.Bird)
+            return;
 
+        // Lock diving and start cooldown
+        canDive = false;
+        StartCoroutine(DiveCooldown());
+
+        // Attempt to catch prey
         if (catchTrigger.preyInRange && catchTrigger.currentPrey != null)
         {
-            PreyMovement prey = catchTrigger.currentPrey.GetComponent<PreyMovement>();
-            if (prey != null) prey.OnCaught();
             StartCoroutine(DiveToPrey(catchTrigger.currentPrey.transform));
         }
         else if (missTrigger.preyInRange && missTrigger.currentPrey != null)
         {
-            Debug.Log("Near miss!");
+            StartCoroutine(DiveAndMiss(missTrigger.currentPrey.transform));
         }
         else
         {
             Debug.Log("Too far to dive!");
         }
     }
+
+    IEnumerator DiveCooldown()
+    {
+        yield return new WaitForSeconds(diveCooldown);
+        canDive = true;
+    }
+
 
     public IEnumerator DiveToPrey(Transform prey)
     {
@@ -312,6 +337,81 @@ public class FirstPersonController : MonoBehaviour
 
         isDiving = false;
     }
+
+    public IEnumerator DiveAndMiss(Transform prey)
+    {
+        isDiving = true;
+        rotationLocked = true;
+        cameraLocked = true; // lock mouse look
+
+        Transform pivot = prey.Find("DivePivot");
+        Vector3 missTarget = pivot != null ? pivot.position : prey.position + (transform.forward * missOffsetDistance);
+
+        if (diveSound != null)
+            AudioSource.PlayClipAtPoint(diveSound, transform.position);
+
+        float cameraSmoothSpeed = 5f;
+        bool passedPrey = false;
+
+        // --- DIVE PHASE ---
+        while (Vector3.Distance(transform.position, missTarget) > 0.5f)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, missTarget, diveSpeed * Time.deltaTime);
+
+            // Check if we passed the prey
+            if (!passedPrey && Vector3.Dot((prey.position - transform.position), transform.forward) < 0)
+                passedPrey = true;
+
+            // Bird rotation
+            Vector3 dirToPrey = (prey.position - transform.position).normalized;
+            Quaternion targetRot = Quaternion.LookRotation(dirToPrey, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, diveRotationSpeed * Time.deltaTime);
+
+            // Camera only tracks prey if we haven’t passed it
+            if (!passedPrey)
+            {
+                Quaternion targetCamRot = Quaternion.LookRotation(transform.InverseTransformDirection(dirToPrey), Vector3.up);
+                cameraPivot.localRotation = Quaternion.Slerp(cameraPivot.localRotation, targetCamRot, cameraSmoothSpeed * Time.deltaTime);
+            }
+
+            yield return null;
+        }
+
+        // --- RETURN TO MIN FLIGHT HEIGHT (with forward movement) ---
+        float targetY = minFlightHeight;
+        float forwardSpeed = flightSpeed;
+
+        while (transform.position.y < targetY - 0.1f)
+        {
+            Quaternion yawOnly = Quaternion.Euler(0f, birdYaw, 0f);
+            Vector3 forwardDir = yawOnly * Vector3.forward;
+
+            transform.position += forwardDir * forwardSpeed * Time.deltaTime +
+                                  Vector3.up * ascentSpeed * Time.deltaTime;
+
+            Quaternion lookRot = Quaternion.LookRotation(forwardDir, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRot, diveRotationSpeed * Time.deltaTime);
+
+            // Smoothly return camera pivot to neutral
+            cameraPivot.localRotation = Quaternion.Slerp(cameraPivot.localRotation, Quaternion.identity, cameraSmoothSpeed * Time.deltaTime);
+
+            yield return null;
+        }
+
+        // --- RESET STATE ---
+        isDiving = false;
+        rotationLocked = false;
+
+        // Sync mouse look with current camera orientation to avoid snapping
+        Vector3 currentCamEuler = cameraPivot.localEulerAngles;
+        cameraYaw = birdYaw + currentCamEuler.y;
+        cameraPitch = playerCamera.localEulerAngles.x;
+
+        cameraLocked = false;
+        currentState = MovementState.Bird;
+        cameraPivot.localRotation = Quaternion.identity;
+    }
+
 
     // ----------------------
     // Guided Camera Pan (3D toward prey, fixed)
