@@ -27,7 +27,7 @@ public class PreyNearMissDetector : MonoBehaviour
 
     void Update()
     {
-        if (preyNear && currentNearMissPrey != null)
-            Debug.Log("✅ Prey still in NEAR-MISS range: " + currentNearMissPrey.name);
+        if (preyNear && currentNearMissPrey != null) ;
+           // Debug.Log("✅ Prey still in NEAR-MISS range: " + currentNearMissPrey.name);
     }
 }

@@ -27,7 +27,7 @@ public class PreyDetector : MonoBehaviour
 
     void Update()
     {
-        if (preyInRange && currentPrey != null)
-            Debug.Log("✅ Prey still in CATCH range: " + currentPrey.name);
+        if (preyInRange && currentPrey != null) ;
+            //Debug.Log("✅ Prey still in CATCH range: " + currentPrey.name);
     }
 }
