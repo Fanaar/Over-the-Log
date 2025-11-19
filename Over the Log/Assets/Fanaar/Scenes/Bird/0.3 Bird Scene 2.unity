@@ -45117,7 +45117,7 @@ MonoBehaviour:
   missOffsetDistance: 3
   missCurveHeight: 100000
   diveCooldown: 2
-  canSprint: 1
+  canSprint: 0
   hasLandedOnPrey: 0
 --- !u!143 &372561759
 CharacterController:
@@ -45153,7 +45153,7 @@ Transform:
   m_GameObject: {fileID: 372561757}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 378, y: 0.15, z: -8}
+  m_LocalPosition: {x: 44.34, y: 0.15, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
