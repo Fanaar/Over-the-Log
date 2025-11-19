@@ -178,13 +178,26 @@ public class FirstPersonController : MonoBehaviour
         velocity.x = forwardVelocity.x + strafeVelocity.x;
         velocity.z = forwardVelocity.z + strafeVelocity.z;
 
-        if (verticalInput > 0f && transform.position.y >= maxFlightHeight)
-            velocity.y = 0f;
-        else if (verticalInput < 0f && transform.position.y <= minFlightHeight)
-            velocity.y = 0f;
-        else
+        // --- ASCEND/DESCEND LOGIC ---
+        if (transform.position.y < minFlightHeight)
+        {
+            // automatically ascend to min height
+            velocity.y = ascentSpeed;
+        }
+        else if (verticalInput > 0f && transform.position.y < maxFlightHeight)
+        {
             velocity.y = verticalInput * ascentSpeed;
+        }
+        else if (verticalInput < 0f && transform.position.y > minFlightHeight)
+        {
+            velocity.y = verticalInput * ascentSpeed;
+        }
+        else
+        {
+            velocity.y = 0f;
+        }
 
+        // --- TILT ---
         float targetTilt = -moveX * maxTiltAngle;
         currentTiltZ = Mathf.Lerp(currentTiltZ, targetTilt, Time.deltaTime * tiltSpeed);
         Vector3 localAngles = transform.localRotation.eulerAngles;
