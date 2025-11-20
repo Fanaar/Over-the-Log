@@ -5,20 +5,18 @@ public class FirstPersonRabbitController : MonoBehaviour
 {
     public enum MovementState { Human, Rabbit }
     public MovementState currentState = MovementState.Human;
-    private Vector3 originalScale;
-    public float rabbitScale = 0.6f;
+    public GroundCheck groundCheck; // assign in Inspector
 
 
     [Header("Human Settings")]
     public float walkSpeed = 5f;
-    public float sprintSpeed = 8f;
     public float jumpHeight = 1.5f;
 
     [Header("Rabbit Settings")]
     public float rabbitSpeed = 14f;
     public float rabbitAcceleration = 30f;
     public float rabbitJumpHeight = 3f;
-    public float airControl = 0.6f; // control while in air
+    public float airControl = 0.6f;
 
     [Header("Shared Settings")]
     public float gravity = -9.81f;
@@ -26,32 +24,44 @@ public class FirstPersonRabbitController : MonoBehaviour
     public float mouseSensitivity = 2f;
     public float cameraClampAngle = 85f;
 
+    [Header("Beat Settings")]
+    public float beatForgiveness = 0.15f; // how early/late jump still counts as "on beat"
+
+    [Header("On-Beat Visual Effect")]
+    public ParticleSystem onBeatEffect;  // Drag your existing effect here in the Inspector
+
     private CharacterController controller;
     private Vector3 velocity;
-    private float verticalRotation;
     private Vector3 currentMoveVelocity;
+    private float verticalRotation;
+    private float lastBeatTime;
 
     void Start()
     {
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
-        originalScale = transform.localScale;
-
     }
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R))
-            SwitchState();
-
         HandleMouseLook();
         HandleMovement();
+
+        if (Input.GetKeyDown(KeyCode.R))
+            SwitchState();
     }
 
+    void OnEnable() => RabbitCircleBeatRotator.OnBeat += RegisterBeat;
+    void OnDisable() => RabbitCircleBeatRotator.OnBeat -= RegisterBeat;
+
+    void RegisterBeat()
+    {
+        lastBeatTime = Time.time;
+    }
 
     // --------------------------
-    // LOOK
+    // MOUSE LOOK
     // --------------------------
     void HandleMouseLook()
     {
@@ -66,7 +76,7 @@ public class FirstPersonRabbitController : MonoBehaviour
     }
 
     // --------------------------
-    // MOVEMENT (Human / Rabbit switching)
+    // MOVEMENT
     // --------------------------
     void HandleMovement()
     {
@@ -85,17 +95,30 @@ public class FirstPersonRabbitController : MonoBehaviour
     {
         float moveX = Input.GetAxis("Horizontal");
         float moveZ = Input.GetAxis("Vertical");
-
-        float speed = (Input.GetKey(KeyCode.LeftShift)) ? sprintSpeed : walkSpeed;
         Vector3 move = (transform.right * moveX + transform.forward * moveZ).normalized;
+        controller.Move(move * walkSpeed * Time.deltaTime);
 
-        controller.Move(move * speed * Time.deltaTime);
+        bool grounded = groundCheck.isGrounded;
 
-        if (controller.isGrounded && velocity.y < 0)
+        if (grounded && velocity.y < 0)
             velocity.y = -2f;
 
-        if (Input.GetButtonDown("Jump") && controller.isGrounded)
+        if (Input.GetButtonDown("Jump") && grounded)
+        {
+            bool isOnBeat = Mathf.Abs(Time.time - lastBeatTime) <= beatForgiveness;
+
+            if (isOnBeat)
+            {
+                Debug.Log("✅ Jump on beat!");
+                if (onBeatEffect) onBeatEffect.Play();
+            }
+            else
+            {
+                Debug.Log("❌ Jump off beat");
+            }
+
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+        }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
@@ -107,12 +130,12 @@ public class FirstPersonRabbitController : MonoBehaviour
         float moveZ = Input.GetAxis("Vertical");
 
         Vector3 targetMove = (transform.right * moveX + transform.forward * moveZ).normalized;
-
         float accel = controller.isGrounded ? rabbitAcceleration : rabbitAcceleration * airControl;
 
         currentMoveVelocity = Vector3.Lerp(currentMoveVelocity, targetMove * rabbitSpeed, accel * Time.deltaTime);
         controller.Move(currentMoveVelocity * Time.deltaTime);
 
+        // Apply gravity
         if (controller.isGrounded && velocity.y < 0)
             velocity.y = -2f;
 
@@ -124,11 +147,5 @@ public class FirstPersonRabbitController : MonoBehaviour
     {
         currentState = currentState == MovementState.Human ? MovementState.Rabbit : MovementState.Human;
         Debug.Log("🐇 Movement state switched to: " + currentState);
-
-        if (currentState == MovementState.Rabbit)
-            transform.localScale = originalScale * rabbitScale;
-        else
-            transform.localScale = originalScale;
     }
-
 }

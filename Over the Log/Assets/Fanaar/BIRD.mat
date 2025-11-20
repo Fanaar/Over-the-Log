@@ -36,7 +36,7 @@ Material:
     RenderType: TransparentCutout
   disabledShaderPasses:
   - MOTIONVECTORS
-  m_LockedProperties: 
+  m_LockedProperties: _Smoothness
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -130,9 +130,9 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - _BaseColor: {r: 0, g: 0.7469242, b: 0.9811321, a: 1}
-    - _Color: {r: 0, g: 0.7469242, b: 0.9811321, a: 1}
-    - _EmissionColor: {r: 1.3886757, g: 25.176075, b: 32, a: 1}
+    - _BaseColor: {r: 0.98039216, g: 0.9760848, b: 0, a: 1}
+    - _Color: {r: 0.98039216, g: 0.97608477, b: 0, a: 1}
+    - _EmissionColor: {r: 1.9391867, g: 1.9999998, b: 0.09424077, a: 1}
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

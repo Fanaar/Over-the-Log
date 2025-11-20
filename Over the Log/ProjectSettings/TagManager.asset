@@ -16,8 +16,8 @@ TagManager:
   - PP_Camera_AboveTheTrees
   - PP_Camera_UnderTheTrees
   - Prey
-  - pp_relfect
-  - 
+  - Reflect
+  - PlayerTriggers
   - 
   - Rabbit_pp_ChildlikeWonder
   - Rabbit_pp_Action
