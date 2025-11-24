@@ -609,13 +609,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 354729882}
   m_SourcePrefab: {fileID: 100100000, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
 --- !u!4 &354729880 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4738976802494220466, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
   m_PrefabInstance: {fileID: 354729879}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &354729881 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+  m_PrefabInstance: {fileID: 354729879}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &354729882
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 354729881}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cccbf629458e642bf17884635bf9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  danceSpot: {fileID: 919719146}
+  radius: 5
+  moveSpeed: 2
+  circleIndex: 3
+  totalRabbits: 10
 --- !u!1 &486750995
 GameObject:
   m_ObjectHideFlags: 0
@@ -915,13 +940,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 558340230}
   m_SourcePrefab: {fileID: 100100000, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
 --- !u!4 &558340228 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4738976802494220466, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
   m_PrefabInstance: {fileID: 558340227}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &558340229 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+  m_PrefabInstance: {fileID: 558340227}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &558340230
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558340229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cccbf629458e642bf17884635bf9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  danceSpot: {fileID: 919719146}
+  radius: 5
+  moveSpeed: 2
+  circleIndex: 5
+  totalRabbits: 10
 --- !u!1001 &566676304
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -977,13 +1027,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 566676307}
   m_SourcePrefab: {fileID: 100100000, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
 --- !u!4 &566676305 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4738976802494220466, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
   m_PrefabInstance: {fileID: 566676304}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &566676306 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+  m_PrefabInstance: {fileID: 566676304}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &566676307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 566676306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cccbf629458e642bf17884635bf9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  danceSpot: {fileID: 919719146}
+  radius: 5
+  moveSpeed: 2
+  circleIndex: 9
+  totalRabbits: 10
 --- !u!1 &579718859
 GameObject:
   m_ObjectHideFlags: 0
@@ -1163,13 +1238,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 580953572}
   m_SourcePrefab: {fileID: 100100000, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
 --- !u!4 &580953570 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4738976802494220466, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
   m_PrefabInstance: {fileID: 580953569}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &580953571 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+  m_PrefabInstance: {fileID: 580953569}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &580953572
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 580953571}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cccbf629458e642bf17884635bf9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  danceSpot: {fileID: 919719146}
+  radius: 5
+  moveSpeed: 2
+  circleIndex: 4
+  totalRabbits: 10
 --- !u!1001 &650709443
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1418,6 +1518,51 @@ Transform:
   - {fileID: 1506653450}
   m_Father: {fileID: 1411006871}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &901378573
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 901378575}
+  - component: {fileID: 901378574}
+  m_Layer: 0
+  m_Name: Dance Conductor
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &901378574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901378573}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2de1f35dfb8c9b847ae0c95b01898a19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  beatInterval: 2
+--- !u!4 &901378575
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 901378573}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -117, y: 1, z: -125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &918625190 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7988442184944722721, guid: b1da6a2fea1b4b24c808e941618dadf6, type: 3}
@@ -1478,13 +1623,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 919361860}
   m_SourcePrefab: {fileID: 100100000, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
 --- !u!4 &919361858 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4738976802494220466, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
   m_PrefabInstance: {fileID: 919361857}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &919361859 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+  m_PrefabInstance: {fileID: 919361857}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &919361860
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919361859}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cccbf629458e642bf17884635bf9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  danceSpot: {fileID: 919719146}
+  radius: 5
+  moveSpeed: 2
+  circleIndex: 6
+  totalRabbits: 10
 --- !u!1 &919719142
 GameObject:
   m_ObjectHideFlags: 0
@@ -1519,7 +1689,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1532,7 +1702,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 919719142}
-  m_Enabled: 1
+  m_Enabled: 0
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -1710,13 +1880,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1106700838}
   m_SourcePrefab: {fileID: 100100000, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
 --- !u!4 &1106700836 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4738976802494220466, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
   m_PrefabInstance: {fileID: 1106700835}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1106700837 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+  m_PrefabInstance: {fileID: 1106700835}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1106700838
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1106700837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cccbf629458e642bf17884635bf9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  danceSpot: {fileID: 919719146}
+  radius: 5
+  moveSpeed: 2
+  circleIndex: 2
+  totalRabbits: 10
 --- !u!1 &1116652334
 GameObject:
   m_ObjectHideFlags: 0
@@ -1806,13 +2001,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1226823058}
   m_SourcePrefab: {fileID: 100100000, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
 --- !u!4 &1226823056 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4738976802494220466, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
   m_PrefabInstance: {fileID: 1226823055}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1226823057 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+  m_PrefabInstance: {fileID: 1226823055}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1226823058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1226823057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cccbf629458e642bf17884635bf9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  danceSpot: {fileID: 919719146}
+  radius: 5
+  moveSpeed: 2
+  circleIndex: 7
+  totalRabbits: 10
 --- !u!1 &1246085680
 GameObject:
   m_ObjectHideFlags: 0
@@ -2619,13 +2839,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1558769953}
   m_SourcePrefab: {fileID: 100100000, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
 --- !u!4 &1558769951 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4738976802494220466, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
   m_PrefabInstance: {fileID: 1558769950}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1558769952 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+  m_PrefabInstance: {fileID: 1558769950}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1558769953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1558769952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cccbf629458e642bf17884635bf9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  danceSpot: {fileID: 919719146}
+  radius: 5
+  moveSpeed: 2
+  circleIndex: 1
+  totalRabbits: 10
 --- !u!1 &1565602133
 GameObject:
   m_ObjectHideFlags: 0
@@ -2876,13 +3121,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1624012042}
   m_SourcePrefab: {fileID: 100100000, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
 --- !u!4 &1624012040 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4738976802494220466, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
   m_PrefabInstance: {fileID: 1624012039}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1624012041 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+  m_PrefabInstance: {fileID: 1624012039}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1624012042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1624012041}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cccbf629458e642bf17884635bf9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  danceSpot: {fileID: 919719146}
+  radius: 5
+  moveSpeed: 2
+  circleIndex: 8
+  totalRabbits: 10
 --- !u!4 &1664518544 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7988442184944722721, guid: b1da6a2fea1b4b24c808e941618dadf6, type: 3}
@@ -3058,6 +3328,28 @@ Transform:
   m_Children: []
   m_Father: {fileID: 551310504}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1802294201 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+  m_PrefabInstance: {fileID: 5058805015267214381}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1802294205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1802294201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cccbf629458e642bf17884635bf9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  danceSpot: {fileID: 919719146}
+  radius: 5
+  moveSpeed: 2
+  circleIndex: 0
+  totalRabbits: 10
 --- !u!4 &1805081389 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7988442184944722721, guid: b1da6a2fea1b4b24c808e941618dadf6, type: 3}
@@ -3558,7 +3850,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1802294205}
   m_SourcePrefab: {fileID: 100100000, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
 --- !u!1001 &6237103402268946258
 PrefabInstance:
@@ -3637,3 +3932,4 @@ SceneRoots:
   - {fileID: 763402199}
   - {fileID: 830355699}
   - {fileID: 2027343748}
+  - {fileID: 901378575}
