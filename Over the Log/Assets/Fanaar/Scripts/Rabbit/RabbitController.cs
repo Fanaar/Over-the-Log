@@ -15,9 +15,17 @@ public class RabbitController : MonoBehaviour
     public int circleIndex = 0;        // Slot van dit konijn
     public int totalRabbits = 1;       // Totaal aantal konijnen in cirkel
 
+    [Header("Run Away Settings")]
+    public bool isRunningAway = false;
+    public Vector3 runDirection = Vector3.forward; // Richting waarin ze wegrennen
+    public float runSpeed = 5f;                     // Snelheid van wegrennen
+    public float spreadAmount = 1f;                // Spreiding tussen konijnen
+
     private Vector3 targetPosition;
     private bool isActivated = false;
     private bool isAtDanceSpot = false;
+
+    public bool IsAtDanceSpot => isAtDanceSpot;
 
     void OnEnable()
     {
@@ -27,9 +35,26 @@ public class RabbitController : MonoBehaviour
 
     void Update()
     {
+        // --- RUN AWAY MODE ---
+        if (isRunningAway)
+        {
+            // Bereken target met spreiding
+            Vector3 offset = Vector3.right * ((circleIndex - totalRabbits / 2f) * spreadAmount);
+            Vector3 runTarget = transform.position + runDirection.normalized * 10f + offset; // 10f = afstand
+
+            // Beweeg naar target
+            transform.position = Vector3.MoveTowards(transform.position, runTarget, runSpeed * Time.deltaTime);
+
+            // Kijk in rijrichting
+            if ((runTarget - transform.position).magnitude > 0.1f)
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(runDirection), Time.deltaTime * 5f);
+
+            return; // skip rest van Update
+        }
+
         if (!isActivated) return;
 
-        // Eerst bewegen naar plek in cirkel
+        // --- MOVE TO CIRCLE ---
         if (!isAtDanceSpot)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, moveSpeed * Time.deltaTime);
@@ -43,16 +68,14 @@ public class RabbitController : MonoBehaviour
         }
         else
         {
-            // Bepaal rotatiehoek
+            // --- SMOOTH ORBIT ---
             float angle = 360f / totalRabbits * circleIndex + Time.time * rotationSpeed;
             float rad = angle * Mathf.Deg2Rad;
 
             Vector3 desiredPos = danceSpot.position + new Vector3(Mathf.Cos(rad), 0f, Mathf.Sin(rad)) * radius;
 
-            // Smooth orbit zonder snapping
             transform.position = Vector3.Lerp(transform.position, desiredPos, Time.deltaTime * orbitSmoothSpeed);
 
-            // Smooth richting midden draaien
             Quaternion lookDir = Quaternion.LookRotation(danceSpot.position - transform.position);
             transform.rotation = Quaternion.Slerp(transform.rotation, lookDir, Time.deltaTime * 5f);
         }
@@ -63,13 +86,18 @@ public class RabbitController : MonoBehaviour
         if (isActivated) return;
         isActivated = true;
 
-        // Bepaal eerste cirkelpositie
         float angle = 360f / totalRabbits * circleIndex;
         float rad = angle * Mathf.Deg2Rad;
-
         Vector3 offset = new Vector3(Mathf.Cos(rad), 0f, Mathf.Sin(rad)) * radius;
         targetPosition = danceSpot.position + offset;
 
         Debug.Log(name + " OnActivated! Doelpositie: " + targetPosition);
+    }
+
+    public void RunAway(Vector3 direction)
+    {
+        isRunningAway = true;
+        runDirection = direction.normalized;
+        Debug.Log(name + " gaat wegrennen!");
     }
 }

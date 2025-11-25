@@ -5,8 +5,6 @@ public class FirstPersonRabbitController : MonoBehaviour
 {
     public enum MovementState { Human, Rabbit }
     public MovementState currentState = MovementState.Human;
-    public GroundCheck groundCheck; // assign in Inspector
-
 
     [Header("Human Settings")]
     public float walkSpeed = 5f;
@@ -24,17 +22,15 @@ public class FirstPersonRabbitController : MonoBehaviour
     public float mouseSensitivity = 2f;
     public float cameraClampAngle = 85f;
 
-    [Header("Beat Settings")]
-    public float beatForgiveness = 0.15f; // how early/late jump still counts as "on beat"
-
-    [Header("On-Beat Visual Effect")]
-    public ParticleSystem onBeatEffect;  // Drag your existing effect here in the Inspector
+    [Header("Ground Check Settings")]
+    public Transform groundCheckPoint; // plaats net onder de voeten
+    public float groundCheckRadius = 0.2f;
+    public LayerMask groundLayer;
 
     private CharacterController controller;
     private Vector3 velocity;
     private Vector3 currentMoveVelocity;
     private float verticalRotation;
-    private float lastBeatTime;
 
     void Start()
     {
@@ -50,14 +46,6 @@ public class FirstPersonRabbitController : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.R))
             SwitchState();
-    }
-
-    void OnEnable() => RabbitCircleBeatRotator.OnBeat += RegisterBeat;
-    void OnDisable() => RabbitCircleBeatRotator.OnBeat -= RegisterBeat;
-
-    void RegisterBeat()
-    {
-        lastBeatTime = Time.time;
     }
 
     // --------------------------
@@ -91,52 +79,43 @@ public class FirstPersonRabbitController : MonoBehaviour
         }
     }
 
+    private bool IsGrounded()
+    {
+        // Check of de sphere de grond raakt
+        return Physics.CheckSphere(groundCheckPoint.position, groundCheckRadius, groundLayer);
+    }
+
     void HumanMovement()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
-        Vector3 move = (transform.right * moveX + transform.forward * moveZ).normalized;
+        Vector3 move = (transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical")).normalized;
         controller.Move(move * walkSpeed * Time.deltaTime);
 
-        bool grounded = groundCheck.isGrounded;
+        bool grounded = IsGrounded();
 
         if (grounded && velocity.y < 0)
-            velocity.y = -2f;
+            velocity.y = -2f; // reset velocity als je de grond raakt
 
+        // Spring alleen als je op de grond bent
         if (Input.GetButtonDown("Jump") && grounded)
         {
-            bool isOnBeat = Mathf.Abs(Time.time - lastBeatTime) <= beatForgiveness;
-
-            if (isOnBeat)
-            {
-                Debug.Log("✅ Jump on beat!");
-                if (onBeatEffect) onBeatEffect.Play();
-            }
-            else
-            {
-                Debug.Log("❌ Jump off beat");
-            }
-
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
 
+        // Gravity toepassen
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
 
     void RabbitMovement()
     {
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
-
-        Vector3 targetMove = (transform.right * moveX + transform.forward * moveZ).normalized;
-        float accel = controller.isGrounded ? rabbitAcceleration : rabbitAcceleration * airControl;
+        Vector3 targetMove = (transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical")).normalized;
+        float accel = IsGrounded() ? rabbitAcceleration : rabbitAcceleration * airControl;
 
         currentMoveVelocity = Vector3.Lerp(currentMoveVelocity, targetMove * rabbitSpeed, accel * Time.deltaTime);
         controller.Move(currentMoveVelocity * Time.deltaTime);
 
-        // Apply gravity
-        if (controller.isGrounded && velocity.y < 0)
+        // Gravity toepassen
+        if (IsGrounded() && velocity.y < 0)
             velocity.y = -2f;
 
         velocity.y += gravity * Time.deltaTime;
@@ -147,5 +126,15 @@ public class FirstPersonRabbitController : MonoBehaviour
     {
         currentState = currentState == MovementState.Human ? MovementState.Rabbit : MovementState.Human;
         Debug.Log("🐇 Movement state switched to: " + currentState);
+    }
+
+    // Visualiseer de ground check sphere in de editor
+    void OnDrawGizmosSelected()
+    {
+        if (groundCheckPoint != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);
+        }
     }
 }
