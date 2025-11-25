@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2904380119524531242}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.3561023, z: -0, w: 0.93444705}
+  m_LocalRotation: {x: 0, y: 0.356102, z: 0, w: 0.9344471}
   m_LocalPosition: {x: 64.50001, y: 0, z: 60.499992}
   m_LocalScale: {x: 9.069455, y: 1.8138909, z: 9.069455}
   m_ConstrainProportionsScale: 0
@@ -252,6 +252,7 @@ GameObject:
   - component: {fileID: 2797990486628912390}
   - component: {fileID: 2650469898390697204}
   - component: {fileID: 7497469193523442936}
+  - component: {fileID: 1104108768343712805}
   m_Layer: 0
   m_Name: rabbit
   m_TagString: Untagged
@@ -328,6 +329,23 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &1104108768343712805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8698028954354185445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0cccbf629458e642bf17884635bf9ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  danceSpot: {fileID: 0}
+  radius: 5
+  moveSpeed: 2
+  circleIndex: 0
+  totalRabbits: 10
 --- !u!1001 &7895552336324503617
 PrefabInstance:
   m_ObjectHideFlags: 0
