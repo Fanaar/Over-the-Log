@@ -39985,7 +39985,7 @@ MonoBehaviour:
   diveRotationSpeed: 8
   diveStopDistance: 0.15
   diveSound: {fileID: 0}
-  maxYawOffset: 60
+  maxYawOffset: 80
   catchTrigger: {fileID: 1506295820}
   missTrigger: {fileID: 1954591436}
   guidedPanDuration: 1
@@ -39993,7 +39993,7 @@ MonoBehaviour:
   missOffsetDistance: 3
   missCurveHeight: 100000
   diveCooldown: 2
-  canSprint: 0
+  canSprint: 1
   hasLandedOnPrey: 0
 --- !u!143 &372561759
 CharacterController:
@@ -54426,7 +54426,7 @@ Transform:
   m_GameObject: {fileID: 518904120}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.476}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -156280,8 +156280,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0943927, y: 2.0000002, z: 1.0000007}
-  m_Center: {x: 0.5387807, y: 0, z: -0.00000007629392}
+  m_Size: {x: 1.4138222, y: 2.0000002, z: 1.0000007}
+  m_Center: {x: 0.69849545, y: 0, z: -0.00000007088763}
 --- !u!1001 &1507575116
 PrefabInstance:
   m_ObjectHideFlags: 0

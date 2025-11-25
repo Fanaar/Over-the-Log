@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &254493088461290957
+--- !u!1001 &8714525121066175590
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -10,15 +10,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 8eb119bfd6ae24c4da17160b5fd91a23, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 77.892746
+      value: 89.115
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8eb119bfd6ae24c4da17160b5fd91a23, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.496
+      value: 4.0074515
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8eb119bfd6ae24c4da17160b5fd91a23, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -146.25906
+      value: 77.36
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8eb119bfd6ae24c4da17160b5fd91a23, type: 3}
       propertyPath: m_LocalRotation.w
@@ -59,50 +59,5 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 8eb119bfd6ae24c4da17160b5fd91a23, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 898284257215404147}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8eb119bfd6ae24c4da17160b5fd91a23, type: 3}
---- !u!1 &1101497124376002716 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 8eb119bfd6ae24c4da17160b5fd91a23, type: 3}
-  m_PrefabInstance: {fileID: 254493088461290957}
-  m_PrefabAsset: {fileID: 0}
---- !u!205 &898284257215404147
-LODGroup:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1101497124376002716}
-  serializedVersion: 2
-  m_LocalReferencePoint: {x: 0, y: 0, z: 0}
-  m_Size: 1
-  m_FadeMode: 0
-  m_AnimateCrossFading: 0
-  m_LastLODIsBillboard: 0
-  m_LODs:
-  - screenRelativeHeight: 0.028851153
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 7557501158404721365}
-    - renderer: {fileID: 2072960197623711476}
-  - screenRelativeHeight: 0.0105196955
-    fadeTransitionWidth: 0
-    renderers:
-    - renderer: {fileID: 7557501158404721365}
-  - screenRelativeHeight: 0.0105196955
-    fadeTransitionWidth: 0
-    renderers: []
-  m_Enabled: 1
---- !u!23 &2072960197623711476 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: 2255325176585812793, guid: 8eb119bfd6ae24c4da17160b5fd91a23, type: 3}
-  m_PrefabInstance: {fileID: 254493088461290957}
-  m_PrefabAsset: {fileID: 0}
---- !u!23 &7557501158404721365 stripped
-MeshRenderer:
-  m_CorrespondingSourceObject: {fileID: -1483505761360808168, guid: 8eb119bfd6ae24c4da17160b5fd91a23, type: 3}
-  m_PrefabInstance: {fileID: 254493088461290957}
-  m_PrefabAsset: {fileID: 0}
