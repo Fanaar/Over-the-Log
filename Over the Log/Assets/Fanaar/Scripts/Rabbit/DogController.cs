@@ -7,6 +7,10 @@ public class DogController : MonoBehaviour
     public float rotationSpeed = 5f;
     public float stopDistance = 1.5f;
 
+    [Header("Grounding")]
+    public float groundOffset = 0.2f;      // keeps dog slightly above terrain
+    public float groundCheckDistance = 5f; // how far the raycast checks downward
+
     private Transform target;
     private bool isChasing = false;
 
@@ -15,7 +19,7 @@ public class DogController : MonoBehaviour
         if (!isChasing || target == null) return;
 
         Vector3 dir = target.position - transform.position;
-        dir.y = 0;
+        dir.y = 0; // ignore vertical difference for movement
         float distance = dir.magnitude;
 
         if (distance > stopDistance)
@@ -32,6 +36,19 @@ public class DogController : MonoBehaviour
         {
             Debug.Log("🐶 Dog reached player!");
             // trigger caught logic here
+        }
+
+        StickToGround();
+    }
+
+    private void StickToGround()
+    {
+        // raycast down to find terrain height
+        if (Physics.Raycast(transform.position + Vector3.up * 1f, Vector3.down, out RaycastHit hit, groundCheckDistance))
+        {
+            Vector3 pos = transform.position;
+            pos.y = hit.point.y + groundOffset;
+            transform.position = pos;
         }
     }
 

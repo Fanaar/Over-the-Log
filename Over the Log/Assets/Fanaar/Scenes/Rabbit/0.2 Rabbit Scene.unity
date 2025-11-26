@@ -230,10 +230,12 @@ MonoBehaviour:
   playerController: {fileID: 551310505}
   playerCamera: {fileID: 1246085681}
   dog: {fileID: 202105540}
-  lookAtDogThreshold: 0.99
+  lookAtDogThreshold: 0.98
   dogFocusDuration: 1.5
   automaticCameraFocus: 1
   headStartDuration: 3
+  dogSpawnDistance: 5
+  dogSpawnHeightOffset: 1.5
   lookFreezeDuration: 4
 --- !u!4 &39444586
 Transform:
@@ -547,6 +549,8 @@ MonoBehaviour:
   moveSpeed: 6
   rotationSpeed: 5
   stopDistance: 1.5
+  groundOffset: 0.2
+  groundCheckDistance: 5
 --- !u!64 &202105545
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -9609,7 +9613,7 @@ MonoBehaviour:
   player: {fileID: 551310504}
   dogSpawnDistance: 0.3
   dogLookTarget: {fileID: 48877912}
-  lookDotThreshold: 0.99
+  lookDotThreshold: 0.97
   showLookCone: 1
   coneLength: 5
   dogCinematicManager: {fileID: 39444585}
