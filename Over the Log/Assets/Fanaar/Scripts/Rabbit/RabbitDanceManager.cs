@@ -10,28 +10,35 @@ public class RabbitDanceManager : MonoBehaviour
     public int roundsBeforeRunAway = 1;
 
     [Header("Run Away Settings")]
-    public Transform runStart;  // Beginpunt renrichting
-    public Transform runEnd;    // Eindpunt renrichting
+    public Transform runStart;
+    public Transform runEnd;
     public bool useRandomBetweenTransforms = true;
 
     [Header("Dog Settings")]
-    public GameObject dog;          // bestaande hond in scene
-    public Transform player;        // player transform
+    public GameObject dog;
+    public Transform player;
     public float dogSpawnDistance = 3f;
 
     [Header("Player Look Settings")]
+    public Transform dogLookTarget; // Inspector target
     [Range(-1f, 1f)]
-    public float lookDotThreshold = -0.5f; // adjust in inspector
+    public float lookDotThreshold = 0.5f; // smaller = wider cone
+
+    [Header("Debug Gizmo")]
+    public bool showLookCone = true;
+    public float coneLength = 5f;
+
+    [Header("Dog Cinematic")]
+    public DogCinematicManager dogCinematicManager; // assign in inspector
 
     private float currentAngle = 0f;
     private int completedRotations = 0;
     private bool allReady = false;
     private bool hasRunAway = false;
-    private bool dogActivated = false;
 
     void Update()
     {
-        // Check of alle konijnen op hun plek staan
+        // Check if all rabbits are in position
         if (!allReady)
         {
             allReady = true;
@@ -46,7 +53,7 @@ public class RabbitDanceManager : MonoBehaviour
             return;
         }
 
-        // Draai de cirkel
+        // Rotate circle
         if (!hasRunAway)
         {
             currentAngle += rotationSpeed * Time.deltaTime;
@@ -58,11 +65,22 @@ public class RabbitDanceManager : MonoBehaviour
             }
         }
 
-        // Check of konijnen weg mogen rennen
+        // Check if rabbits can start running
         if (!hasRunAway && completedRotations >= roundsBeforeRunAway && PlayerLookingAtRunDirection())
         {
+            // Freeze player movement immediately, but allow looking
+            var controller = player.GetComponent<FirstPersonRabbitController>();
+            if (controller != null)
+            {
+                controller.canMove = false;
+                controller.canLook = true;
+            }
+
             StartRunAway();
-            ActivateDogBehindPlayer();
+
+            // Trigger dog cinematic
+            if (dogCinematicManager != null)
+                dogCinematicManager.StartCinematic();
         }
     }
 
@@ -71,7 +89,6 @@ public class RabbitDanceManager : MonoBehaviour
         foreach (var rabbit in rabbits)
         {
             Vector3 targetDir;
-
             if (useRandomBetweenTransforms && runStart != null && runEnd != null)
             {
                 Vector3 randomPos = Vector3.Lerp(runStart.position, runEnd.position, Random.value);
@@ -81,7 +98,6 @@ public class RabbitDanceManager : MonoBehaviour
             {
                 targetDir = Vector3.forward;
             }
-
             rabbit.RunAway(targetDir);
         }
 
@@ -89,39 +105,23 @@ public class RabbitDanceManager : MonoBehaviour
         Debug.Log("🐇 Konijnen rennen weg!");
     }
 
-    private void ActivateDogBehindPlayer()
-    {
-        if (dogActivated || dog == null) return;
-
-        dog.SetActive(true);
-
-        // Positioneer hond achter speler
-        Vector3 spawnPos = player.position - Camera.main.transform.forward * dogSpawnDistance;
-        spawnPos.y = player.position.y; // zelfde hoogte
-        dog.transform.position = spawnPos;
-
-        // Laat hond naar speler kijken
-        dog.transform.LookAt(player);
-
-        dogActivated = true;
-        Debug.Log("🐶 Hond geactiveerd achter speler!");
-    }
-
-    // Check of speler kijkt richting de renrichting
     private bool PlayerLookingAtRunDirection()
     {
-        if (runStart == null || runEnd == null) return true;
+        if (dogLookTarget == null) return true;
 
         Vector3 cameraForward = Camera.main.transform.forward;
-        Vector3 runDirection = (runEnd.position - runStart.position).normalized;
-
-        float dot = Vector3.Dot(cameraForward, runDirection);
-        return dot < lookDotThreshold; // now adjustable
+        Vector3 dirToTarget = (dogLookTarget.position - player.position).normalized;
+        float dot = Vector3.Dot(cameraForward, dirToTarget);
+        return dot >= lookDotThreshold;
     }
 
-    // Optioneel: externe methode om rondes te checken
-    public int GetCompletedRotations()
+    void OnDrawGizmosSelected()
     {
-        return completedRotations;
+        if (!showLookCone || player == null || dogLookTarget == null) return;
+
+        Vector3 origin = player.position + Vector3.up; // adjust for eyes
+        Vector3 dir = (dogLookTarget.position - origin).normalized;
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawRay(origin, dir * coneLength);
     }
 }

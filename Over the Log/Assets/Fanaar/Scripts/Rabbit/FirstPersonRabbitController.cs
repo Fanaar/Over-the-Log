@@ -27,6 +27,10 @@ public class FirstPersonRabbitController : MonoBehaviour
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
 
+    [HideInInspector] public bool canLook = true; // freeze camera when false
+
+    [HideInInspector] public bool canMove = true;
+
     private CharacterController controller;
     private Vector3 velocity;
     private Vector3 currentMoveVelocity;
@@ -41,18 +45,26 @@ public class FirstPersonRabbitController : MonoBehaviour
 
     void Update()
     {
+        // Always allow mouse look
         HandleMouseLook();
-        HandleMovement();
 
+        // Only allow movement if canMove is true
+        if (canMove)
+            HandleMovement();
+
+        // Allow state switch anytime
         if (Input.GetKeyDown(KeyCode.R))
             SwitchState();
     }
+
 
     // --------------------------
     // MOUSE LOOK
     // --------------------------
     void HandleMouseLook()
     {
+        if (!canLook) return; // skip looking if frozen
+
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
 
@@ -62,6 +74,7 @@ public class FirstPersonRabbitController : MonoBehaviour
         transform.Rotate(Vector3.up * mouseX);
         playerCamera.localEulerAngles = Vector3.right * verticalRotation;
     }
+
 
     // --------------------------
     // MOVEMENT
@@ -81,7 +94,6 @@ public class FirstPersonRabbitController : MonoBehaviour
 
     private bool IsGrounded()
     {
-        // Check of de sphere de grond raakt
         return Physics.CheckSphere(groundCheckPoint.position, groundCheckRadius, groundLayer);
     }
 
@@ -91,17 +103,12 @@ public class FirstPersonRabbitController : MonoBehaviour
         controller.Move(move * walkSpeed * Time.deltaTime);
 
         bool grounded = IsGrounded();
-
         if (grounded && velocity.y < 0)
-            velocity.y = -2f; // reset velocity als je de grond raakt
+            velocity.y = -2f;
 
-        // Spring alleen als je op de grond bent
         if (Input.GetButtonDown("Jump") && grounded)
-        {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-        }
 
-        // Gravity toepassen
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
@@ -114,7 +121,6 @@ public class FirstPersonRabbitController : MonoBehaviour
         currentMoveVelocity = Vector3.Lerp(currentMoveVelocity, targetMove * rabbitSpeed, accel * Time.deltaTime);
         controller.Move(currentMoveVelocity * Time.deltaTime);
 
-        // Gravity toepassen
         if (IsGrounded() && velocity.y < 0)
             velocity.y = -2f;
 
@@ -128,7 +134,6 @@ public class FirstPersonRabbitController : MonoBehaviour
         Debug.Log("🐇 Movement state switched to: " + currentState);
     }
 
-    // Visualiseer de ground check sphere in de editor
     void OnDrawGizmosSelected()
     {
         if (groundCheckPoint != null)
