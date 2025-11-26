@@ -15,6 +15,7 @@ public class DogCinematicManager : MonoBehaviour
 
     [Header("Dog Chase")]
     public float headStartDuration = 3f; // time player can move before dog chase starts
+    public float dogSpawnDistance = 3f;  // <-- NEW inspector-adjustable spawn distance
 
     [Header("Cinematic Settings")]
     public float lookFreezeDuration = 1.5f; // seconds to freeze mouse look
@@ -30,8 +31,14 @@ public class DogCinematicManager : MonoBehaviour
 
     private IEnumerator CinematicSequence()
     {
-        // Activate dog but don’t freeze player yet
+        // Activate dog
         dog.SetActive(true);
+
+        // Position dog behind player using the inspector value
+        Vector3 spawnPos = playerController.transform.position - playerCamera.forward * dogSpawnDistance;
+        spawnPos.y = playerController.transform.position.y;
+        dog.transform.position = spawnPos;
+
         dog.transform.LookAt(playerController.transform.position);
 
         // Wait until player looks at the dog
@@ -61,7 +68,6 @@ public class DogCinematicManager : MonoBehaviour
         Debug.Log("🐶 Dog chase started!");
     }
 
-    // Player gaze check
     private bool PlayerLookingAtDog()
     {
         Vector3 cameraForward = playerCamera.forward;
@@ -69,5 +75,4 @@ public class DogCinematicManager : MonoBehaviour
         float dot = Vector3.Dot(cameraForward, directionToDog);
         return dot >= lookAtDogThreshold;
     }
-
 }
