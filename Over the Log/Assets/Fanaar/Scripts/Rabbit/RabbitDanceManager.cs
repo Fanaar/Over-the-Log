@@ -31,6 +31,10 @@ public class RabbitDanceManager : MonoBehaviour
     [Header("Dog Cinematic")]
     public DogCinematicManager dogCinematicManager; // assign in inspector
 
+    [Header("Run Condition Trigger")]
+    public Collider playerRunTrigger; // sleep hier de trigger in inspector
+    private bool playerInTrigger = false;
+
     private float currentAngle = 0f;
     private int completedRotations = 0;
     private bool allReady = false;
@@ -66,9 +70,8 @@ public class RabbitDanceManager : MonoBehaviour
         }
 
         // Check if rabbits can start running
-        if (!hasRunAway && completedRotations >= roundsBeforeRunAway && PlayerLookingAtRunDirection())
+        if (!hasRunAway && completedRotations >= roundsBeforeRunAway && PlayerLookingAtRunDirection() && playerInTrigger)
         {
-            // Freeze player movement immediately, but allow looking
             var controller = player.GetComponent<FirstPersonRabbitController>();
             if (controller != null)
             {
@@ -78,7 +81,6 @@ public class RabbitDanceManager : MonoBehaviour
 
             StartRunAway();
 
-            // Trigger dog cinematic
             if (dogCinematicManager != null)
                 dogCinematicManager.StartCinematic();
         }
@@ -115,6 +117,18 @@ public class RabbitDanceManager : MonoBehaviour
         return dot >= lookDotThreshold;
     }
 
+    void OnTriggerEnter(Collider other)
+    {
+        if (other.transform == player)
+            playerInTrigger = true;
+    }
+
+    void OnTriggerExit(Collider other)
+    {
+        if (other.transform == player)
+            playerInTrigger = false;
+    }
+
     void OnDrawGizmosSelected()
     {
         if (!showLookCone || player == null || dogLookTarget == null) return;
@@ -124,4 +138,15 @@ public class RabbitDanceManager : MonoBehaviour
         Gizmos.color = Color.cyan;
         Gizmos.DrawRay(origin, dir * coneLength);
     }
+
+    public void PlayerEnteredTrigger()
+    {
+        playerInTrigger = true;
+    }
+
+    public void PlayerExitedTrigger()
+    {
+        playerInTrigger = false;
+    }
+
 }
