@@ -5,9 +5,15 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
-    path: Assets/Scenes/Main Scene.unity
+  - enabled: 0
+    path: Assets/Flin/Poep/Main Scene.unity
     guid: 99c9720ab356a0642a771bea13969a05
+  - enabled: 1
+    path: Assets/Fanaar/Scenes/Rabbit/0.2 Rabbit Scene.unity
+    guid: 82921027c67af7c46aaf162d3e205d37
+  - enabled: 1
+    path: Assets/Fanaar/Scenes/Rabbit/0.1 Rabbit Scene.unity
+    guid: 094aa5ab099ca9242a3e2ac97d009f7a
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
