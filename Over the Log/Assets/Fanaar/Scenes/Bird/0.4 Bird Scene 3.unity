@@ -45107,7 +45107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 372561757}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
   m_LocalPosition: {x: 44.34, y: 0.15, z: -8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -45119,7 +45119,7 @@ Transform:
   - {fileID: 925794246}
   - {fileID: 1179224878}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
 --- !u!114 &372561761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45202,6 +45202,7 @@ MonoBehaviour:
   playerCamera: {fileID: 459211284}
   mouseSensitivity: 0.1
   cameraClampAngle: 85
+  maxYawOffset: 85
 --- !u!114 &372561764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -45233,10 +45234,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 609df916b39d68f41a808b91c48a2ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  flightSpeed: 10
+  flightSpeed: 7
   ascentSpeed: 5
-  minFlightHeight: 1
-  maxFlightHeight: 50
+  minFlightHeight: 10
+  maxFlightHeight: 15
+  maxTiltAngle: 5
+  tiltSpeed: 2
+  flightTarget: {fileID: 1983781269}
 --- !u!114 &372561766
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -61468,7 +61472,7 @@ Transform:
   m_GameObject: {fileID: 518904120}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0, y: 0, z: -0.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -233274,6 +233278,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7877793438554865113, guid: b85a55769474f4e41b90c6345b09814b, type: 3}
   m_PrefabInstance: {fileID: 1983102929}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1983781268
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1983781269}
+  m_Layer: 0
+  m_Name: Flight Target
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1983781269
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1983781268}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 799, y: 1.0999999, z: -7.6000004}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!1001 &1983959160
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -252878,6 +252913,7 @@ SceneRoots:
   - {fileID: 1297689860}
   - {fileID: 1208961932}
   - {fileID: 161576206}
+  - {fileID: 1983781269}
   - {fileID: 148830026}
   - {fileID: 2115466614}
   - {fileID: 1853547675}
