@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{5876a16f-6975-4b9d-9da5-9ed68770626e}">
+		<property name="assetPath">
+			<value>Birdsketch higher2_24.11.2025.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>9.66530612244898</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a0bca233-f1d2-413e-8f3d-80d498d6fd44}</destination>
+		</relationship>
+	</object>
+</objects>
