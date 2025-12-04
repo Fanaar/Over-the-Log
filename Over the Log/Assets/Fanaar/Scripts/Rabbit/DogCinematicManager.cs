@@ -16,10 +16,17 @@ public class DogCinematicManager : MonoBehaviour
     [Header("Dog Chase")]
     public float headStartDuration = 3f;
     public float dogSpawnDistance = 3f;
-    public float dogSpawnHeightOffset = 1.5f; // NEW
+    public float dogSpawnHeightOffset = 1.5f;
 
-    [Header("Cinematic Settings")]
+    [Header("Cinematic Camera")]
+    public Transform dogLookTarget;        // Drag a target (dog head position)
+    public float cameraLerpSpeed = 2f;      // Higher = faster rotation
     public float lookFreezeDuration = 1.5f;
+
+    [Header("Cinematic Extra Event")]
+    public GameObject objectToActivate;
+    public GameObject objectToActivate2;
+
 
     private bool cinematicStarted = false;
 
@@ -32,43 +39,75 @@ public class DogCinematicManager : MonoBehaviour
 
     private IEnumerator CinematicSequence()
     {
-        // Activate dog
+        // --- Spawn dog ---
+
         dog.SetActive(true);
 
         // Calculate spawn position behind player
         Vector3 spawnPos = playerController.transform.position - playerCamera.forward * dogSpawnDistance;
 
-        // RAYCAST DOWN to terrain so the dog isn't underground
+        // Raycast down to terrain so dog isn't underground
         Vector3 rayOrigin = spawnPos + Vector3.up * 5f;
 
         if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 20f))
-        {
             spawnPos.y = hit.point.y + dogSpawnHeightOffset;
-        }
         else
-        {
-            // fallback if no terrain found
             spawnPos.y = playerController.transform.position.y + dogSpawnHeightOffset;
-        }
 
         dog.transform.position = spawnPos;
         dog.transform.LookAt(playerController.transform.position);
 
-        // Wait until player looks at the dog
+        // --- WAIT until the player naturally looks close enough ---
+
         while (!PlayerLookingAtDog())
             yield return null;
 
+        // --- Freeze controls ---
         playerController.canMove = false;
         playerController.canLook = false;
 
+        // --- Smoothly rotate camera toward target ---
+
+        if (automaticCameraFocus && dogLookTarget != null)
+        {
+            float elapsed = 0f;
+
+            while (elapsed < dogFocusDuration)
+            {
+                Vector3 dir = (dogLookTarget.position - playerCamera.position).normalized;
+                Quaternion targetRot = Quaternion.LookRotation(dir);
+
+                playerCamera.rotation = Quaternion.Slerp(
+                    playerCamera.rotation,
+                    targetRot,
+                    Time.deltaTime * cameraLerpSpeed
+                );
+
+                elapsed += Time.deltaTime;
+                yield return null;
+            }
+
+            // Snap exactly at the end to avoid tiny offset
+            playerCamera.LookAt(dogLookTarget);
+
+            // 🔥 Activate extra object here
+            if (objectToActivate != null)
+                objectToActivate.SetActive(true);
+            if (objectToActivate2 != null)
+                objectToActivate2.SetActive(true);
+        }
+
+        // Hold camera frozen for dramatic effect
         yield return new WaitForSeconds(lookFreezeDuration);
 
+        // --- Resume player control ---
         playerController.canMove = true;
         playerController.canLook = true;
-
         playerController.currentState = FirstPersonRabbitController.MovementState.Rabbit;
+
         Debug.Log("🐇 Player switched to Rabbit mode!");
 
+        // --- Give dog a head start ---
         yield return new WaitForSeconds(headStartDuration);
 
         dog.GetComponent<DogController>()?.StartChase(playerController.transform);
@@ -78,7 +117,7 @@ public class DogCinematicManager : MonoBehaviour
     private bool PlayerLookingAtDog()
     {
         Vector3 cameraForward = playerCamera.forward;
-        Vector3 directionToDog = (dog.transform.position - playerController.transform.position).normalized;
+        Vector3 directionToDog = (dog.transform.position - playerCamera.transform.position).normalized;
         float dot = Vector3.Dot(cameraForward, directionToDog);
         return dot >= lookAtDogThreshold;
     }
