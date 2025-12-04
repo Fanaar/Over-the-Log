@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &4652392909444416688
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 35.299816
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 35.299816
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 35.299816
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 68.262
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.057586
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -111.365
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 632945358035258536, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 98225c108c90e8d408203c3a3039bffe, type: 2}
+    - target: {fileID: 919132149155446097, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: m_Name
+      value: Rabbit Low
+      objectReference: {fileID: 0}
+    - target: {fileID: 3745898972491871317, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 17fca2756807ec5428eb0d6d2aabe595, type: 2}
+    - target: {fileID: 5268141936255083766, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5e57a2c2c6912f240b8b2a494e8fd960, type: 2}
+    - target: {fileID: 8615328856376826020, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 98225c108c90e8d408203c3a3039bffe, type: 2}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: d8200ef51bb8649459e0d54c320bced1, type: 3}
