@@ -27,6 +27,8 @@ public class DogCinematicManager : MonoBehaviour
     public GameObject objectToActivate;
     public GameObject objectToActivate2;
 
+    // ⭐ NEW: Third object activated AFTER freeze
+    public GameObject objectToActivateAfterFreeze;
 
     private bool cinematicStarted = false;
 
@@ -90,7 +92,7 @@ public class DogCinematicManager : MonoBehaviour
             // Snap exactly at the end to avoid tiny offset
             playerCamera.LookAt(dogLookTarget);
 
-            // 🔥 Activate extra object here
+            // 🔥 Activate extra objects immediately after the lerp
             if (objectToActivate != null)
                 objectToActivate.SetActive(true);
             if (objectToActivate2 != null)
@@ -99,6 +101,10 @@ public class DogCinematicManager : MonoBehaviour
 
         // Hold camera frozen for dramatic effect
         yield return new WaitForSeconds(lookFreezeDuration);
+
+        // 🔥 NEW: Activate third object AFTER freeze
+        if (objectToActivateAfterFreeze != null)
+            objectToActivateAfterFreeze.SetActive(true);
 
         // --- Resume player control ---
         playerController.canMove = true;
