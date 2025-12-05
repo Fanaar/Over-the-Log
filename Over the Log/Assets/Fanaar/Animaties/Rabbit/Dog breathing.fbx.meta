@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: b505c3721cb388745bd08727fd8244a6
+guid: 09dce2ba962d4be4e9b0930bc39437f9
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -31,11 +31,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Dog Run Cycle
+      name: Take 001
       takeName: Take 001
       internalID: 1827226128182048838
       firstFrame: 0
-      lastFrame: 19
+      lastFrame: 72
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
