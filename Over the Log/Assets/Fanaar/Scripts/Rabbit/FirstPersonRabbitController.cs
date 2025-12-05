@@ -22,6 +22,17 @@ public class FirstPersonRabbitController : MonoBehaviour
     public float mouseSensitivity = 2f;
     public float cameraClampAngle = 85f;
 
+    [Header("Head Bob Settings")]
+    public float bobSpeed = 6f;       // hoe snel het bobt
+    public float bobAmount = 0.05f;   // hoe hoog de camera op en neer gaat
+
+    private float defaultCameraY;
+    private float bobTimer;
+
+    [Header("Rabbit Bob Settings")]
+    public float rabbitBobSpeedMultiplier = 1.8f;   // hoe veel sneller de bob is
+    public float rabbitBobAmountMultiplier = 1.4f;  // hoe veel sterker de bob is
+
     [Header("Ground Check Settings")]
     public Transform groundCheckPoint; // plaats net onder de voeten
     public float groundCheckRadius = 0.2f;
@@ -38,6 +49,7 @@ public class FirstPersonRabbitController : MonoBehaviour
 
     void Start()
     {
+        defaultCameraY = playerCamera.localPosition.y;
         controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
@@ -47,6 +59,8 @@ public class FirstPersonRabbitController : MonoBehaviour
     {
         // Always allow mouse look
         HandleMouseLook();
+
+        HandleHeadBob();
 
         // Only allow movement if canMove is true
         if (canMove)
@@ -142,4 +156,55 @@ public class FirstPersonRabbitController : MonoBehaviour
             Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);
         }
     }
+
+    void HandleHeadBob()
+    {
+        bool isMoving = Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0;
+
+        // Base bob values (vertical + subtle horizontal sway)
+        float speed = bobSpeed;
+        float amount = bobAmount;
+
+        // Rabbit mode makes bob slightly faster, not jumpy
+        if (currentState == MovementState.Rabbit)
+        {
+            speed *= rabbitBobSpeedMultiplier;
+            amount *= rabbitBobAmountMultiplier;
+        }
+
+        if (isMoving && IsGrounded())
+        {
+            bobTimer += Time.deltaTime * speed;
+
+            float bobOffsetY = Mathf.Sin(bobTimer * 1.3f) * amount;          // vertical
+            float bobOffsetX = Mathf.Sin(bobTimer * 0.7f) * amount * 0.4f;   // horizontal sway
+
+            Vector3 target = new Vector3(
+                0 + bobOffsetX,
+                defaultCameraY + bobOffsetY,
+                0
+            );
+
+            playerCamera.localPosition = Vector3.Lerp(
+                playerCamera.localPosition,
+                target,
+                Time.deltaTime * 10f
+            );
+        }
+        else
+        {
+            // Reset to center smoothly
+            bobTimer = 0;
+
+            Vector3 target = new Vector3(0, defaultCameraY, 0);
+
+            playerCamera.localPosition = Vector3.Lerp(
+                playerCamera.localPosition,
+                target,
+                Time.deltaTime * 8f
+            );
+        }
+    }
+
+
 }

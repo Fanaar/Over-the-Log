@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonController : MonoBehaviour
@@ -66,6 +67,18 @@ public class FirstPersonController : MonoBehaviour
     public float diveCooldown = 1.5f;   // adjust in Inspector
     private bool canDive = true;
 
+    [Header("Ground Takeoff Strength")]
+    public float strength = 0f;
+    public float strengthRequired = 5f;   // aantal flaps
+    public float flapBoost = 0.5f;        // kleine verticale nudge bij elke flap
+    public float strengthDecay = 1f;      // optioneel, meter zakt langzaam
+
+    private int flapProgress = 0;       // 0 → 1 → 2 → 3
+    private float flapCooldown = 0.3f;  // kleine lock zodat spammen niet per ongeluk telt
+    private float lastFlapTime = 0f;
+
+    public bool flightUnlocked = false; // ← dit wordt je condition 🔥
+
     private bool cameraLocked = false; // new
 
     private CharacterController controller;
@@ -101,7 +114,7 @@ public class FirstPersonController : MonoBehaviour
 
     void Update()
     {
-        // Update guided pan first
+        // Mouse look / guided pan
         if (isGuidedPanning)
             UpdateGuidedPan();
         else
@@ -109,15 +122,19 @@ public class FirstPersonController : MonoBehaviour
 
         HandleInteraction();
         HandleInput();
-        HandleMovement();
 
+        HandleMovement();
+        HandleHumanMovement();
         // Lock X and Z rotation when human
         if (currentState == MovementState.Human)
             transform.rotation = Quaternion.Euler(0f, transform.eulerAngles.y, 0f);
 
-        // Check outer trigger for guided pan
+        // Check for guided pan
         if (currentState == MovementState.Bird && !isDiving && !isGuidedPanning)
             CheckForPreyGuidedPan();
+
+        if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            Debug.Log("Space pressed (New Input System)!");
     }
 
     void HandleInput()
@@ -134,7 +151,7 @@ public class FirstPersonController : MonoBehaviour
         {
             case MovementState.Human:
                 HandleHumanMovement();
-                CheckTakeOff();
+                CheckTakeOff(); // automatic takeoff after sprint + flightUnlocked
                 break;
             case MovementState.Bird:
                 HandleBirdMovement();
@@ -146,22 +163,48 @@ public class FirstPersonController : MonoBehaviour
     {
         if (hasLandedOnPrey) return;
 
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
-
-        float speed = (canSprint && Input.GetKey(KeyCode.LeftShift)) ? sprintSpeed : walkSpeed;
+        // Movement
+        float moveX = Keyboard.current.aKey.isPressed ? -1f : Keyboard.current.dKey.isPressed ? 1f : 0f;
+        float moveZ = Keyboard.current.wKey.isPressed ? 1f : Keyboard.current.sKey.isPressed ? -1f : 0f;
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
+        float speed = (canSprint && Keyboard.current.leftShiftKey.isPressed) ? sprintSpeed : walkSpeed;
         controller.Move(move * speed * Time.deltaTime);
 
-        if (controller.isGrounded && velocity.y < 0)
-            velocity.y = -2f;
+        // Jump / Flap
+        if (controller.isGrounded)
+        {
+            if (Keyboard.current.spaceKey.wasPressedThisFrame)
+            {
+                // Jump
+                velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                Debug.Log("Jump activated! velocity.y = " + velocity.y);
 
-        if (Input.GetButtonDown("Jump") && controller.isGrounded)
-            velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+                // Flap
+                if (Time.time - lastFlapTime > flapCooldown)
+                {
+                    lastFlapTime = Time.time;
+                    flapProgress++;
+                    Debug.Log("Flap step: " + flapProgress + "/3");
 
+                    if (flapProgress >= 3)
+                    {
+                        flightUnlocked = true;
+                        Debug.Log("Flight unlocked!");
+                    }
+                }
+            }
+
+            if (velocity.y < 0)
+                velocity.y = -2f; // keep grounded
+        }
+
+        // Gravity
         velocity.y += gravity * Time.deltaTime;
+
+        // Move CharacterController
         controller.Move(velocity * Time.deltaTime);
     }
+
 
     void HandleBirdMovement()
     {
@@ -242,7 +285,7 @@ public class FirstPersonController : MonoBehaviour
 
     void CheckTakeOff()
     {
-        if (!canSprint || currentState != MovementState.Human || !controller.isGrounded || !Input.GetKey(KeyCode.LeftShift))
+        if (!flightUnlocked || !canSprint || currentState != MovementState.Human || !controller.isGrounded || !Keyboard.current.leftShiftKey.isPressed)
         {
             sprintTimer = 0f;
             return;
@@ -250,18 +293,22 @@ public class FirstPersonController : MonoBehaviour
 
         sprintTimer += Time.deltaTime;
         if (sprintTimer >= takeOffTime)
+        {
             StartFlying();
+        }
     }
-
     void StartFlying()
     {
         currentState = MovementState.Bird;
         isFlying = true;
         velocity = Vector3.up * initialLiftOffVelocity;
+
         birdYaw = NormalizeAngle(transform.eulerAngles.y);
         cameraYaw = birdYaw;
         cameraPitch = NormalizeAngle(playerCamera.localEulerAngles.x);
         cameraPivot.localRotation = Quaternion.identity;
+
+        Debug.Log("Player started flying!");
     }
 
     float NormalizeAngle(float angle)
@@ -484,4 +531,33 @@ public class FirstPersonController : MonoBehaviour
                 isGuidedPanning = false;
         }
     }
+    /*
+    void HandleGroundFlapProgress()
+    {
+        if (currentState != MovementState.Human) return;
+        if (!controller.isGrounded) return;
+
+        // Player must press Jump manually (not the built-in one)
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            if (Time.time - lastFlapTime > flapCooldown)
+            {
+                lastFlapTime = Time.time;
+
+                flapProgress++;
+
+                Debug.Log("Flap step: " + flapProgress + "/3");
+
+                // tiny visual lift to show progress
+                velocity.y = 2f;
+
+                if (flapProgress >= 3)
+                {
+                    flightUnlocked = true;
+                    Debug.Log("Flight Unlocked!");
+                }
+            }
+        }
+    }*/
+
 }
