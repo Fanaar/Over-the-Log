@@ -10,28 +10,38 @@ public class DogController : MonoBehaviour
 
     [Header("Grounding")]
     public float groundOffset = 0.2f;
-    public float groundCheckDistance = 5f;
+    public float groundCheckDistance = 2f;
+    public float groundStickSpeed = 10f; // how fast the dog adjusts to ground height
+    public float groundCheckRadius = 0.5f; // radius for SphereCast
 
     [Header("Scene Fade Settings")]
-    public CanvasGroup fadeCanvasGroup;   // assign your fade panel here
+    public CanvasGroup fadeCanvasGroup;
     public float fadeDuration = 1.5f;
     public string sceneToLoad = "CaughtScene";
 
     private Transform target;
     private bool isChasing = false;
-    private bool hasCaughtPlayer = false; // prevent multiple triggers
+    private bool hasCaughtPlayer = false;
 
     void Update()
     {
         if (!isChasing || target == null) return;
 
+        HandleMovement();
+        StickToGround();
+    }
+
+    private void HandleMovement()
+    {
         Vector3 dir = target.position - transform.position;
         dir.y = 0;
         float distance = dir.magnitude;
 
         if (distance > stopDistance)
         {
-            transform.position += dir.normalized * moveSpeed * Time.deltaTime;
+            // Smooth horizontal movement
+            Vector3 move = dir.normalized * moveSpeed * Time.deltaTime;
+            transform.position += move;
 
             if (dir != Vector3.zero)
             {
@@ -48,16 +58,17 @@ public class DogController : MonoBehaviour
                 StartCoroutine(FadeAndLoad());
             }
         }
-
-        StickToGround();
     }
 
-    private void StickToGround()
+    public void StickToGround()
     {
-        if (Physics.Raycast(transform.position + Vector3.up * 1f, Vector3.down, out RaycastHit hit, groundCheckDistance))
+        Vector3 rayOrigin = transform.position + Vector3.up * 0.5f;
+
+        if (Physics.SphereCast(rayOrigin, groundCheckRadius, Vector3.down, out RaycastHit hit, groundCheckDistance))
         {
             Vector3 pos = transform.position;
-            pos.y = hit.point.y + groundOffset;
+            float targetY = hit.point.y + groundOffset;
+            pos.y = Mathf.Lerp(pos.y, targetY, groundStickSpeed * Time.deltaTime); // smooth vertical movement
             transform.position = pos;
         }
     }
@@ -79,7 +90,6 @@ public class DogController : MonoBehaviour
     {
         float timer = 0f;
 
-        // make sure image is visible
         if (fadeCanvasGroup.GetComponent<UnityEngine.UI.Image>() != null)
         {
             var img = fadeCanvasGroup.GetComponent<UnityEngine.UI.Image>();
