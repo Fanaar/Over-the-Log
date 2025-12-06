@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 6880618242935917870}
   - component: {fileID: 7631944554443113873}
   - component: {fileID: 5198530607148187100}
+  - component: {fileID: 1098720547107700317}
   m_Layer: 0
   m_Name: Wolf 1
   m_TagString: Untagged
@@ -127,11 +128,36 @@ MonoBehaviour:
   moveSpeed: 4
   rotationSpeed: 5
   stopDistance: 1.5
+  gravity: -9.81
   groundOffset: 1.5
-  groundCheckDistance: 5
   fadeCanvasGroup: {fileID: 0}
   fadeDuration: 1.5
   sceneToLoad: CaughtScene
+--- !u!143 &1098720547107700317
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2706793718626683559}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 2
+  m_Radius: 0.5
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &7541904097423690456
 GameObject:
   m_ObjectHideFlags: 0

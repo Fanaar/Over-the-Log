@@ -88,17 +88,7 @@ public class RabbitDanceManager : MonoBehaviour
 
     private void StartRunAway()
     {
-        // Spawn the dog at the designated spawn point with fixed Y
-        if (dog != null && dogSpawnPoint != null)
-        {
-            dog.transform.position = new Vector3(
-                dogSpawnPoint.position.x,
-                0f, // fixed Y
-                dogSpawnPoint.position.z
-            );
-            dog.transform.rotation = dogSpawnPoint.rotation;
-            dog.SetActive(true);
-        }
+        SpawnDogClean();  // NEW
 
         // Make all rabbits run
         foreach (var rabbit in rabbits)
@@ -119,6 +109,27 @@ public class RabbitDanceManager : MonoBehaviour
         hasRunAway = true;
         Debug.Log("🐇 Konijnen rennen weg!");
     }
+
+    private void SpawnDogClean()
+    {
+        if (dog == null || dogSpawnPoint == null)
+            return;
+
+        // 1. Set the root position exactly to the spawn point
+        dog.transform.position = dogSpawnPoint.position;
+        dog.transform.rotation = dogSpawnPoint.rotation;
+
+        // 2. Activate the dog
+        dog.SetActive(true);
+        /*
+        // 3. Snap perfectly to ground (NEW)
+        DogController ctrl = dog.GetComponent<DogController>();
+        if (ctrl != null)
+        {
+            ctrl.ForceGroundSnap();
+        }*/
+    }
+
 
 
     private bool PlayerLookingAtRunDirection()
