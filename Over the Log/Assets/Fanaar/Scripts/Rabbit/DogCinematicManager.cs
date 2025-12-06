@@ -27,6 +27,10 @@ public class DogCinematicManager : MonoBehaviour
     public GameObject objectToActivate;
     public GameObject objectToActivate2;
 
+    [Header("Dog Animator")]
+    public Animator dogAnimator;
+
+
     // ⭐ NEW: Third object activated AFTER freeze
     public GameObject objectToActivateAfterFreeze;
 
@@ -42,7 +46,6 @@ public class DogCinematicManager : MonoBehaviour
     private IEnumerator CinematicSequence()
     {
         // --- Spawn dog ---
-
         dog.SetActive(true);
 
         // Calculate spawn position behind player
@@ -50,7 +53,6 @@ public class DogCinematicManager : MonoBehaviour
 
         // Raycast down to terrain so dog isn't underground
         Vector3 rayOrigin = spawnPos + Vector3.up * 5f;
-
         if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 20f))
             spawnPos.y = hit.point.y + dogSpawnHeightOffset;
         else
@@ -60,7 +62,6 @@ public class DogCinematicManager : MonoBehaviour
         dog.transform.LookAt(playerController.transform.position);
 
         // --- WAIT until the player naturally looks close enough ---
-
         while (!PlayerLookingAtDog())
             yield return null;
 
@@ -69,10 +70,9 @@ public class DogCinematicManager : MonoBehaviour
         playerController.canLook = false;
 
         // --- Smoothly rotate camera toward target ---
-
         if (automaticCameraFocus && dogLookTarget != null)
         {
-            float elapsed = 0f;
+            float elapsed = 0f; // Correct scope
 
             while (elapsed < dogFocusDuration)
             {
@@ -92,17 +92,21 @@ public class DogCinematicManager : MonoBehaviour
             // Snap exactly at the end to avoid tiny offset
             playerCamera.LookAt(dogLookTarget);
 
-            // 🔥 Activate extra objects immediately after the lerp
+            // Activate extra objects
             if (objectToActivate != null)
                 objectToActivate.SetActive(true);
             if (objectToActivate2 != null)
                 objectToActivate2.SetActive(true);
+
+            // 🔥 Trigger Scary Face animation
+            if (dogAnimator != null)
+                dogAnimator.SetTrigger("ScaryFace");
         }
 
         // Hold camera frozen for dramatic effect
         yield return new WaitForSeconds(lookFreezeDuration);
 
-        // 🔥 NEW: Activate third object AFTER freeze
+        // 🔥 Activate third object AFTER freeze
         if (objectToActivateAfterFreeze != null)
             objectToActivateAfterFreeze.SetActive(true);
 
@@ -116,9 +120,15 @@ public class DogCinematicManager : MonoBehaviour
         // --- Give dog a head start ---
         yield return new WaitForSeconds(headStartDuration);
 
+        // 🔥 Trigger Run animation
+        if (dogAnimator != null)
+            dogAnimator.SetTrigger("Run");
+
+        // Start chasing player
         dog.GetComponent<DogController>()?.StartChase(playerController.transform);
         Debug.Log("🐶 Dog chase started!");
     }
+
 
     private bool PlayerLookingAtDog()
     {

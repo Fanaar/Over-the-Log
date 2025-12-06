@@ -162,6 +162,7 @@ MonoBehaviour:
   lookFreezeDuration: 4
   objectToActivate: {fileID: 2027343744}
   objectToActivate2: {fileID: 521079942}
+  dogAnimator: {fileID: 1151978014}
   objectToActivateAfterFreeze: {fileID: 958502243}
 --- !u!4 &39444586
 Transform:
@@ -8863,7 +8864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2706793718626683559, guid: a83af77c19074a247a4dddcfe93db3d3, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5198530607148187100, guid: a83af77c19074a247a4dddcfe93db3d3, type: 3}
       propertyPath: sceneToLoad
