@@ -88,20 +88,17 @@ public class RabbitDanceManager : MonoBehaviour
 
     private void StartRunAway()
     {
-        // Spawn the dog at the designated spawn point
+        // Spawn the dog at the designated spawn point with fixed Y
         if (dog != null && dogSpawnPoint != null)
         {
-            dog.transform.position = dogSpawnPoint.position;
-            dog.transform.rotation = dogSpawnPoint.rotation; // optional
+            dog.transform.position = new Vector3(
+                dogSpawnPoint.position.x,
+                0f, // fixed Y
+                dogSpawnPoint.position.z
+            );
+            dog.transform.rotation = dogSpawnPoint.rotation;
             dog.SetActive(true);
-
-            // Snap dog to the ground immediately
-            DogController dogCtrl = dog.GetComponent<DogController>();
-            if (dogCtrl != null)
-            {
-                dogCtrl.StickToGround();
-            }
-    }
+        }
 
         // Make all rabbits run
         foreach (var rabbit in rabbits)

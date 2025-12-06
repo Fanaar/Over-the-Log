@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(CharacterController))]
 public class DogController : MonoBehaviour
 {
     [Header("Chase Settings")]
@@ -8,11 +9,9 @@ public class DogController : MonoBehaviour
     public float rotationSpeed = 5f;
     public float stopDistance = 1.5f;
 
-    [Header("Grounding")]
-    public float groundOffset = 0.2f;
-    public float groundCheckDistance = 2f;
-    public float groundStickSpeed = 10f; // how fast the dog adjusts to ground height
-    public float groundCheckRadius = 0.5f; // radius for SphereCast
+    [Header("Gravity Settings")]
+    public float gravity = -9.81f; // downward force
+    public float groundOffset = 0.2f; // offset from terrain
 
     [Header("Scene Fade Settings")]
     public CanvasGroup fadeCanvasGroup;
@@ -23,12 +22,20 @@ public class DogController : MonoBehaviour
     private bool isChasing = false;
     private bool hasCaughtPlayer = false;
 
+    private CharacterController controller;
+    private Vector3 velocity;
+
+    void Awake()
+    {
+        controller = GetComponent<CharacterController>();
+    }
+
     void Update()
     {
         if (!isChasing || target == null) return;
 
         HandleMovement();
-        StickToGround();
+        HandleGravity();
     }
 
     private void HandleMovement()
@@ -39,10 +46,11 @@ public class DogController : MonoBehaviour
 
         if (distance > stopDistance)
         {
-            // Smooth horizontal movement
-            Vector3 move = dir.normalized * moveSpeed * Time.deltaTime;
-            transform.position += move;
+            // Move using CharacterController
+            Vector3 move = dir.normalized * moveSpeed;
+            controller.Move(move * Time.deltaTime);
 
+            // Rotate smoothly toward target
             if (dir != Vector3.zero)
             {
                 Quaternion lookRotation = Quaternion.LookRotation(dir);
@@ -60,17 +68,20 @@ public class DogController : MonoBehaviour
         }
     }
 
-    public void StickToGround()
+    private void HandleGravity()
     {
-        Vector3 rayOrigin = transform.position + Vector3.up * 0.5f;
-
-        if (Physics.SphereCast(rayOrigin, groundCheckRadius, Vector3.down, out RaycastHit hit, groundCheckDistance))
+        if (controller.isGrounded)
         {
-            Vector3 pos = transform.position;
-            float targetY = hit.point.y + groundOffset;
-            pos.y = Mathf.Lerp(pos.y, targetY, groundStickSpeed * Time.deltaTime); // smooth vertical movement
-            transform.position = pos;
+            // Stick slightly above ground to avoid sinking
+            velocity.y = -groundOffset;
         }
+        else
+        {
+            // Apply gravity when in the air
+            velocity.y += gravity * Time.deltaTime;
+        }
+
+        controller.Move(velocity * Time.deltaTime);
     }
 
     public void StartChase(Transform chaseTarget)
