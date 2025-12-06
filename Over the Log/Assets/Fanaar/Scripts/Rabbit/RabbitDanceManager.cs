@@ -115,22 +115,20 @@ public class RabbitDanceManager : MonoBehaviour
         if (dog == null || dogSpawnPoint == null)
             return;
 
-        // 1. Set the root position exactly to the spawn point
+        // 1. Set position & rotation to spawn point
         dog.transform.position = dogSpawnPoint.position;
         dog.transform.rotation = dogSpawnPoint.rotation;
 
         // 2. Activate the dog
         dog.SetActive(true);
-        /*
-        // 3. Snap perfectly to ground (NEW)
+
+        // 3. Force ground snap & fix X rotation immediately
         DogController ctrl = dog.GetComponent<DogController>();
         if (ctrl != null)
         {
-            ctrl.ForceGroundSnap();
-        }*/
+            ctrl.ForceGroundSnap(); // snaps dog to terrain immediately
+        }
     }
-
-
 
     private bool PlayerLookingAtRunDirection()
     {

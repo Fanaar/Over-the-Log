@@ -5555,7 +5555,7 @@ Transform:
   m_GameObject: {fileID: 551310501}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.74557626, z: 0, w: -0.66642034}
-  m_LocalPosition: {x: 49.6, y: 0.15, z: -109}
+  m_LocalPosition: {x: 38.3, y: 0.15, z: -109}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -6080,35 +6080,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -860
+      value: -859.9925
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 5.5
+      value: 6.16
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -41
+      value: -41.000015
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.99995387
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: -0.00015872733
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0.0000000027939675
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: -0.009602866
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: -0.018
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -6116,7 +6116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: -1.1
       objectReference: {fileID: 0}
     - target: {fileID: 8717087350864520808, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: fadeCanvasGroup
@@ -6162,7 +6162,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b505c3721cb388745bd08727fd8244a6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.1027
+      value: -0.073
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: b505c3721cb388745bd08727fd8244a6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -6211,6 +6211,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b505c3721cb388745bd08727fd8244a6, type: 3}
       propertyPath: m_Name
       value: Dog Run Cycle
+      objectReference: {fileID: 0}
+    - target: {fileID: 5014761761736764688, guid: b505c3721cb388745bd08727fd8244a6, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.4294
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -6317,7 +6321,7 @@ Transform:
   m_GameObject: {fileID: 862926714}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.58, y: 0.45, z: -5.23}
+  m_LocalPosition: {x: -0.5, y: 0.45, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -6727,35 +6731,35 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -642
+      value: -642.0021
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.43
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 18
+      value: 18.000008
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.9999441
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0.00017482383
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 9.313226e-10
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0.010576696
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 0.02
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
@@ -6763,7 +6767,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
+      value: 1.212
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543291224847860414, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.516798
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543291224847860414, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.851
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543291224847860414, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.13
+      objectReference: {fileID: 0}
+    - target: {fileID: 6543291224847860414, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.011
       objectReference: {fileID: 0}
     - target: {fileID: 8717087350864520808, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: fadeCanvasGroup
@@ -7368,7 +7388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.42
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.z
@@ -7888,7 +7908,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.23
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8072,7 +8092,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.47
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8254,7 +8274,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.z
@@ -8911,7 +8931,7 @@ CharacterController:
   m_Enabled: 1
   serializedVersion: 3
   m_Height: 0.14332104
-  m_Radius: 0.1360019
+  m_Radius: 0.072
   m_SlopeLimit: 45
   m_StepOffset: 0.3
   m_SkinWidth: 0.08
@@ -9074,10 +9094,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 1623323947}
     m_Modifications:
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 46.797
-      objectReference: {fileID: 0}
-    - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.x
       value: -367
       objectReference: {fileID: 0}
@@ -9087,7 +9103,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6
+      value: -6.0167
       objectReference: {fileID: 0}
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9116,10 +9132,6 @@ PrefabInstance:
     - target: {fileID: 3140100759685423631, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8717087350864520808, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
-      propertyPath: sceneToLoad
-      value: 0.3 Rabbit Scene
       objectReference: {fileID: 0}
     - target: {fileID: 8717087350864520808, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
       propertyPath: fadeCanvasGroup

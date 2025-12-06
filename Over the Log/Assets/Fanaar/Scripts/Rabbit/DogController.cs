@@ -35,6 +35,7 @@ public class DogController : MonoBehaviour
         ForceGroundSnap();
     }
 
+
     void Update()
     {
         if (!isChasing || target == null) return;
@@ -127,18 +128,27 @@ public class DogController : MonoBehaviour
     }
     public void ForceGroundSnap()
     {
-        // Cast ray from HIGH above the dog, downward to catch terrain no matter what
-        Vector3 rayStart = transform.position + Vector3.up * 5f;
+        CharacterController controller = GetComponent<CharacterController>();
+        if (controller == null) return;
 
+        controller.enabled = false; // temporarily disable
+
+        // raycast to ground
+        Vector3 rayStart = transform.position + Vector3.up * 5f;
         if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, 50f))
         {
             Vector3 pos = transform.position;
-            pos.y = hit.point.y + groundOffset;
+            pos.y = hit.point.y + groundOffset + (controller.height / 2f) - controller.center.y;
             transform.position = pos;
+
+            // reset X rotation
+            Vector3 euler = transform.rotation.eulerAngles;
+            euler.x = 0f;
+            transform.rotation = Quaternion.Euler(euler);
         }
-        else
-        {
-            Debug.LogWarning("DogController: No ground detected under spawn point!");
-        }
+
+        controller.enabled = true; // re-enable
     }
+
 }
+
