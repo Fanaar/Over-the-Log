@@ -8,12 +8,14 @@ public class FadeInFromBlack : MonoBehaviour
 
     void Start()
     {
+        fadePanel.gameObject.SetActive(true); // ensure visible
+        fadePanel.alpha = 1f;                // start fully black
         StartCoroutine(FadeIn());
     }
 
     private IEnumerator FadeIn()
     {
-        float time = 0;
+        float time = 0f;
 
         while (time < fadeDuration)
         {

@@ -6158,9 +6158,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 583843154}
   m_Enabled: 1
-  m_Alpha: 1
-  m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_Alpha: 0
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &583843157
 MonoBehaviour:
@@ -6851,6 +6851,33 @@ Transform:
   m_Children: []
   m_Father: {fileID: 551310504}
   m_LocalEulerAnglesHint: {x: 0, y: 42.253, z: 0}
+--- !u!1 &982143955 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5668086863997287171, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
+  m_PrefabInstance: {fileID: 7472462042435520170}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &982143959
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 982143955}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 2490797909838153576, guid: ed631896c29af8f47bd5d0028db85844, type: 3}
 --- !u!1001 &1011788740
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6986,9 +7013,9 @@ CanvasGroup:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1030910813}
   m_Enabled: 1
-  m_Alpha: 1
+  m_Alpha: 0
   m_Interactable: 1
-  m_BlocksRaycasts: 1
+  m_BlocksRaycasts: 0
   m_IgnoreParentGroups: 0
 --- !u!114 &1030910816
 MonoBehaviour:
@@ -7003,7 +7030,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 0.003921569}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8397,8 +8424,8 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1030910814}
   - {fileID: 583843155}
+  - {fileID: 1030910814}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -9311,7 +9338,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5668086863997287171, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 982143959}
   m_SourcePrefab: {fileID: 100100000, guid: ed5ad1901ad889d4b8e2be309c33f552, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
