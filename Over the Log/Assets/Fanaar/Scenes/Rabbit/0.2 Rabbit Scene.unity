@@ -5695,7 +5695,7 @@ MonoBehaviour:
     m_PostInfinity: 2
     m_RotationOrder: 4
   flyingTrigger1: {fileID: 2027343745}
-  flyingTrigger2: {fileID: 1795275920}
+  flyingTrigger2: {fileID: 958502244}
 --- !u!1001 &558340227
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6872,7 +6872,7 @@ RectTransform:
   m_GameObject: {fileID: 1030910813}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.0637, y: 1.0637, z: 1.0637}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1715599759}

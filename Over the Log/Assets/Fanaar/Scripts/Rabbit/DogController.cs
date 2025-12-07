@@ -30,7 +30,7 @@ public class DogController : MonoBehaviour
 
     void Start()
     {
-        ForceGroundSnap();
+        StartCoroutine(DelayedSnap());
     }
 
     void Update()
@@ -138,5 +138,12 @@ public class DogController : MonoBehaviour
         }
 
         SceneManager.LoadScene(sceneToLoad);
+    }
+
+    private IEnumerator DelayedSnap()
+    {
+        yield return null;     // wait 1 frame
+        yield return null;     // wait 2 frames (let gravity settle)
+        ForceGroundSnap();     // NOW snap perfectly
     }
 }
