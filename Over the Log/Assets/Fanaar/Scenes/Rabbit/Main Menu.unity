@@ -5775,7 +5775,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadePanel: {fileID: 1437194884}
   fadeDuration: 2
-  sceneToLoad: 0.2 Rabbit Scene
+  sceneToLoad: Proloog
 --- !u!4 &1677870995
 Transform:
   m_ObjectHideFlags: 0
