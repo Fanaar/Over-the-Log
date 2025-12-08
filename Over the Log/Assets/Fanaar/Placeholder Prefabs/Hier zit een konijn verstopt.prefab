@@ -274,7 +274,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.36674502, z: -0, w: 0.9303215}
   m_LocalPosition: {x: 0.021080123, y: -0.18, z: -0.014217066}
-  m_LocalScale: {x: 2.7855155, y: 13.927569, z: 1.7409462}
+  m_LocalScale: {x: 2.253705, y: 11.2685175, z: 1.4085647}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6366878856206677383}
@@ -443,6 +443,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: leaf_pile
       objectReference: {fileID: 0}
+    - target: {fileID: 1114205559721329344, guid: 30bd04b8ef9c23c418f84304632b7e9d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -522,6 +526,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: WalkCycle
       objectReference: {fileID: 0}
+    - target: {fileID: 1754863751175371753, guid: 4c3d02005bd42db4ca49cdc67104ab1b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5e57a2c2c6912f240b8b2a494e8fd960, type: 2}
+    - target: {fileID: 3639070501488885058, guid: 4c3d02005bd42db4ca49cdc67104ab1b, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 98225c108c90e8d408203c3a3039bffe, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
