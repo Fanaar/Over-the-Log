@@ -291,7 +291,7 @@ MonoBehaviour:
   - {fileID: 1825497342}
   - {fileID: 46344274}
   fadeDuration: 2
-  nextSceneName: 0.2 Rabbit Scene
+  nextSceneName: Run 1
 --- !u!4 &361902458
 Transform:
   m_ObjectHideFlags: 0
