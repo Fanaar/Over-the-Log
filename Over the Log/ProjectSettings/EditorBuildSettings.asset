@@ -9,14 +9,20 @@ EditorBuildSettings:
     path: Assets/Flin/Poep/Main Scene.unity
     guid: 99c9720ab356a0642a771bea13969a05
   - enabled: 1
-    path: Assets/Fanaar/Scenes/Main Menu.unity
+    path: Assets/Last version Scenes/Main Menu.unity
     guid: e22da3af04a999d44a67a9b956f8c199
   - enabled: 1
+    path: Assets/Last version Scenes/Proloog.unity
+    guid: 6b75958991e186b4a9b0b358af550e09
+  - enabled: 0
     path: Assets/Fanaar/Scenes/Rabbit/0.2 Rabbit Scene.unity
     guid: 82921027c67af7c46aaf162d3e205d37
   - enabled: 1
+    path: Assets/Last version Scenes/Run 1.unity
+    guid: ee4fba47a698f734783518a68655d17d
+  - enabled: 1
     path: Assets/Fanaar/Scenes/Rabbit/0.3 Rabbit Scene.unity
-    guid: d9cf11f5bb3231c41a4371cd6441000b
+    guid: fcb2c945e28c20b479ec667f9fdb7ed1
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
