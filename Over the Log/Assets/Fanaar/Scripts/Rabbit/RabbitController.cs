@@ -73,11 +73,13 @@ public class RabbitController : MonoBehaviour
             float rad = angle * Mathf.Deg2Rad;
 
             Vector3 desiredPos = danceSpot.position + new Vector3(Mathf.Cos(rad), 0f, Mathf.Sin(rad)) * radius;
-
             transform.position = Vector3.Lerp(transform.position, desiredPos, Time.deltaTime * orbitSmoothSpeed);
 
-            Quaternion lookDir = Quaternion.LookRotation(danceSpot.position - transform.position);
-            transform.rotation = Quaternion.Slerp(transform.rotation, lookDir, Time.deltaTime * 5f);
+            // --- TANGENT LOOK ---
+            Vector3 radiusDir = (transform.position - danceSpot.position).normalized; // van centrum naar konijn
+            Vector3 tangentDir = -Vector3.Cross(Vector3.up, radiusDir); // tangent richting (clockwise)
+            Quaternion targetRotation = Quaternion.LookRotation(tangentDir, Vector3.up);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 5f);
         }
     }
 
