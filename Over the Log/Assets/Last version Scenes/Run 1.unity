@@ -10007,10 +10007,6 @@ PrefabInstance:
       propertyPath: danceSpot
       value: 
       objectReference: {fileID: 919719146}
-    - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
-      propertyPath: moveSpeed
-      value: 2
-      objectReference: {fileID: 0}
     - target: {fileID: 2904380119524531242, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
       propertyPath: m_Name
       value: Hier zit een konijn verstopt
