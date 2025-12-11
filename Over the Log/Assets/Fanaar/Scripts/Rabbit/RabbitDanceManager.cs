@@ -17,7 +17,7 @@ public class RabbitDanceManager : MonoBehaviour
     [Header("Dog Settings")]
     public GameObject dog;
     public Transform player;
-    public float dogSpawnDistance = 3f;
+    public Transform dogSpawnPoint; // instead of dogSpawnDistance
 
     [Header("Player Look Settings")]
     public Transform dogLookTarget; // Inspector target
@@ -88,6 +88,9 @@ public class RabbitDanceManager : MonoBehaviour
 
     private void StartRunAway()
     {
+        SpawnDogClean();  // NEW
+
+        // Make all rabbits run
         foreach (var rabbit in rabbits)
         {
             Vector3 targetDir;
@@ -105,6 +108,26 @@ public class RabbitDanceManager : MonoBehaviour
 
         hasRunAway = true;
         Debug.Log("🐇 Konijnen rennen weg!");
+    }
+
+    private void SpawnDogClean()
+    {
+        if (dog == null || dogSpawnPoint == null)
+            return;
+
+        // 1. Set position & rotation to spawn point
+        dog.transform.position = dogSpawnPoint.position;
+        dog.transform.rotation = dogSpawnPoint.rotation;
+
+        // 2. Activate the dog
+        dog.SetActive(true);
+
+        // 3. Force ground snap & fix X rotation immediately
+        DogController ctrl = dog.GetComponent<DogController>();
+        if (ctrl != null)
+        {
+            ctrl.ForceGroundSnap(); // snaps dog to terrain immediately
+        }
     }
 
     private bool PlayerLookingAtRunDirection()
