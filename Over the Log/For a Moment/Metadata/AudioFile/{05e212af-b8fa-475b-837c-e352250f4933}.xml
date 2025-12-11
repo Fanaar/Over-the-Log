@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{05e212af-b8fa-475b-837c-e352250f4933}">
+		<property name="assetPath">
+			<value>pad2.mp3</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>9.66530612244898</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a0bca233-f1d2-413e-8f3d-80d498d6fd44}</destination>
+		</relationship>
+	</object>
+</objects>
