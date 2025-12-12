@@ -6,11 +6,15 @@ public class RabbitTracker : MonoBehaviour
 
     private void OnEnable()
     {
-        // Dit wordt geroepen elke keer als het konijn active wordt
         if (!hasBeenCollected)
         {
             hasBeenCollected = true;
-            RabbitManager.Instance.RegisterRabbitActivated();
+
+            // Check in RabbitManager of dit konijn al geregistreerd is
+            if (RabbitManager.Instance != null)
+            {
+                RabbitManager.Instance.RegisterRabbitActivated();
+            }
         }
     }
 }
