@@ -7464,6 +7464,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1057375734}
   - component: {fileID: 1057375733}
+  - component: {fileID: 1057375735}
   m_Layer: 0
   m_Name: Rabbit manager
   m_TagString: Untagged
@@ -7500,6 +7501,29 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1057375735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057375732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3a9ca592e53e5f048a8d02763e1b2a45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicEvent:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  parameterName: MusicProgression
+  beginningThreshold: 0
+  midThreshold: 3
+  endThreshold: 7
 --- !u!1 &1096809302 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 8698028954354185445, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}

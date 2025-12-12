@@ -14,13 +14,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Last version Scenes/Proloog.unity
     guid: 7c19d0b601f2ec646bc484ed1ea1eff0
+  - enabled: 1
+    path: Assets/Last version Scenes/Run 1.unity
+    guid: 6b914683f91c090448921e304b7890ce
   - enabled: 0
     path: Assets/Fanaar/Scenes/Rabbit/Run 1 Process.unity
     guid: 82921027c67af7c46aaf162d3e205d37
-  - enabled: 1
-    path: Assets/Last version Scenes/Run 1.unity
-    guid: a4202800244238d4ca0dbc3629945a3b
-  - enabled: 1
+  - enabled: 0
     path: Assets/Fanaar/Scenes/Rabbit/0.3 Rabbit Scene.unity
     guid: fcb2c945e28c20b479ec667f9fdb7ed1
   m_configObjects:
