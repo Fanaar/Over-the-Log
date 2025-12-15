@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -7,27 +7,39 @@ public class RabbitSettlementManager : MonoBehaviour
     public static RabbitSettlementManager Instance;
 
     [Header("Rabbits")]
-    public int totalRabbits = 5;                        // Totaal aantal konijnen
+    public int totalRabbits = 5;
     private HashSet<RabbitRunAwayController> settledRabbits = new HashSet<RabbitRunAwayController>();
 
     [Header("Burrow / Escape")]
-    public float digTime = 30f;                         // Tijd voordat burrow open is
-    public GameObject[] blockingCubes;                  // Cubes die de opening blokkeren
-    public AudioSource diggingAudio;                    // Optionele audio
-    public ParticleSystem diggingParticles;            // Optionele particle effect
+    public float digTime = 30f;
+    public GameObject[] blockingCubes;
+    public AudioSource diggingAudio;
+    public ParticleSystem diggingParticles;
 
     [Header("Dog")]
-    public GameObject dog;                              // Sleep hier de hond in inspector
+    public GameObject dog;
     private bool diggingStarted = false;
+
+    // ⬇⬇ NIEUW (maar los van oude logica)
+    [Header("After Burrow Opens")]
+    [SerializeField] private GameObject[] rabbitsToDisable;
+    [SerializeField] private GameObject[] holeTriggerObjects;
 
     void Awake()
     {
         Instance = this;
     }
 
-    /// <summary>
-    /// Wordt aangeroepen door konijn wanneer het gesettled is
-    /// </summary>
+    private void Start()
+    {
+        // Hole triggers altijd eerst UIT
+        foreach (var trigger in holeTriggerObjects)
+        {
+            if (trigger != null)
+                trigger.SetActive(false);
+        }
+    }
+
     public void RabbitSettled(RabbitRunAwayController rabbit)
     {
         if (settledRabbits.Contains(rabbit))
@@ -36,14 +48,12 @@ public class RabbitSettlementManager : MonoBehaviour
         settledRabbits.Add(rabbit);
         Debug.Log($"Konijn gesettled! Totaal: {settledRabbits.Count}/{totalRabbits}");
 
-        // Hond activeren bij het 3e konijn
         if (settledRabbits.Count == 3 && dog != null)
         {
             dog.SetActive(true);
             Debug.Log("Hond wordt geactiveerd bij 3e konijn!");
         }
 
-        // Start burrow/graven timer pas als alle konijnen gesettled zijn
         if (settledRabbits.Count >= totalRabbits && !diggingStarted)
         {
             StartCoroutine(DigBurrow());
@@ -66,7 +76,28 @@ public class RabbitSettlementManager : MonoBehaviour
         }
 
         Debug.Log("Burrow is nu open!");
+
         if (diggingAudio) diggingAudio.Stop();
         if (diggingParticles) diggingParticles.Stop();
+
+        // ⬇⬇ HIER haak je je nieuwe gedrag aan
+        OnBurrowOpened();
+    }
+
+    private void OnBurrowOpened()
+    {
+        // Konijntjes uit
+        foreach (var rabbit in rabbitsToDisable)
+        {
+            if (rabbit != null)
+                rabbit.SetActive(false);
+        }
+
+        // Hole triggers aan
+        foreach (var trigger in holeTriggerObjects)
+        {
+            if (trigger != null)
+                trigger.SetActive(true);
+        }
     }
 }
