@@ -16,16 +16,13 @@ EditorBuildSettings:
     guid: 7c19d0b601f2ec646bc484ed1ea1eff0
   - enabled: 1
     path: Assets/Last version Scenes/Run 1.unity
-    guid: 6b914683f91c090448921e304b7890ce
+    guid: deb6ff66082704d4a996a0a54939aa62
   - enabled: 1
     path: Assets/Last version Scenes/Run 2.unity
-    guid: 4bd8116cc99b75c4687ba2c117f8774c
-  - enabled: 0
-    path: Assets/Fanaar/Scenes/Rabbit/Run 1 Process.unity
-    guid: 82921027c67af7c46aaf162d3e205d37
-  - enabled: 0
-    path: Assets/Fanaar/Scenes/Rabbit/0.3 Rabbit Scene.unity
-    guid: fcb2c945e28c20b479ec667f9fdb7ed1
+    guid: 7ed103b6d4e31174c878e31d538e32c0
+  - enabled: 1
+    path: Assets/Last version Scenes/Run 3.unity
+    guid: 1c755fd5186dd30439390443f479aded
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
