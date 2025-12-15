@@ -143,6 +143,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{5facdfd7-cb42-4adf-85aa-c94ce7a97ed7}">
+		<property name="volume">
+			<value>7.5</value>
+		</property>
 		<relationship name="effectChain">
 			<destination>{2865089d-c6e0-4675-95d6-4812a14a07c3}</destination>
 		</relationship>
@@ -223,6 +226,9 @@
 		</property>
 	</object>
 	<object class="EventMixerGroup" id="{4fa92546-2559-450d-80ce-6348711029bf}">
+		<property name="volume">
+			<value>10</value>
+		</property>
 		<property name="name">
 			<value>Audio 1</value>
 		</property>
@@ -337,6 +343,9 @@
 		</property>
 	</object>
 	<object class="EventMixerGroup" id="{a85b671a-e29d-41cf-a9e6-6f97c4ba6711}">
+		<property name="volume">
+			<value>4.5</value>
+		</property>
 		<property name="name">
 			<value>Audio 3</value>
 		</property>
@@ -391,6 +400,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerGroup" id="{83f605c2-505a-4a4a-8f1b-179834c25b2e}">
+		<property name="volume">
+			<value>10</value>
+		</property>
 		<property name="name">
 			<value>Audio 4</value>
 		</property>
@@ -611,10 +623,10 @@
 	</object>
 	<object class="ParameterCondition" id="{bade5a4b-d6c3-4548-a31e-6cbdc0ba56a8}">
 		<property name="minimum">
-			<value>1</value>
+			<value>4</value>
 		</property>
 		<property name="maximum">
-			<value>4</value>
+			<value>9</value>
 		</property>
 		<relationship name="parameter">
 			<destination>{a769876a-1a14-40cf-9c6c-936c2d22a5b2}</destination>
@@ -639,10 +651,10 @@
 	</object>
 	<object class="ParameterCondition" id="{1ea3e42c-cf96-471f-aa70-114a229d246b}">
 		<property name="minimum">
-			<value>3</value>
+			<value>9</value>
 		</property>
 		<property name="maximum">
-			<value>9</value>
+			<value>10</value>
 		</property>
 		<relationship name="parameter">
 			<destination>{a769876a-1a14-40cf-9c6c-936c2d22a5b2}</destination>
