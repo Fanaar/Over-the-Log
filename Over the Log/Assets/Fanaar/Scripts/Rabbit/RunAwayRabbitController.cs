@@ -9,11 +9,14 @@ public class RabbitRunAwayController : MonoBehaviour
     [Header("Identity")]
     public int rabbitIndex;
 
+    [Header("Manager")]
+    public RabbitSettlementManager manager; // sleep hier de manager in inspector
+
     private Vector3 runDirection;
     private bool isSettled = false;
 
     [HideInInspector]
-    public bool isInPlayerTrigger = false; // Nieuw: in trigger bij speler
+    public bool isInPlayerTrigger = false; // of hij binnen de spelertrigger is
 
     void OnEnable()
     {
@@ -41,11 +44,15 @@ public class RabbitRunAwayController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         RabbitSlot slot = other.GetComponent<RabbitSlot>();
-        if (slot == null) return;
-        if (slot.slotIndex != rabbitIndex) return;
+        if (slot == null || slot.slotIndex != rabbitIndex)
+            return;
 
-        // Konijn is aangekomen
+        // Konijn bereikt zijn slot
         isSettled = true;
-        enabled = false; // HARD STOP
+        enabled = false;
+
+        // Notify manager (veilig tegen dubbel tellen)
+        if (manager != null)
+            manager.RabbitSettled(this);
     }
 }

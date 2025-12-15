@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(CharacterController))]
 public class DogController : MonoBehaviour
@@ -13,11 +12,6 @@ public class DogController : MonoBehaviour
     [Header("Gravity Settings")]
     public float gravity = -9.81f;
     public float groundOffset = 0.2f;
-
-    [Header("Scene Fade Settings")]
-    public CanvasGroup fadeCanvasGroup;
-    public float fadeDuration = 1.5f;
-    public string sceneToLoad = "CaughtScene";
 
     private Transform target;
     private bool isChasing = false;
@@ -35,7 +29,6 @@ public class DogController : MonoBehaviour
 
     void Update()
     {
-        // Always run gravity so the controller stays grounded correctly even before chasing
         HandleGravity();
 
         if (isChasing && target != null)
@@ -62,7 +55,7 @@ public class DogController : MonoBehaviour
         {
             hasCaughtPlayer = true;
             Debug.Log("🐶 Dog reached player!");
-            StartCoroutine(FadeAndLoad());
+            // Hier kan eventueel een event of callback komen voor wat er moet gebeuren
         }
     }
 
@@ -96,11 +89,9 @@ public class DogController : MonoBehaviour
         if (Physics.Raycast(rayStart, Vector3.down, out RaycastHit hit, 50f))
         {
             Vector3 pos = transform.position;
-            // Correct formula: place the capsule center so the bottom touches the ground
             pos.y = hit.point.y + groundOffset + controller.center.y;
             transform.position = pos;
 
-            // Reset X rotation
             Vector3 euler = transform.rotation.eulerAngles;
             euler.x = 0f;
             transform.rotation = Quaternion.Euler(euler);
@@ -113,37 +104,10 @@ public class DogController : MonoBehaviour
         controller.enabled = true;
     }
 
-    private IEnumerator FadeAndLoad()
-    {
-        float timer = 0f;
-
-        // If there's an Image on the canvas group, make sure its alpha can be driven
-        if (fadeCanvasGroup != null && fadeCanvasGroup.GetComponent<UnityEngine.UI.Image>() != null)
-        {
-            var img = fadeCanvasGroup.GetComponent<UnityEngine.UI.Image>();
-            Color c = img.color;
-            c.a = 1f;
-            img.color = c;
-        }
-
-        if (fadeCanvasGroup != null)
-            fadeCanvasGroup.alpha = 0f;
-
-        while (timer < fadeDuration)
-        {
-            timer += Time.deltaTime;
-            if (fadeCanvasGroup != null)
-                fadeCanvasGroup.alpha = Mathf.Lerp(0f, 1f, timer / fadeDuration);
-            yield return null;
-        }
-
-        SceneManager.LoadScene(sceneToLoad);
-    }
-
     private IEnumerator DelayedSnap()
     {
-        yield return null;     // wait 1 frame
-        yield return null;     // wait 2 frames (let gravity settle)
-        ForceGroundSnap();     // NOW snap perfectly
+        yield return null;
+        yield return null;
+        ForceGroundSnap();
     }
 }
