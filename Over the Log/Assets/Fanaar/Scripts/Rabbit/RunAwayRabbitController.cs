@@ -1,40 +1,52 @@
 using UnityEngine;
 
-public class RunAwayRabbitController : MonoBehaviour
+public class RabbitRunAwayController : MonoBehaviour
 {
-    [Header("Direction Handle")]
+    [Header("Movement")]
     public Transform directionHandle;
     public float speed = 5f;
 
+    [Header("Identity")]
+    public int rabbitIndex;
+
     private Vector3 runDirection;
+    private bool isSettled = false;
 
     void OnEnable()
     {
-        // Bereken runDirection zodra het konijn geactiveerd wordt
         if (directionHandle != null)
         {
             Vector3 dir = directionHandle.position - transform.position;
-            dir.y = 0; // alleen XZ-plane
+            dir.y = 0;
+
             if (dir.sqrMagnitude < 0.001f)
-                dir = transform.forward; // fallback
+                dir = transform.forward;
 
             runDirection = dir.normalized;
-        }
-        else
-        {
-            runDirection = transform.forward;
         }
     }
 
     void Update()
     {
-        if (runDirection.sqrMagnitude < 0.001f)
+        if (isSettled)
             return;
 
-        // Beweeg
         transform.position += runDirection * speed * Time.deltaTime;
-
-        // Draai
         transform.rotation = Quaternion.LookRotation(runDirection);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        RabbitSlot slot = other.GetComponent<RabbitSlot>();
+
+        if (slot == null)
+            return;
+
+        // Alleen reageren op "mijn" slot
+        if (slot.slotIndex != rabbitIndex)
+            return;
+
+        // Konijn is aangekomen
+        isSettled = true;
     }
 }

@@ -7329,7 +7329,7 @@ MonoBehaviour:
       Data3: 0
       Data4: 0
     Path: 
-  parameterName: MusicProgression
+  parameterName: rabbits collected
   beginningThreshold: 0
   midThreshold: 3
   endThreshold: 7
