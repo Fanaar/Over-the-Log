@@ -7324,11 +7324,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   musicEvent:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -2115488848
+      Data2: 1140514436
+      Data3: -1357715569
+      Data4: -1740775693
+    Path: event:/Rabbit_IntrExp
   parameterName: rabbits collected
   beginningThreshold: 0
   midThreshold: 3
