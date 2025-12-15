@@ -195,10 +195,10 @@ MonoBehaviour:
   Path: For a Moment/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639011455303953802
+  lastModified: 639014062600760393
   FileSizes:
   - Name: Desktop
-    Value: 3823456
+    Value: 3999904
   Exists: 1
 --- !u!114 &-3736181048605398252
 MonoBehaviour:
@@ -215,10 +215,10 @@ MonoBehaviour:
   Path: For a Moment/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639011455303978850
+  lastModified: 639014062600795597
   FileSizes:
   - Name: Desktop
-    Value: 1650
+    Value: 1694
   Exists: 1
 --- !u!114 &-3173682241003026884
 MonoBehaviour:
@@ -434,13 +434,14 @@ MonoBehaviour:
   - {fileID: 7741767143906413986}
   - {fileID: 3426887509319690764}
   - {fileID: -226609774740078809}
+  - {fileID: 1287236571373139582}
   EditorParameters: []
   MasterBanks:
   - {fileID: -4485403549070057735}
   StringsBanks:
   - {fileID: -3736181048605398252}
   cacheVersion: 131857
-  cacheTime: 639011455303978850
+  cacheTime: 639014062600795597
   SerializableEventsDict:
   - key: event:/ftstps_Rabbit
     index: 0
@@ -476,6 +477,8 @@ MonoBehaviour:
     index: 15
   - key: event:/Wolf_Growls
     index: 16
+  - key: event:/ftstps_Rabbit 2
+    index: 17
 --- !u!114 &352226067973270165
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -528,6 +531,83 @@ MonoBehaviour:
   MinDistance: 1
   MaxDistance: 20
   Length: 26697
+--- !u!114 &1139615062671059057
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/ftstps_Rabbit 2/speed
+  m_EditorClassIdentifier: 
+  Name: speed
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 3270390230
+    data2: 741767317
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
+--- !u!114 &1287236571373139582
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ceb653cd98e289a4e8697a1af55201f2, type: 3}
+  m_Name: event:/ftstps_Rabbit 2
+  m_EditorClassIdentifier: 
+  Path: event:/ftstps_Rabbit 2
+  Guid:
+    Data1: 90555783
+    Data2: 1282448023
+    Data3: 1545832103
+    Data4: 1651002404
+  Banks:
+  - {fileID: -4485403549070057735}
+  IsStream: 0
+  Is3D: 0
+  IsOneShot: 1
+  Parameters:
+  - {fileID: 1691206976889789772}
+  - {fileID: 1139615062671059057}
+  MinDistance: 1
+  MaxDistance: 20
+  Length: 585
+--- !u!114 &1691206976889789772
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fecb8ef7f94ca804a8ab72049b86782e, type: 3}
+  m_Name: parameter:/ftstps_Rabbit 2/wolf distance
+  m_EditorClassIdentifier: 
+  Name: wolf distance
+  StudioPath: 
+  Min: 0
+  Max: 1
+  Default: 0
+  ID:
+    data1: 2028032537
+    data2: 662843473
+  Type: 0
+  IsGlobal: 0
+  Labels: []
+  Exists: 1
 --- !u!114 &2293469390479752116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -715,7 +795,7 @@ MonoBehaviour:
   - {fileID: -7633113448245914112}
   MinDistance: 1
   MaxDistance: 20
-  Length: 500
+  Length: 585
 --- !u!114 &4487364974470148334
 MonoBehaviour:
   m_ObjectHideFlags: 0
