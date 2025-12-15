@@ -12,6 +12,9 @@ public class RabbitRunAwayController : MonoBehaviour
     private Vector3 runDirection;
     private bool isSettled = false;
 
+    [HideInInspector]
+    public bool isInPlayerTrigger = false; // Nieuw: in trigger bij speler
+
     void OnEnable()
     {
         if (directionHandle != null)
@@ -28,8 +31,8 @@ public class RabbitRunAwayController : MonoBehaviour
 
     void Update()
     {
-        if (isSettled)
-            return;
+        if (isSettled || !isInPlayerTrigger)
+            return; // Stoppen als gesettled of niet in trigger
 
         transform.position += runDirection * speed * Time.deltaTime;
         transform.rotation = Quaternion.LookRotation(runDirection);
@@ -38,15 +41,11 @@ public class RabbitRunAwayController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         RabbitSlot slot = other.GetComponent<RabbitSlot>();
-
-        if (slot == null)
-            return;
-
-        // Alleen reageren op "mijn" slot
-        if (slot.slotIndex != rabbitIndex)
-            return;
+        if (slot == null) return;
+        if (slot.slotIndex != rabbitIndex) return;
 
         // Konijn is aangekomen
         isSettled = true;
+        enabled = false; // HARD STOP
     }
 }
