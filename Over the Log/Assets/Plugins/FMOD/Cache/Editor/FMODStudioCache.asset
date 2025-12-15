@@ -67,7 +67,7 @@ MonoBehaviour:
   Name: rabbits collected
   StudioPath: 
   Min: 0
-  Max: 10
+  Max: 2
   Default: 0
   ID:
     data1: 2474135408
@@ -91,7 +91,7 @@ MonoBehaviour:
   Name: rabbits collected
   StudioPath: 
   Min: 0
-  Max: 10
+  Max: 2
   Default: 0
   ID:
     data1: 2474135408
@@ -171,7 +171,7 @@ MonoBehaviour:
   Name: rabbits collected
   StudioPath: 
   Min: 0
-  Max: 10
+  Max: 2
   Default: 0
   ID:
     data1: 2474135408
@@ -195,7 +195,7 @@ MonoBehaviour:
   Path: For a Moment/Build/Desktop/Master.bank
   Name: Master
   StudioPath: bank:/Master
-  lastModified: 639014062600760393
+  lastModified: 639014072928113466
   FileSizes:
   - Name: Desktop
     Value: 3999904
@@ -215,7 +215,7 @@ MonoBehaviour:
   Path: For a Moment/Build/Desktop/Master.strings.bank
   Name: Master.strings
   StudioPath: bank:/Master.strings
-  lastModified: 639014062600795597
+  lastModified: 639014072928138612
   FileSizes:
   - Name: Desktop
     Value: 1694
@@ -235,7 +235,7 @@ MonoBehaviour:
   Name: rabbits collected
   StudioPath: 
   Min: 0
-  Max: 10
+  Max: 2
   Default: 0
   ID:
     data1: 2474135408
@@ -313,7 +313,7 @@ MonoBehaviour:
   Name: rabbits collected
   StudioPath: 
   Min: 0
-  Max: 10
+  Max: 2
   Default: 0
   ID:
     data1: 2474135408
@@ -365,7 +365,7 @@ MonoBehaviour:
   Name: rabbits collected
   StudioPath: 
   Min: 0
-  Max: 10
+  Max: 2
   Default: 0
   ID:
     data1: 2474135408
@@ -441,7 +441,7 @@ MonoBehaviour:
   StringsBanks:
   - {fileID: -3736181048605398252}
   cacheVersion: 131857
-  cacheTime: 639014062600795597
+  cacheTime: 639014072928138612
   SerializableEventsDict:
   - key: event:/ftstps_Rabbit
     index: 0
@@ -494,7 +494,7 @@ MonoBehaviour:
   Name: rabbits collected
   StudioPath: 
   Min: 0
-  Max: 10
+  Max: 2
   Default: 0
   ID:
     data1: 2474135408
@@ -734,7 +734,7 @@ MonoBehaviour:
   Name: rabbits collected
   StudioPath: 
   Min: 0
-  Max: 10
+  Max: 2
   Default: 0
   ID:
     data1: 2474135408
@@ -758,7 +758,7 @@ MonoBehaviour:
   Name: rabbits collected
   StudioPath: 
   Min: 0
-  Max: 10
+  Max: 2
   Default: 0
   ID:
     data1: 2474135408
@@ -887,7 +887,7 @@ MonoBehaviour:
   Name: rabbits collected
   StudioPath: 
   Min: 0
-  Max: 10
+  Max: 2
   Default: 0
   ID:
     data1: 2474135408
