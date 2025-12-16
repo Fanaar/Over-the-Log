@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
@@ -37,10 +37,13 @@ public class RabbitController : MonoBehaviour
 
     private bool isActivated = false;
     private bool isAtDanceSpot = false;
+    private int framesAtSpot = 0; // smoothing counter
 
     // vertical motion
     private float verticalVelocity;
     private bool isJumping;
+
+    private bool canJump = false; // ✅ Nieuw: alleen springen als gesettled
 
     public bool IsAtDanceSpot => isAtDanceSpot;
 
@@ -92,8 +95,20 @@ public class RabbitController : MonoBehaviour
             controller.Move(dir * moveSpeed * Time.deltaTime);
             transform.LookAt(danceSpot);
 
+            // ✅ Smoothing: pas na 3 frames binnen threshold wordt het gesettled
             if (Vector3.Distance(transform.position, targetPosition) < 0.2f)
-                isAtDanceSpot = true;
+            {
+                framesAtSpot++;
+                if (framesAtSpot >= 3)
+                {
+                    isAtDanceSpot = true;
+                    canJump = true; // ✅ Pas nu mogen ze springen
+                }
+            }
+            else
+            {
+                framesAtSpot = 0; // reset als ze bewegen
+            }
         }
         else
         {
@@ -158,6 +173,8 @@ public class RabbitController : MonoBehaviour
         if (!gameObject.activeInHierarchy || isJumping)
             return;
 
+        if (!canJump) return; // ❌ Blokkeer jump zolang ze niet gesettled zijn
+
         StartCoroutine(JumpAfterDelay());
     }
 
@@ -191,5 +208,10 @@ public class RabbitController : MonoBehaviour
     {
         isRunningAway = true;
         runDirection = direction.normalized;
+
+        // ✅ Reset jump / dance spot
+        canJump = false;
+        isAtDanceSpot = false;
+        framesAtSpot = 0;
     }
 }
