@@ -1,19 +1,21 @@
+using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class RabbitController : MonoBehaviour
 {
     [Header("Circle Settings")]
-    public Transform danceSpot;        // Midden van de cirkel
-    public float radius = 1.5f;        // Afstand van het midden
-    public float rotationSpeed = 30f;  // Rotatiesnelheid van de cirkel
+    public Transform danceSpot;
+    public float radius = 1.5f;
+    public float rotationSpeed = 30f;
 
     [Header("Movement Settings")]
-    public float moveSpeed = 2f;        // Snelheid tot cirkel
-    public float orbitSmoothSpeed = 2f; // Hoe snel hij aansluit en meedraait
+    public float moveSpeed = 2f;
+    public float orbitSmoothSpeed = 2f;
 
     [Header("Circle Index")]
-    public int circleIndex = 0;         // Slot van dit konijn
-    public int totalRabbits = 1;        // Totaal aantal konijnen in cirkel
+    public int circleIndex = 0;
+    public int totalRabbits = 1;
 
     [Header("Run Away Settings")]
     public bool isRunningAway = false;
@@ -21,111 +23,158 @@ public class RabbitController : MonoBehaviour
     public float runSpeed = 5f;
     public float spreadAmount = 1f;
 
-    [Header("Grounding")]
-    public float groundCheckDistance = 5f;
-    public float groundOffset = 0.05f;
+    [Header("Ground Settings")]
     public LayerMask groundLayer;
+    public float gravity = -25f;
+    public float groundedSnap = -2f;
 
+    [Header("Jump Reaction")]
+    public float jumpDelay = 0.5f;
+    public float jumpForce = 6f;
+
+    private CharacterController controller;
     private Vector3 targetPosition;
+
     private bool isActivated = false;
     private bool isAtDanceSpot = false;
 
+    // vertical motion
+    private float verticalVelocity;
+    private bool isJumping;
+
     public bool IsAtDanceSpot => isAtDanceSpot;
 
+    // -------------------------
+    // LIFECYCLE
+    // -------------------------
     void OnEnable()
     {
+        controller = GetComponent<CharacterController>();
+        FirstPersonRabbitController.OnPlayerJump += OnPlayerJumped;
+
         if (gameObject.activeInHierarchy)
             OnActivated();
     }
 
+    void OnDisable()
+    {
+        FirstPersonRabbitController.OnPlayerJump -= OnPlayerJumped;
+    }
+
+    // -------------------------
+    // UPDATE
+    // -------------------------
     void Update()
     {
-        // --- RUN AWAY MODE ---
+        ApplyGravity();
+
         if (isRunningAway)
         {
-            Vector3 offset = Vector3.right * ((circleIndex - totalRabbits / 2f) * spreadAmount);
-            Vector3 runTarget = transform.position + runDirection.normalized * 10f + offset;
-
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                runTarget,
-                runSpeed * Time.deltaTime
-            );
-
-            if ((runTarget - transform.position).magnitude > 0.1f)
-            {
-                transform.rotation = Quaternion.Slerp(
-                    transform.rotation,
-                    Quaternion.LookRotation(runDirection),
-                    Time.deltaTime * 5f
-                );
-            }
-
-            StickToGround();
-            return;
+            HandleRunAway();
+        }
+        else if (isActivated)
+        {
+            HandleDanceMovement();
         }
 
-        if (!isActivated) return;
+        // Apply vertical + horizontal movement together
+        controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+    }
 
-        // --- MOVE TO CIRCLE ---
+    // -------------------------
+    // MOVEMENT
+    // -------------------------
+    void HandleDanceMovement()
+    {
         if (!isAtDanceSpot)
         {
-            transform.position = Vector3.MoveTowards(
-                transform.position,
-                targetPosition,
-                moveSpeed * Time.deltaTime
-            );
-
+            Vector3 dir = (targetPosition - transform.position).normalized;
+            controller.Move(dir * moveSpeed * Time.deltaTime);
             transform.LookAt(danceSpot);
 
-            if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
-            {
+            if (Vector3.Distance(transform.position, targetPosition) < 0.2f)
                 isAtDanceSpot = true;
-                Debug.Log(name + " is aangekomen op zijn plek in de cirkel!");
-            }
         }
         else
         {
-            // --- SMOOTH ORBIT ---
             float angle = 360f / totalRabbits * circleIndex + Time.time * rotationSpeed;
             float rad = angle * Mathf.Deg2Rad;
 
             Vector3 desiredPos = danceSpot.position +
                                  new Vector3(Mathf.Cos(rad), 0f, Mathf.Sin(rad)) * radius;
 
-            transform.position = Vector3.Lerp(
-                transform.position,
-                desiredPos,
-                Time.deltaTime * orbitSmoothSpeed
-            );
+            Vector3 move = (desiredPos - transform.position);
+            move.y = 0f;
 
-            // --- TANGENT LOOK ---
+            controller.Move(move * orbitSmoothSpeed * Time.deltaTime);
+
             Vector3 radiusDir = (transform.position - danceSpot.position).normalized;
             Vector3 tangentDir = -Vector3.Cross(Vector3.up, radiusDir);
-
-            Quaternion targetRotation = Quaternion.LookRotation(tangentDir, Vector3.up);
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
-                targetRotation,
+                Quaternion.LookRotation(tangentDir),
                 Time.deltaTime * 5f
             );
         }
-
-        StickToGround();
     }
 
-    void StickToGround()
+    void HandleRunAway()
     {
-        Ray ray = new Ray(transform.position + Vector3.up, Vector3.down);
+        Vector3 offset = Vector3.right * ((circleIndex - totalRabbits / 2f) * spreadAmount);
+        Vector3 dir = (runDirection.normalized + offset).normalized;
 
-        if (Physics.Raycast(ray, out RaycastHit hit, groundCheckDistance, groundLayer))
+        controller.Move(dir * runSpeed * Time.deltaTime);
+
+        if (dir.magnitude > 0.1f)
         {
-            Vector3 pos = transform.position;
-            pos.y = hit.point.y + groundOffset;
-            transform.position = pos;
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                Quaternion.LookRotation(dir),
+                Time.deltaTime * 5f
+            );
         }
     }
 
+    // -------------------------
+    // GRAVITY + JUMP
+    // -------------------------
+    void ApplyGravity()
+    {
+        if (controller.isGrounded)
+        {
+            if (verticalVelocity < 0)
+                verticalVelocity = groundedSnap;
+
+            isJumping = false;
+        }
+        else
+        {
+            verticalVelocity += gravity * Time.deltaTime;
+        }
+    }
+
+    void OnPlayerJumped()
+    {
+        if (!gameObject.activeInHierarchy || isJumping)
+            return;
+
+        StartCoroutine(JumpAfterDelay());
+    }
+
+    IEnumerator JumpAfterDelay()
+    {
+        yield return new WaitForSeconds(jumpDelay);
+
+        if (!controller.isGrounded)
+            yield break;
+
+        verticalVelocity = jumpForce;
+        isJumping = true;
+    }
+
+    // -------------------------
+    // PUBLIC API
+    // -------------------------
     public void OnActivated()
     {
         if (isActivated) return;
@@ -136,14 +185,11 @@ public class RabbitController : MonoBehaviour
 
         Vector3 offset = new Vector3(Mathf.Cos(rad), 0f, Mathf.Sin(rad)) * radius;
         targetPosition = danceSpot.position + offset;
-
-        Debug.Log(name + " OnActivated! Doelpositie: " + targetPosition);
     }
 
     public void RunAway(Vector3 direction)
     {
         isRunningAway = true;
         runDirection = direction.normalized;
-        Debug.Log(name + " gaat wegrennen!");
     }
 }
