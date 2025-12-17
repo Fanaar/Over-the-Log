@@ -19236,7 +19236,7 @@ MonoBehaviour:
       Data2: 1140514436
       Data3: -1357715569
       Data4: -1740775693
-    Path: event:/Rabbit_IntrExp
+    Path: event:/IntrExp
   Event: 
   EventPlayTrigger: 3
   EventStopTrigger: 4

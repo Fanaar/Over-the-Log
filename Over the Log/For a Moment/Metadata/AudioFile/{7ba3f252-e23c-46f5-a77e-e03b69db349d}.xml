@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{7ba3f252-e23c-46f5-a77e-e03b69db349d}">
+		<property name="assetPath">
+			<value>1. FAM_Konijn_Wolf_Lofi_Sneaky.wav</value>
+		</property>
+		<property name="isStreaming">
+			<value>true</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>12</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a0bca233-f1d2-413e-8f3d-80d498d6fd44}</destination>
+		</relationship>
+	</object>
+</objects>
