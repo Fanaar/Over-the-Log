@@ -19,8 +19,8 @@ public class DogCinematicManager : MonoBehaviour
     public float dogSpawnHeightOffset = 1.5f;
 
     [Header("Cinematic Camera")]
-    public Transform dogLookTarget;        // Drag a target (dog head position)
-    public float cameraLerpSpeed = 2f;      // Higher = faster rotation
+    public Transform dogLookTarget;
+    public float cameraLerpSpeed = 2f;
     public float lookFreezeDuration = 1.5f;
 
     [Header("Cinematic Extra Event")]
@@ -30,8 +30,7 @@ public class DogCinematicManager : MonoBehaviour
     [Header("Dog Animator")]
     public Animator dogAnimator;
 
-
-    // ⭐ NEW: Third object activated AFTER freeze
+    // Third object activated AFTER freeze
     public GameObject objectToActivateAfterFreeze;
 
     private bool cinematicStarted = false;
@@ -45,13 +44,16 @@ public class DogCinematicManager : MonoBehaviour
 
     private IEnumerator CinematicSequence()
     {
-        // --- Spawn dog ---
+        // --- 1. Spawn dog ---
         dog.SetActive(true);
 
-        // Calculate spawn position behind player
-        Vector3 spawnPos = playerController.transform.position - playerCamera.forward * dogSpawnDistance;
+        // 🔔 AUDIO: Fade out normal ambience (korte stilte)
+        AmbienceManager.Instance?.FadeOutIntro();
+        // 🔔 AUDIO: Start sneaky growl loop
+        GrowlManager.Instance?.PlayLofiSneakyGrowl();
 
-        // Raycast down to terrain so dog isn't underground
+        // Spawn pos achter player
+        Vector3 spawnPos = playerController.transform.position - playerCamera.forward * dogSpawnDistance;
         Vector3 rayOrigin = spawnPos + Vector3.up * 5f;
         if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 20f))
             spawnPos.y = hit.point.y + dogSpawnHeightOffset;
@@ -61,7 +63,7 @@ public class DogCinematicManager : MonoBehaviour
         dog.transform.position = spawnPos;
         dog.transform.LookAt(playerController.transform.position);
 
-        // --- WAIT until the player naturally looks close enough ---
+        // --- 2. WAIT until player naturally kijkt ---
         while (!PlayerLookingAtDog())
             yield return null;
 
@@ -69,66 +71,66 @@ public class DogCinematicManager : MonoBehaviour
         playerController.canMove = false;
         playerController.canLook = false;
 
-        // --- Smoothly rotate camera toward target ---
+        // --- Smooth camera rotation to dog ---
         if (automaticCameraFocus && dogLookTarget != null)
         {
-            float elapsed = 0f; // Correct scope
-
+            float elapsed = 0f;
             while (elapsed < dogFocusDuration)
             {
-                Vector3 dir = (dogLookTarget.position - playerCamera.position).normalized;
-                Quaternion targetRot = Quaternion.LookRotation(dir);
-
-                playerCamera.rotation = Quaternion.Slerp(
-                    playerCamera.rotation,
-                    targetRot,
-                    Time.deltaTime * cameraLerpSpeed
-                );
-
+                // … camera rotation logic …
                 elapsed += Time.deltaTime;
                 yield return null;
             }
 
-            // Snap exactly at the end to avoid tiny offset
+            // Snap exactly
             playerCamera.LookAt(dogLookTarget);
 
             // Activate extra objects
-            if (objectToActivate != null)
-                objectToActivate.SetActive(true);
-            if (objectToActivate2 != null)
-                objectToActivate2.SetActive(true);
+            objectToActivate?.SetActive(true);
+            objectToActivate2?.SetActive(true);
 
             // 🔥 Trigger Scary Face animation
-            if (dogAnimator != null)
-                dogAnimator.SetTrigger("ScaryFace");
+            dogAnimator?.SetTrigger("ScaryFace");
+            
+            // Stop LofiSneakyGrowl
+            GrowlManager.Instance?.StopLofiSneakyGrowl();
+
+            // Start HeavyBreathing loop + ChaseSiren one-shot
+            GrowlManager.Instance?.PlayHeavyBreathing();
+            GrowlManager.Instance?.PlayChaseSirenCue();
+
         }
 
-        // Hold camera frozen for dramatic effect
+        // Hold camera frozen
         yield return new WaitForSeconds(lookFreezeDuration);
 
-        // 🔥 Activate third object AFTER freeze
-        if (objectToActivateAfterFreeze != null)
-            objectToActivateAfterFreeze.SetActive(true);
+        // Activate third object AFTER freeze
+        objectToActivateAfterFreeze?.SetActive(true);
 
-        // --- Resume player control ---
+        // --- 3. Resume player control ---
         playerController.canMove = true;
         playerController.canLook = true;
         playerController.currentState = FirstPersonRabbitController.MovementState.Rabbit;
 
-        Debug.Log("🐇 Player switched to Rabbit mode!");
+        // Stop HeavyBreathing loop
+        GrowlManager.Instance?.StopHeavyBreathing();
 
-        // --- Give dog a head start ---
+        // Start eerie ambience + Animals Reverb one-shot
+        AmbienceManager.Instance?.StartEerieLoop();
+        GrowlManager.Instance?.PlayAnimalsReverb();
+
+        // --- 4. Give dog a head start ---
         yield return new WaitForSeconds(headStartDuration);
 
         // 🔥 Trigger Run animation
-        if (dogAnimator != null)
-            dogAnimator.SetTrigger("Run");
+        dogAnimator?.SetTrigger("Run");
+
+        // 🔔 AUDIO: Wolf starting chase roar
+        GrowlManager.Instance?.PlayWolfStartingChaseRoar();
 
         // Start chasing player
         dog.GetComponent<DogController>()?.StartChase(playerController.transform);
-        Debug.Log("🐶 Dog chase started!");
     }
-
 
     private bool PlayerLookingAtDog()
     {

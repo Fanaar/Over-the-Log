@@ -1,5 +1,7 @@
 ﻿using System;
 using UnityEngine;
+using FMODUnity;
+
 
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonRabbitController : MonoBehaviour
@@ -27,6 +29,10 @@ public class FirstPersonRabbitController : MonoBehaviour
     public float bobSpeed = 6f;
     public float bobAmount = 0.05f;
 
+    [Header("Footstep Audio")]
+    public EventReference footstepEvent;
+    public float footstepThreshold = -0.01f;
+
     [Header("Rabbit Bob Settings")]
     public float rabbitBobSpeedMultiplier = 1.8f;
     public float rabbitBobAmountMultiplier = 1.4f;
@@ -45,6 +51,8 @@ public class FirstPersonRabbitController : MonoBehaviour
     private float verticalRotation;
     private float defaultCameraY;
     private float bobTimer;
+    private float lastBobY;
+
 
     // --- Player Jump Event ---
     public static event Action OnPlayerJump;
@@ -163,17 +171,27 @@ public class FirstPersonRabbitController : MonoBehaviour
             float bobOffsetY = Mathf.Sin(bobTimer * 1.3f) * amount;
             float bobOffsetX = Mathf.Sin(bobTimer * 0.7f) * amount * 0.4f;
 
-            Vector3 target = new Vector3(0 + bobOffsetX, defaultCameraY + bobOffsetY, 0);
+            // 👣 FOOTSTEP TRIGGER (de magie)
+            if (lastBobY > footstepThreshold && bobOffsetY <= footstepThreshold)
+            {
+                RuntimeManager.PlayOneShot(footstepEvent, transform.position);
+            }
 
+            lastBobY = bobOffsetY;
+
+            Vector3 target = new Vector3(bobOffsetX, defaultCameraY + bobOffsetY, 0);
             playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, target, Time.deltaTime * 10f);
         }
         else
         {
             bobTimer = 0;
+            lastBobY = 0;
+
             Vector3 target = new Vector3(0, defaultCameraY, 0);
             playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, target, Time.deltaTime * 8f);
         }
     }
+
 
     void OnDrawGizmosSelected()
     {
