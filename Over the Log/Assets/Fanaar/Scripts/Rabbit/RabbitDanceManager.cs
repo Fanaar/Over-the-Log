@@ -35,9 +35,12 @@ public class RabbitDanceManager : MonoBehaviour
     public Collider playerRunTrigger; // sleep hier de trigger in inspector
     private bool playerInTrigger = false;
 
+    [SerializeField] private bool allReady = false;  // blijft in inspector zichtbaar
+    public bool AllReady => allReady;               // read-only voor andere scripts
+
     private float currentAngle = 0f;
     private int completedRotations = 0;
-    private bool allReady = false;
+
     private bool hasRunAway = false;
 
     void Update()
@@ -88,6 +91,11 @@ public class RabbitDanceManager : MonoBehaviour
 
     private void StartRunAway()
     {
+        // Stop circle dance audio
+        RabbitDanceAudioManager audioManager = GetComponent<RabbitDanceAudioManager>();
+        if (audioManager != null)
+            audioManager.StopDance();
+
         SpawnDogClean();  // NEW
 
         // Make all rabbits run
