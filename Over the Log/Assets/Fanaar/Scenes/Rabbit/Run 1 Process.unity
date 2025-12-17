@@ -162,8 +162,14 @@ MonoBehaviour:
   lookFreezeDuration: 4
   objectToActivate: {fileID: 2027343744}
   objectToActivate2: {fileID: 521079942}
-  dogAnimator: {fileID: 1151978014}
   objectToActivateAfterFreeze: {fileID: 958502243}
+  dogAnimator: {fileID: 1151978014}
+  chase3DAudioEmitter: {fileID: 0}
+  lofiSneakyGrowl: {fileID: 0}
+  heavyBreathingLoop: {fileID: 0}
+  chaseSirenCue: {fileID: 0}
+  animalsReverbCue: {fileID: 0}
+  wolfChaseRoarCue: {fileID: 0}
 --- !u!4 &39444586
 Transform:
   m_ObjectHideFlags: 0
@@ -298,11 +304,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -146201744
+      Data2: 1182617319
+      Data3: 2078955193
+      Data4: -878845397
+    Path: event:/Ambience_EerieEnd
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -312,8 +318,8 @@ MonoBehaviour:
   NonRigidbodyVelocity: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: -1
-  OverrideMaxDistance: -1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!114 &180170321
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,11 +335,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 451202483
+      Data2: 1228221762
+      Data3: -1841796163
+      Data4: 179414934
+    Path: event:/Ambience_Eerieloop
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -343,8 +349,8 @@ MonoBehaviour:
   NonRigidbodyVelocity: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: -1
-  OverrideMaxDistance: -1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!114 &180170322
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -360,11 +366,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1454604776
+      Data2: 1133843901
+      Data3: 1905458571
+      Data4: -914491719
+    Path: event:/Ambience_Intro
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -374,8 +380,8 @@ MonoBehaviour:
   NonRigidbodyVelocity: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: -1
-  OverrideMaxDistance: -1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!114 &180170323
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -388,9 +394,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 543bc0c178c63ae4eb40f0b2b09d6b50, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ambienceIntro: {fileID: 0}
-  eerieLoop: {fileID: 0}
-  eerieEnding: {fileID: 0}
+  ambienceIntro: {fileID: 180170322}
+  eerieLoop: {fileID: 180170321}
+  eerieEnding: {fileID: 180170320}
   quickFadeOutTime: 0.4
   normalFadeTime: 1.5
 --- !u!4 &180170324
@@ -7220,81 +7226,16 @@ GameObject:
   m_Component:
   - component: {fileID: 919719146}
   - component: {fileID: 919719145}
-  - component: {fileID: 919719144}
-  - component: {fileID: 919719143}
+  - component: {fileID: 919719149}
+  - component: {fileID: 919719148}
+  - component: {fileID: 919719147}
   m_Layer: 0
   m_Name: Konijnen Dans plek
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!65 &919719143
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919719142}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &919719144
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919719142}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
+  m_IsActive: 1
 --- !u!33 &919719145
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -7318,6 +7259,83 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 40.164, z: 0}
+--- !u!114 &919719147
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919719142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
+--- !u!114 &919719148
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919719142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
+--- !u!114 &919719149
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919719142}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 962cf92fc80b86247afa025805cd9b83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  circleForming: {fileID: 0}
+  circleDance: {fileID: 0}
+  danceManager: {fileID: 1766627585}
 --- !u!1 &958502243
 GameObject:
   m_ObjectHideFlags: 0
@@ -7695,7 +7713,7 @@ MonoBehaviour:
       Data2: 1140514436
       Data3: -1357715569
       Data4: -1740775693
-    Path: event:/Rabbit_IntrExp
+    Path: event:/IntrExp
   parameterName: rabbits collected
   beginningThreshold: 0
   midThreshold: 3
@@ -8413,6 +8431,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1347097651}
+  - component: {fileID: 1347097652}
   m_Layer: 0
   m_Name: AE_Growl (FMOD 3D Event Emitter)
   m_TagString: Untagged
@@ -8435,6 +8454,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1839937583}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1347097652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347097650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 0
+      Data2: 0
+      Data3: 0
+      Data4: 0
+    Path: 
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: -1
+  OverrideMaxDistance: -1
 --- !u!1001 &1356778377
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9642,6 +9692,7 @@ MonoBehaviour:
   coneLength: 5
   dogCinematicManager: {fileID: 39444585}
   playerRunTrigger: {fileID: 1998402739}
+  allReady: 0
 --- !u!4 &1766627586
 Transform:
   m_ObjectHideFlags: 0
