@@ -2,7 +2,7 @@
 <objects serializationModel="Studio.02.03.00">
 	<object class="Event" id="{81e833b0-de84-43fa-8fe7-12aff3de3d98}">
 		<property name="name">
-			<value>Rabbit_IntrExp</value>
+			<value>IntrExp</value>
 		</property>
 		<property name="outputFormat">
 			<value>1</value>
@@ -227,7 +227,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{4fa92546-2559-450d-80ce-6348711029bf}">
 		<property name="volume">
-			<value>10</value>
+			<value>6</value>
 		</property>
 		<property name="name">
 			<value>Audio 1</value>
@@ -244,7 +244,7 @@
 	</object>
 	<object class="SingleSound" id="{9aea59e8-ea17-459c-bdf3-23c1e88e47ac}">
 		<property name="start">
-			<value>26.666666666666668</value>
+			<value>24</value>
 		</property>
 		<property name="length">
 			<value>23.999999999999996</value>
@@ -286,6 +286,9 @@
 		</property>
 	</object>
 	<object class="EventMixerGroup" id="{b5c46373-6488-4920-ad0f-b76de82df812}">
+		<property name="volume">
+			<value>6</value>
+		</property>
 		<property name="name">
 			<value>Audio 2</value>
 		</property>
@@ -301,7 +304,7 @@
 	</object>
 	<object class="SingleSound" id="{f7448bbb-74f0-443d-8dc3-bbecaaf72cd6}">
 		<property name="start">
-			<value>50.666666666666664</value>
+			<value>48</value>
 		</property>
 		<property name="length">
 			<value>26.697142857142858</value>
@@ -344,7 +347,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{a85b671a-e29d-41cf-a9e6-6f97c4ba6711}">
 		<property name="volume">
-			<value>4.5</value>
+			<value>6</value>
 		</property>
 		<property name="name">
 			<value>Audio 3</value>
@@ -361,13 +364,10 @@
 	</object>
 	<object class="SingleSound" id="{85e5ed0c-001d-4ba7-94b1-e8c377353492}">
 		<property name="start">
-			<value>77.363809523809522</value>
+			<value>74.69714285714285</value>
 		</property>
 		<property name="length">
 			<value>26.697142857142858</value>
-		</property>
-		<property name="volume">
-			<value>10</value>
 		</property>
 		<relationship name="audioFile">
 			<destination>{f62f5b63-491e-4349-b470-799f86106e6f}</destination>
@@ -401,7 +401,7 @@
 	</object>
 	<object class="EventMixerGroup" id="{83f605c2-505a-4a4a-8f1b-179834c25b2e}">
 		<property name="volume">
-			<value>10</value>
+			<value>6</value>
 		</property>
 		<property name="name">
 			<value>Audio 4</value>
@@ -432,7 +432,7 @@
 	</object>
 	<object class="LoopRegion" id="{32ac35fb-8e6c-49db-a96e-33f27530d646}">
 		<property name="position">
-			<value>37.333333333333336</value>
+			<value>34.666666666666671</value>
 		</property>
 		<property name="length">
 			<value>10.666666666666661</value>
@@ -446,7 +446,7 @@
 	</object>
 	<object class="LoopRegion" id="{4ed98ee3-9d95-4c49-be61-bda33a8485dc}">
 		<property name="position">
-			<value>61.333333333333336</value>
+			<value>58.666666666666671</value>
 		</property>
 		<property name="length">
 			<value>10.666666666666659</value>
@@ -460,7 +460,7 @@
 	</object>
 	<object class="TransitionRegion" id="{3b49be74-f0ae-41c8-b541-cd20b4bd8a19}">
 		<property name="position">
-			<value>37.333333333333336</value>
+			<value>34.666666666666671</value>
 		</property>
 		<property name="length">
 			<value>10.666666666666664</value>
@@ -489,7 +489,7 @@
 	</object>
 	<object class="NamedMarker" id="{dc002708-3a1b-468a-9e90-5be6c95de7fa}">
 		<property name="position">
-			<value>50.666666666666664</value>
+			<value>48</value>
 		</property>
 		<property name="name">
 			<value>Marker A</value>
@@ -503,7 +503,7 @@
 	</object>
 	<object class="NamedMarker" id="{20bc9590-7c2d-4aca-8876-4a7092a794b3}">
 		<property name="position">
-			<value>77.333333333333329</value>
+			<value>74.666666666666643</value>
 		</property>
 		<property name="name">
 			<value>Marker B</value>
@@ -517,7 +517,7 @@
 	</object>
 	<object class="TransitionRegion" id="{777f8f72-a39c-4f88-9749-36fe7b58c2ed}">
 		<property name="position">
-			<value>61.333333333333336</value>
+			<value>58.666666666666671</value>
 		</property>
 		<property name="length">
 			<value>10.666666666666664</value>
