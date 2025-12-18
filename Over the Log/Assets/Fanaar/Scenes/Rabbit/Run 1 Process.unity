@@ -130,10 +130,10 @@ GameObject:
   - component: {fileID: 39444586}
   - component: {fileID: 39444585}
   - component: {fileID: 39444591}
-  - component: {fileID: 39444590}
   - component: {fileID: 39444589}
   - component: {fileID: 39444588}
   - component: {fileID: 39444587}
+  - component: {fileID: 39444590}
   m_Layer: 0
   m_Name: Dog Cinematic Manager
   m_TagString: Untagged
@@ -169,12 +169,12 @@ MonoBehaviour:
   objectToActivate2: {fileID: 521079942}
   objectToActivateAfterFreeze: {fileID: 958502243}
   dogAnimator: {fileID: 1151978014}
-  chase3DAudioEmitter: {fileID: 0}
-  lofiSneakyGrowl: {fileID: 0}
-  heavyBreathingLoop: {fileID: 0}
-  chaseSirenCue: {fileID: 0}
-  animalsReverbCue: {fileID: 0}
-  wolfChaseRoarCue: {fileID: 0}
+  chase3DAudioEmitter: {fileID: 1347097652}
+  lofiSneakyGrowl: {fileID: 39444591}
+  heavyBreathingLoop: {fileID: 39444589}
+  chaseSirenCue: {fileID: 39444588}
+  animalsReverbCue: {fileID: 39444590}
+  wolfChaseRoarCue: {fileID: 39444590}
 --- !u!4 &39444586
 Transform:
   m_ObjectHideFlags: 0
@@ -205,11 +205,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -717763456
+      Data2: 1241825520
+      Data3: -679836774
+      Data4: -1999397820
+    Path: event:/WolfChase_Animals
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -219,8 +219,8 @@ MonoBehaviour:
   NonRigidbodyVelocity: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: -1
-  OverrideMaxDistance: -1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!114 &39444588
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -236,11 +236,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1093332296
+      Data2: 1279755168
+      Data3: 2076804485
+      Data4: -1052665557
+    Path: event:/WolfChase_SirenEffect
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -250,8 +250,8 @@ MonoBehaviour:
   NonRigidbodyVelocity: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: -1
-  OverrideMaxDistance: -1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!114 &39444589
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,11 +267,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1230631020
+      Data2: 1180800091
+      Data3: -1402551140
+      Data4: -431640900
+    Path: event:/Wolf_HeavyBreathing
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -281,8 +281,8 @@ MonoBehaviour:
   NonRigidbodyVelocity: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: -1
-  OverrideMaxDistance: -1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!114 &39444590
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,11 +298,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: -717763456
+      Data2: 1241825520
+      Data3: -679836774
+      Data4: -1999397820
+    Path: event:/WolfChase_Animals
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -312,8 +312,8 @@ MonoBehaviour:
   NonRigidbodyVelocity: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: -1
-  OverrideMaxDistance: -1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!114 &39444591
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -329,11 +329,11 @@ MonoBehaviour:
   CollisionTag: 
   EventReference:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 1396197318
+      Data2: 1241028879
+      Data3: 380493453
+      Data4: 595010501
+    Path: event:/Wolf_SneakyGrowl
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0
@@ -343,8 +343,8 @@ MonoBehaviour:
   NonRigidbodyVelocity: 0
   Params: []
   OverrideAttenuation: 0
-  OverrideMinDistance: -1
-  OverrideMaxDistance: -1
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &48877911
 GameObject:
   m_ObjectHideFlags: 0
@@ -6231,130 +6231,6 @@ MonoBehaviour:
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: ce3446df93041e84f9640a34f5c89b25, type: 2}
---- !u!1 &579718859
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 579718863}
-  - component: {fileID: 579718862}
-  - component: {fileID: 579718861}
-  - component: {fileID: 579718860}
-  - component: {fileID: 579718864}
-  m_Layer: 0
-  m_Name: First encounter met hond
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!65 &579718860
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 579718859}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &579718861
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 579718859}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &579718862
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 579718859}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &579718863
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 579718859}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.7074401, z: -0, w: 0.70677334}
-  m_LocalPosition: {x: -74.376884, y: 0.5905179, z: -101.73236}
-  m_LocalScale: {x: 11.5114, y: 1, z: 11.428275}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 41.722, z: 0}
---- !u!114 &579718864
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 579718859}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 335bf65dd23c0e447be6238e758fd155, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  actions:
-  - targetObject: {fileID: 0}
-    setActive: 1
 --- !u!1001 &580953569
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -10544,7 +10420,6 @@ SceneRoots:
   - {fileID: 1116652335}
   - {fileID: 1623323947}
   - {fileID: 919719146}
-  - {fileID: 579718863}
   - {fileID: 1471677164436432250}
   - {fileID: 763402199}
   - {fileID: 1766627586}

@@ -44,6 +44,8 @@ public class DogCinematicManager : MonoBehaviour
 
     public void StartCinematic()
     {
+        Debug.Log("StartCinematic CALLED", this);
+
         if (cinematicStarted) return;
         cinematicStarted = true;
         StartCoroutine(CinematicSequence());
