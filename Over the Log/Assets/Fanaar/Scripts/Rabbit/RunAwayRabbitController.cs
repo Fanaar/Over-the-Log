@@ -1,40 +1,58 @@
 using UnityEngine;
 
-public class RunAwayRabbitController : MonoBehaviour
+public class RabbitRunAwayController : MonoBehaviour
 {
-    [Header("Direction Handle")]
+    [Header("Movement")]
     public Transform directionHandle;
     public float speed = 5f;
 
+    [Header("Identity")]
+    public int rabbitIndex;
+
+    [Header("Manager")]
+    public RabbitSettlementManager manager; // sleep hier de manager in inspector
+
     private Vector3 runDirection;
+    private bool isSettled = false;
+
+    [HideInInspector]
+    public bool isInPlayerTrigger = false; // of hij binnen de spelertrigger is
 
     void OnEnable()
     {
-        // Bereken runDirection zodra het konijn geactiveerd wordt
         if (directionHandle != null)
         {
             Vector3 dir = directionHandle.position - transform.position;
-            dir.y = 0; // alleen XZ-plane
+            dir.y = 0;
+
             if (dir.sqrMagnitude < 0.001f)
-                dir = transform.forward; // fallback
+                dir = transform.forward;
 
             runDirection = dir.normalized;
-        }
-        else
-        {
-            runDirection = transform.forward;
         }
     }
 
     void Update()
     {
-        if (runDirection.sqrMagnitude < 0.001f)
+        if (isSettled || !isInPlayerTrigger)
+            return; // Stoppen als gesettled of niet in trigger
+
+        transform.position += runDirection * speed * Time.deltaTime;
+        transform.rotation = Quaternion.LookRotation(runDirection);
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        RabbitSlot slot = other.GetComponent<RabbitSlot>();
+        if (slot == null || slot.slotIndex != rabbitIndex)
             return;
 
-        // Beweeg
-        transform.position += runDirection * speed * Time.deltaTime;
+        // Konijn bereikt zijn slot
+        isSettled = true;
+        enabled = false;
 
-        // Draai
-        transform.rotation = Quaternion.LookRotation(runDirection);
+        // Notify manager (veilig tegen dubbel tellen)
+        if (manager != null)
+            manager.RabbitSettled(this);
     }
 }

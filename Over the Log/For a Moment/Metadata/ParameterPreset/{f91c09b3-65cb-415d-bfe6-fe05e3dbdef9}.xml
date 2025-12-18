@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="ParameterPreset" id="{f91c09b3-65cb-415d-bfe6-fe05e3dbdef9}">
+		<property name="name">
+			<value>Distance_Wolf</value>
+		</property>
+		<relationship name="folder">
+			<destination>{354160c3-5d13-4e0d-a51a-2c7260a5d398}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{defe45ca-aea6-4874-b213-1802ef25f7c4}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{defe45ca-aea6-4874-b213-1802ef25f7c4}">
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

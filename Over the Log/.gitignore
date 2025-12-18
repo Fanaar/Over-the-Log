@@ -97,3 +97,7 @@ InitTestScene*.unity*
 
 # Auto-generated scenes by play mode tests
 /[Aa]ssets/[Ii]nit[Tt]est[Ss]cene*.unity*
+
+# FMOD cache (auto-generated, per machine)
+Assets/Plugins/FMOD/Cache/
+
