@@ -16,13 +16,16 @@ EditorBuildSettings:
     guid: 7c19d0b601f2ec646bc484ed1ea1eff0
   - enabled: 1
     path: Assets/Last version Scenes/Run 1.unity
-    guid: deb6ff66082704d4a996a0a54939aa62
+    guid: 2e6752f3fc2fa5b4199d9f6359c7888d
   - enabled: 1
     path: Assets/Last version Scenes/Run 2.unity
     guid: 7ed103b6d4e31174c878e31d538e32c0
   - enabled: 1
     path: Assets/Last version Scenes/Run 3.unity
     guid: 1c755fd5186dd30439390443f479aded
+  - enabled: 1
+    path: Assets/Last version Scenes/Void.unity
+    guid: 20c249b5175425640a88c992b42ee4bf
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

@@ -356,6 +356,7 @@ GameObject:
   - component: {fileID: 1104108768343712805}
   - component: {fileID: 2994657130712477115}
   - component: {fileID: 6921825903848449051}
+  - component: {fileID: 5454717568774089151}
   m_Layer: 0
   m_Name: rabbit
   m_TagString: Untagged
@@ -456,6 +457,13 @@ MonoBehaviour:
   runDirection: {x: 0, y: 0, z: 1}
   runSpeed: 5
   spreadAmount: 1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  gravity: -25
+  groundedSnap: -2
+  jumpDelay: 0.5
+  jumpForce: 10
 --- !u!64 &2994657130712477115
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -473,7 +481,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
@@ -490,6 +498,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cabb27454975ae4479ba586cfee6e232, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!143 &5454717568774089151
+CharacterController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8698028954354185445}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Height: 0.015
+  m_Radius: 0.015
+  m_SlopeLimit: 45
+  m_StepOffset: 0.3
+  m_SkinWidth: 0.08
+  m_MinMoveDistance: 0.001
+  m_Center: {x: 0, y: 0.012, z: 0.01}
 --- !u!1001 &5584135262507159456
 PrefabInstance:
   m_ObjectHideFlags: 0

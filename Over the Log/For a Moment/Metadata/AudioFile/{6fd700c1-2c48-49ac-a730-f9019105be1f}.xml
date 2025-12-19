@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.03.00">
+	<object class="AudioFile" id="{6fd700c1-2c48-49ac-a730-f9019105be1f}">
+		<property name="assetPath">
+			<value>FAM_Konijn_Chase_Amb_Earie_Ending.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>48</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>8.3754583333333326</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{a0bca233-f1d2-413e-8f3d-80d498d6fd44}</destination>
+		</relationship>
+	</object>
+</objects>
