@@ -6489,6 +6489,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6835773263095277841, guid: 3be4b89a318b976438ac62353c0387c9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f94941d5effe9fd4083c9fee6a8190cb, type: 2}
+    - target: {fileID: -1374969743735643819, guid: 3be4b89a318b976438ac62353c0387c9, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f94941d5effe9fd4083c9fee6a8190cb, type: 2}
     - target: {fileID: 919132149155446097, guid: 3be4b89a318b976438ac62353c0387c9, type: 3}
       propertyPath: m_Name
       value: DogRunCycle
@@ -10094,7 +10102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!33 &4989099829678828812
 MeshFilter:
   m_ObjectHideFlags: 0
