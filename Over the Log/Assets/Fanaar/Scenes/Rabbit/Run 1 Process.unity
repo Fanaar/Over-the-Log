@@ -157,7 +157,7 @@ MonoBehaviour:
   playerCamera: {fileID: 1246085681}
   dog: {fileID: 3601758332329209821}
   lookAtDogThreshold: 0.98
-  dogFocusDuration: 1.5
+  dogFocusDuration: 4
   automaticCameraFocus: 1
   headStartDuration: 4
   dogSpawnDistance: 5
@@ -5953,7 +5953,7 @@ Transform:
   m_GameObject: {fileID: 551310501}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.74557626, z: 0, w: -0.66642034}
-  m_LocalPosition: {x: 38.3, y: 0.15, z: -109}
+  m_LocalPosition: {x: 35, y: 0.15, z: -109.27}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10102,7 +10102,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &4989099829678828812
 MeshFilter:
   m_ObjectHideFlags: 0
