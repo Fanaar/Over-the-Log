@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System; // nodig voor Action event
+using System;
 
 public class FadeAndLoadScene : MonoBehaviour
 {
@@ -31,8 +31,14 @@ public class FadeAndLoadScene : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isFading)
-            StartCoroutine(FadeAndLoad());
+        if (isFading) return;
+
+        if (!other.CompareTag("Player")) return;
+
+        // 🔒 Voorkom dubbele triggers (meerdere colliders)
+        GetComponent<Collider>().enabled = false;
+
+        StartCoroutine(FadeAndLoad());
     }
 
     private System.Collections.IEnumerator FadeAndLoad()
