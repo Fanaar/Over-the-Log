@@ -102,15 +102,25 @@ public class RabbitDanceManager : MonoBehaviour
         foreach (var rabbit in rabbits)
         {
             Vector3 targetDir;
+
             if (useRandomBetweenTransforms && runStart != null && runEnd != null)
             {
-                Vector3 randomPos = Vector3.Lerp(runStart.position, runEnd.position, Random.value);
-                targetDir = (randomPos - rabbit.transform.position).normalized;
+                // Bereken richting van start naar eind
+                Vector3 runVector = (runEnd.position - runStart.position).normalized;
+                float runDistance = Vector3.Distance(runStart.position, runEnd.position);
+
+                // Kies een random punt langs de lijn van runStart → runEnd
+                float randomDistance = Random.Range(0f, runDistance);
+                Vector3 targetPos = runStart.position + runVector * randomDistance;
+
+                // Direction van rabbit naar targetPos
+                targetDir = (targetPos - rabbit.transform.position).normalized;
             }
             else
             {
                 targetDir = Vector3.forward;
             }
+
             rabbit.RunAway(targetDir);
         }
 
