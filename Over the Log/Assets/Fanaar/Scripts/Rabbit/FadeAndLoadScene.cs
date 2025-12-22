@@ -10,6 +10,9 @@ public class FadeAndLoadScene : MonoBehaviour
     public float fadeDuration = 1.5f;
     public string sceneToLoad = "SceneName";
 
+    [Header("Objects to deactivate")]
+    public GameObject[] objectsToDeactivate;
+
     private bool isFading = false;
 
     // 🔔 Event voor andere systemen (audio, UI, analytics)
@@ -47,6 +50,13 @@ public class FadeAndLoadScene : MonoBehaviour
 
         // 🔔 Trigger event, andere systemen kunnen hierop reageren
         OnSceneFadeStarted?.Invoke();
+
+        // ✅ Objecten deactiveren
+        foreach (GameObject obj in objectsToDeactivate)
+        {
+            if (obj != null)
+                obj.SetActive(false);
+        }
 
         float timer = 0f;
 
