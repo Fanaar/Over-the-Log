@@ -10,13 +10,19 @@ public class RabbitRunAwayController : MonoBehaviour
     public int rabbitIndex;
 
     [Header("Manager")]
-    public RabbitSettlementManager manager; // sleep hier de manager in inspector
+    public RabbitSettlementManager manager;
+
+    [Header("Animation")]
+    public Animator animator;
+    public string runningBoolName = "isRunning"; // gewoon de naam van je bool in de animator
 
     private Vector3 runDirection;
     private bool isSettled = false;
 
     [HideInInspector]
-    public bool isInPlayerTrigger = false; // of hij binnen de spelertrigger is
+    public bool isInPlayerTrigger = false;
+
+    private bool isCurrentlyRunning = false; // interne flag om te checken of animator al loopt
 
     void OnEnable()
     {
@@ -34,9 +40,19 @@ public class RabbitRunAwayController : MonoBehaviour
 
     void Update()
     {
-        if (isSettled || !isInPlayerTrigger)
-            return; // Stoppen als gesettled of niet in trigger
+        bool shouldRun = !isSettled && isInPlayerTrigger;
 
+        // Update animator alleen als toestand verandert
+        if (animator != null && shouldRun != isCurrentlyRunning)
+        {
+            animator.SetBool(runningBoolName, shouldRun);
+            isCurrentlyRunning = shouldRun;
+        }
+
+        if (!shouldRun)
+            return;
+
+        // Beweging
         transform.position += runDirection * speed * Time.deltaTime;
         transform.rotation = Quaternion.LookRotation(runDirection);
     }
@@ -47,11 +63,15 @@ public class RabbitRunAwayController : MonoBehaviour
         if (slot == null || slot.slotIndex != rabbitIndex)
             return;
 
-        // Konijn bereikt zijn slot
         isSettled = true;
         enabled = false;
 
-        // Notify manager (veilig tegen dubbel tellen)
+        if (animator != null && isCurrentlyRunning)
+        {
+            animator.SetBool(runningBoolName, false);
+            isCurrentlyRunning = false;
+        }
+
         if (manager != null)
             manager.RabbitSettled(this);
     }
