@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using System; // nodig voor Action event
+using System;
 
 public class FadeAndLoadScene : MonoBehaviour
 {
@@ -9,6 +9,9 @@ public class FadeAndLoadScene : MonoBehaviour
     public CanvasGroup fadeCanvasGroup;
     public float fadeDuration = 1.5f;
     public string sceneToLoad = "SceneName";
+
+    [Header("Objects to deactivate")]
+    public GameObject[] objectsToDeactivate;
 
     private bool isFading = false;
 
@@ -31,8 +34,14 @@ public class FadeAndLoadScene : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player") && !isFading)
-            StartCoroutine(FadeAndLoad());
+        if (isFading) return;
+
+        if (!other.CompareTag("Player")) return;
+
+        // 🔒 Voorkom dubbele triggers (meerdere colliders)
+        GetComponent<Collider>().enabled = false;
+
+        StartCoroutine(FadeAndLoad());
     }
 
     private System.Collections.IEnumerator FadeAndLoad()
@@ -41,6 +50,13 @@ public class FadeAndLoadScene : MonoBehaviour
 
         // 🔔 Trigger event, andere systemen kunnen hierop reageren
         OnSceneFadeStarted?.Invoke();
+
+        // ✅ Objecten deactiveren
+        foreach (GameObject obj in objectsToDeactivate)
+        {
+            if (obj != null)
+                obj.SetActive(false);
+        }
 
         float timer = 0f;
 

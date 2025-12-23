@@ -60,7 +60,7 @@ public class DogCinematicManager : MonoBehaviour
         AmbienceManager.Instance?.FadeOutIntro();
         lofiSneakyGrowl?.Play();
 
-        // Spawn position achter player
+        // Spawn position behind player
         Vector3 spawnPos = playerController.transform.position - playerCamera.forward * dogSpawnDistance;
         Vector3 rayOrigin = spawnPos + Vector3.up * 5f;
         if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, 20f))
@@ -71,17 +71,21 @@ public class DogCinematicManager : MonoBehaviour
         dog.transform.position = spawnPos;
         dog.transform.LookAt(playerController.transform.position);
 
-        // --- 2. Wait until player naturally kijkt ---
+        // --- 2. Wait until player naturally looks at dog ---
         while (!PlayerLookingAtDog())
             yield return null;
 
-        // --- Freeze controls ---
+        // --- Freeze player controls ---
         playerController.canMove = false;
         playerController.canLook = false;
 
         // --- Smooth camera rotation to dog ---
         if (automaticCameraFocus && dogLookTarget != null)
         {
+            // --- Start scary face immediately ---
+            if (dogAnimator != null)
+                dogAnimator.SetBool("isScaryFace", true);
+
             float elapsed = 0f;
             while (elapsed < dogFocusDuration)
             {
@@ -98,9 +102,6 @@ public class DogCinematicManager : MonoBehaviour
             objectToActivate?.SetActive(true);
             objectToActivate2?.SetActive(true);
 
-            // Trigger Scary Face animation
-            dogAnimator?.SetTrigger("ScaryFace");
-
             // Stop sneaky growl, start heavy breathing & siren
             lofiSneakyGrowl?.Stop();
             heavyBreathingLoop?.Play();
@@ -109,6 +110,10 @@ public class DogCinematicManager : MonoBehaviour
 
         // Hold camera frozen
         yield return new WaitForSeconds(lookFreezeDuration);
+
+        // Reset scary face after freeze
+        if (dogAnimator != null)
+            dogAnimator.SetBool("isScaryFace", false);
 
         // Activate third object after freeze
         objectToActivateAfterFreeze?.SetActive(true);
