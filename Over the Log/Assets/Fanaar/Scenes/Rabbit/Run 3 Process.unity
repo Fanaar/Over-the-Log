@@ -11484,7 +11484,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &845035679
 Transform:
   m_ObjectHideFlags: 0
@@ -13495,6 +13495,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   requiredTriggers: 3
+  playerCamera: {fileID: 1246085681}
+  lookTarget: {fileID: 1466562933}
+  lookSpeed: 2
+  objectToActivate: {fileID: 987823742}
+  cameraController: {fileID: 551310505}
 --- !u!4 &1209848106
 Transform:
   m_ObjectHideFlags: 0
@@ -15765,6 +15770,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 306640882519099385, guid: 11d3143b57a5fae4a8d58e277bafb435, type: 3}
   m_PrefabInstance: {fileID: 1687058309}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1466562932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1466562933}
+  m_Layer: 0
+  m_Name: Player Look transform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1466562933
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1466562932}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -66.4, y: 21.9, z: -145.8}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1467822208
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18199,7 +18235,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1800382309
 Transform:
   m_ObjectHideFlags: 0
@@ -20829,3 +20865,4 @@ SceneRoots:
   - {fileID: 2053705686}
   - {fileID: 817717670}
   - {fileID: 1209848106}
+  - {fileID: 1466562933}

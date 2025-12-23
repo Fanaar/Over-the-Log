@@ -183,6 +183,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SittingIdle
       objectReference: {fileID: 0}
+    - target: {fileID: 1754863751175371753, guid: 01824cbec3eb1e34390c6e411457ac62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5e57a2c2c6912f240b8b2a494e8fd960, type: 2}
+    - target: {fileID: 3639070501488885058, guid: 01824cbec3eb1e34390c6e411457ac62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 98225c108c90e8d408203c3a3039bffe, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5453,6 +5461,7 @@ MonoBehaviour:
   fadeCanvasGroup: {fileID: 583843156}
   fadeDuration: 0.5
   sceneToLoad: Run 3
+  objectsToDeactivate: []
 --- !u!1 &224240527
 GameObject:
   m_ObjectHideFlags: 0
@@ -6004,6 +6013,7 @@ MonoBehaviour:
   fadeCanvasGroup: {fileID: 583843156}
   fadeDuration: 0.5
   sceneToLoad: Run 3
+  objectsToDeactivate: []
 --- !u!1 &436748677
 GameObject:
   m_ObjectHideFlags: 0
@@ -11118,6 +11128,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SittingIdle
       objectReference: {fileID: 0}
+    - target: {fileID: 1754863751175371753, guid: 01824cbec3eb1e34390c6e411457ac62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5e57a2c2c6912f240b8b2a494e8fd960, type: 2}
+    - target: {fileID: 3639070501488885058, guid: 01824cbec3eb1e34390c6e411457ac62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 98225c108c90e8d408203c3a3039bffe, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -11377,6 +11395,7 @@ MonoBehaviour:
   fadeCanvasGroup: {fileID: 583843156}
   fadeDuration: 0.5
   sceneToLoad: Run 3
+  objectsToDeactivate: []
 --- !u!1 &499447768
 GameObject:
   m_ObjectHideFlags: 0
@@ -12379,6 +12398,7 @@ MonoBehaviour:
   fadeCanvasGroup: {fileID: 583843156}
   fadeDuration: 0.5
   sceneToLoad: Run 3
+  objectsToDeactivate: []
 --- !u!1 &726734980
 GameObject:
   m_ObjectHideFlags: 0
@@ -13409,6 +13429,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SittingIdle
       objectReference: {fileID: 0}
+    - target: {fileID: 1754863751175371753, guid: 01824cbec3eb1e34390c6e411457ac62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5e57a2c2c6912f240b8b2a494e8fd960, type: 2}
+    - target: {fileID: 3639070501488885058, guid: 01824cbec3eb1e34390c6e411457ac62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 98225c108c90e8d408203c3a3039bffe, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13833,6 +13861,7 @@ MonoBehaviour:
   fadeCanvasGroup: {fileID: 583843156}
   fadeDuration: 0.5
   sceneToLoad: Run 3
+  objectsToDeactivate: []
 --- !u!65 &1246513716
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14348,6 +14377,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: DogRunCycle
       objectReference: {fileID: 0}
+    - target: {fileID: 4104164956499662718, guid: 390760f68e49ee040a609ad1f8c8fffc, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 45cede6e72de5064986a71a96d461428, type: 2}
+    - target: {fileID: 6784919044079829124, guid: 390760f68e49ee040a609ad1f8c8fffc, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 58e60dbbc59f130489867aa293ddbdf8, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15002,6 +15039,7 @@ MonoBehaviour:
   fadeCanvasGroup: {fileID: 583843156}
   fadeDuration: 0.5
   sceneToLoad: Run 3
+  objectsToDeactivate: []
 --- !u!1 &1715599755
 GameObject:
   m_ObjectHideFlags: 0
@@ -15442,6 +15480,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SittingIdle
       objectReference: {fileID: 0}
+    - target: {fileID: 1754863751175371753, guid: 01824cbec3eb1e34390c6e411457ac62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5e57a2c2c6912f240b8b2a494e8fd960, type: 2}
+    - target: {fileID: 3639070501488885058, guid: 01824cbec3eb1e34390c6e411457ac62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 98225c108c90e8d408203c3a3039bffe, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -15595,6 +15641,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SittingIdle
       objectReference: {fileID: 0}
+    - target: {fileID: 1754863751175371753, guid: 01824cbec3eb1e34390c6e411457ac62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5e57a2c2c6912f240b8b2a494e8fd960, type: 2}
+    - target: {fileID: 3639070501488885058, guid: 01824cbec3eb1e34390c6e411457ac62, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 98225c108c90e8d408203c3a3039bffe, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16617,7 +16671,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1114205559721329344, guid: 30bd04b8ef9c23c418f84304632b7e9d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
