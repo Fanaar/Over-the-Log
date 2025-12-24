@@ -18,6 +18,10 @@ public class TriggerTracker : MonoBehaviour
     [Header("Camera Lock")]
     public MonoBehaviour cameraController; // bv. MouseLook script
 
+    [Header("Activate Object")]
+    public GameObject objectToActivate2;
+    public float activationDelay = 1f; // tijd in seconden voordat object geactiveerd wordt
+
     public void RegisterTrigger(Collider trigger)
     {
         if (triggeredColliders.Contains(trigger))
@@ -71,6 +75,16 @@ public class TriggerTracker : MonoBehaviour
         }
 
         Debug.Log("Camera is nu gelocked op target.");
-    }
 
+        // Wacht de delay
+        if (activationDelay > 0f)
+            yield return new WaitForSeconds(activationDelay);
+
+        // Object activeren
+        if (objectToActivate2 != null)
+        {
+            objectToActivate2.SetActive(true);
+        }
+
+    }
 }
