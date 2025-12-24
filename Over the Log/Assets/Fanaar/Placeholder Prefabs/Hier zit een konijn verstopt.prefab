@@ -605,6 +605,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: HopCycle
       objectReference: {fileID: 0}
+    - target: {fileID: 1754863751175371753, guid: 953068cf2fa0a8340b1efb39181fd950, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 5e57a2c2c6912f240b8b2a494e8fd960, type: 2}
+    - target: {fileID: 3639070501488885058, guid: 953068cf2fa0a8340b1efb39181fd950, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 98225c108c90e8d408203c3a3039bffe, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
