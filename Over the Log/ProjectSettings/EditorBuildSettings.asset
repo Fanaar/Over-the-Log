@@ -26,6 +26,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Last version Scenes/Void.unity
     guid: 20c249b5175425640a88c992b42ee4bf
+  - enabled: 1
+    path: Assets/Last version Scenes/Rabbit Hole 1.unity
+    guid: 5a0ac6bfaae17534abd3780bd78720b9
+  - enabled: 1
+    path: Assets/Last version Scenes/Rabbit Hole 2.unity
+    guid: 7d01954001044ef4fa0f78b1ae529a52
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

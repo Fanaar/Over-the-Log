@@ -123,7 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeCanvasGroup: {fileID: 0}
   fadeDuration: 1.5
-  sceneToLoad: 0.3 Rabbit Scene
+  sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 0}
 --- !u!1 &9181694966202560817
