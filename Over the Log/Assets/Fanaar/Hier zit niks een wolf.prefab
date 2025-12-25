@@ -5450,6 +5450,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6835773263095277841, guid: f6551db3700c285458b425c4a69ee227, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: f94941d5effe9fd4083c9fee6a8190cb, type: 2}
     - target: {fileID: 919132149155446097, guid: f6551db3700c285458b425c4a69ee227, type: 3}
       propertyPath: m_Name
       value: ScaryCloseUp_Breathing idle

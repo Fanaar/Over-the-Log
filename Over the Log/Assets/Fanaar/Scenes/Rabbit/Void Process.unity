@@ -393,7 +393,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 32768
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
@@ -1034,13 +1034,13 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1247382607}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2738f16c53848944fbac242e889cf991, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 317496002}
-  volumeUnderTheTrees: {fileID: 0}
+  volumeUnderTheTrees: {fileID: 1237224031}
   volumeAboveTheTrees: {fileID: 0}
   volumeReflect: {fileID: 0}
   controlFog: 1
