@@ -99,27 +99,35 @@ public class RabbitController : MonoBehaviour
     {
         if (!isAtDanceSpot)
         {
-            Vector3 dir = (targetPosition - transform.position).normalized;
-            controller.Move(dir * moveSpeed * Time.deltaTime);
-            transform.LookAt(danceSpot);
+            Vector3 toTarget = targetPosition - transform.position;
+            toTarget.y = 0f; // alleen horizontaal
 
-            // ✅ Smoothing: pas na 3 frames binnen threshold wordt het gesettled
-            if (Vector3.Distance(transform.position, targetPosition) < 0.2f)
+            // altijd vooruit: normaliseer en vermenigvuldig met constante snelheid
+            Vector3 forwardDir = toTarget.normalized;
+            controller.Move(forwardDir * moveSpeed * Time.deltaTime);
+
+            // kijk in de bewegingsrichting
+            if (forwardDir != Vector3.zero)
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(forwardDir), Time.deltaTime * 5f);
+
+            // check of ze “gesettled” zijn
+            if (toTarget.magnitude < 0.2f)
             {
                 framesAtSpot++;
                 if (framesAtSpot >= 3)
                 {
                     isAtDanceSpot = true;
-                    canJump = true; // ✅ Pas nu mogen ze springen
+                    canJump = true;
                 }
             }
             else
             {
-                framesAtSpot = 0; // reset als ze bewegen
+                framesAtSpot = 0;
             }
         }
         else
         {
+            // cirkel beweging blijft zoals eerder
             float angle = 360f / totalRabbits * circleIndex + Time.time * rotationSpeed;
             float rad = angle * Mathf.Deg2Rad;
 
@@ -140,6 +148,7 @@ public class RabbitController : MonoBehaviour
             );
         }
     }
+
 
     void HandleRunAway()
     {
