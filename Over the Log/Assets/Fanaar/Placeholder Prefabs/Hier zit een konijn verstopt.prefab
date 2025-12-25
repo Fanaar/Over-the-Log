@@ -482,6 +482,7 @@ MonoBehaviour:
   groundedSnap: -2
   jumpDelay: 0.5
   jumpForce: 10
+  animator: {fileID: 8738938032222588254}
 --- !u!64 &2994657130712477115
 MeshCollider:
   m_ObjectHideFlags: 0

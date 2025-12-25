@@ -32,6 +32,10 @@ public class RabbitController : MonoBehaviour
     public float jumpDelay = 0.5f;
     public float jumpForce = 6f;
 
+    [Header("Animation")]
+    public Animator animator;
+
+    private bool wasGrounded;
     private CharacterController controller;
     private Vector3 targetPosition;
 
@@ -53,11 +57,14 @@ public class RabbitController : MonoBehaviour
     void OnEnable()
     {
         controller = GetComponent<CharacterController>();
+        if (!animator) animator = GetComponentInChildren<Animator>();
+
         FirstPersonRabbitController.OnPlayerJump += OnPlayerJumped;
 
         if (gameObject.activeInHierarchy)
             OnActivated();
     }
+
 
     void OnDisable()
     {
@@ -82,6 +89,7 @@ public class RabbitController : MonoBehaviour
 
         // Apply vertical + horizontal movement together
         controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+        UpdateAnimation();
     }
 
     // -------------------------
@@ -149,31 +157,30 @@ public class RabbitController : MonoBehaviour
             );
         }
     }
-
     // -------------------------
-    // GRAVITY + JUMP
+    // GRAVITY + JUMP (clean version)
     // -------------------------
     void ApplyGravity()
     {
         if (controller.isGrounded)
         {
-            if (verticalVelocity < 0)
-                verticalVelocity = groundedSnap;
-
-            isJumping = false;
+            // kleine snap naar grond
+            verticalVelocity = groundedSnap;
         }
         else
         {
             verticalVelocity += gravity * Time.deltaTime;
         }
+
+        // Verticale beweging toepassen
+        controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
     }
 
     void OnPlayerJumped()
     {
-        if (!gameObject.activeInHierarchy || isJumping)
-            return;
+        if (!gameObject.activeInHierarchy) return;
 
-        if (!canJump) return; // ❌ Blokkeer jump zolang ze niet gesettled zijn
+        if (!canJump) return; // Alleen springen als gesettled
 
         StartCoroutine(JumpAfterDelay());
     }
@@ -182,11 +189,17 @@ public class RabbitController : MonoBehaviour
     {
         yield return new WaitForSeconds(jumpDelay);
 
-        if (!controller.isGrounded)
-            yield break;
+        if (!controller.isGrounded) yield break;
 
         verticalVelocity = jumpForce;
-        isJumping = true;
+
+        // ✅ Play jump animatie één keer
+        if (animator != null)
+            animator.SetTrigger("JumpTrigger");
+    }
+    void UpdateAnimation()
+    {
+        wasGrounded = controller.isGrounded;
     }
 
     // -------------------------
