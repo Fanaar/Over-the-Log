@@ -122,7 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fadeCanvasGroup: {fileID: 0}
-  fadeDuration: 1.5
+  fadeDuration: 1
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 0}

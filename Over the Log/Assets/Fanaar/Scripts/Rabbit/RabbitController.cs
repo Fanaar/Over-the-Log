@@ -199,6 +199,7 @@ public class RabbitController : MonoBehaviour
     }
     void UpdateAnimation()
     {
+
         wasGrounded = controller.isGrounded;
     }
 
