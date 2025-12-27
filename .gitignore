@@ -105,3 +105,5 @@ InitTestScene*.unity*
 # FMOD local settings
 /.fmod/
 FMODStudioCache/
+
+Over the Log/Assets/Plugins/FMOD/Resources/FMODStudioSettings.asset
