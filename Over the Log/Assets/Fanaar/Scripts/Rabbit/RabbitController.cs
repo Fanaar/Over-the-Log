@@ -32,6 +32,10 @@ public class RabbitController : MonoBehaviour
     public float jumpDelay = 0.5f;
     public float jumpForce = 6f;
 
+    [Header("Animation")]
+    public Animator animator;
+
+    private bool wasGrounded;
     private CharacterController controller;
     private Vector3 targetPosition;
 
@@ -53,11 +57,14 @@ public class RabbitController : MonoBehaviour
     void OnEnable()
     {
         controller = GetComponent<CharacterController>();
+        if (!animator) animator = GetComponentInChildren<Animator>();
+
         FirstPersonRabbitController.OnPlayerJump += OnPlayerJumped;
 
         if (gameObject.activeInHierarchy)
             OnActivated();
     }
+
 
     void OnDisable()
     {
@@ -82,6 +89,7 @@ public class RabbitController : MonoBehaviour
 
         // Apply vertical + horizontal movement together
         controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
+        UpdateAnimation();
     }
 
     // -------------------------
@@ -91,27 +99,35 @@ public class RabbitController : MonoBehaviour
     {
         if (!isAtDanceSpot)
         {
-            Vector3 dir = (targetPosition - transform.position).normalized;
-            controller.Move(dir * moveSpeed * Time.deltaTime);
-            transform.LookAt(danceSpot);
+            Vector3 toTarget = targetPosition - transform.position;
+            toTarget.y = 0f; // alleen horizontaal
 
-            // ✅ Smoothing: pas na 3 frames binnen threshold wordt het gesettled
-            if (Vector3.Distance(transform.position, targetPosition) < 0.2f)
+            // altijd vooruit: normaliseer en vermenigvuldig met constante snelheid
+            Vector3 forwardDir = toTarget.normalized;
+            controller.Move(forwardDir * moveSpeed * Time.deltaTime);
+
+            // kijk in de bewegingsrichting
+            if (forwardDir != Vector3.zero)
+                transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(forwardDir), Time.deltaTime * 5f);
+
+            // check of ze “gesettled” zijn
+            if (toTarget.magnitude < 0.2f)
             {
                 framesAtSpot++;
                 if (framesAtSpot >= 3)
                 {
                     isAtDanceSpot = true;
-                    canJump = true; // ✅ Pas nu mogen ze springen
+                    canJump = true;
                 }
             }
             else
             {
-                framesAtSpot = 0; // reset als ze bewegen
+                framesAtSpot = 0;
             }
         }
         else
         {
+            // cirkel beweging blijft zoals eerder
             float angle = 360f / totalRabbits * circleIndex + Time.time * rotationSpeed;
             float rad = angle * Mathf.Deg2Rad;
 
@@ -133,6 +149,7 @@ public class RabbitController : MonoBehaviour
         }
     }
 
+
     void HandleRunAway()
     {
         Vector3 offset = Vector3.right * ((circleIndex - totalRabbits / 2f) * spreadAmount);
@@ -149,31 +166,30 @@ public class RabbitController : MonoBehaviour
             );
         }
     }
-
     // -------------------------
-    // GRAVITY + JUMP
+    // GRAVITY + JUMP (clean version)
     // -------------------------
     void ApplyGravity()
     {
         if (controller.isGrounded)
         {
-            if (verticalVelocity < 0)
-                verticalVelocity = groundedSnap;
-
-            isJumping = false;
+            // kleine snap naar grond
+            verticalVelocity = groundedSnap;
         }
         else
         {
             verticalVelocity += gravity * Time.deltaTime;
         }
+
+        // Verticale beweging toepassen
+        controller.Move(Vector3.up * verticalVelocity * Time.deltaTime);
     }
 
     void OnPlayerJumped()
     {
-        if (!gameObject.activeInHierarchy || isJumping)
-            return;
+        if (!gameObject.activeInHierarchy) return;
 
-        if (!canJump) return; // ❌ Blokkeer jump zolang ze niet gesettled zijn
+        if (!canJump) return; // Alleen springen als gesettled
 
         StartCoroutine(JumpAfterDelay());
     }
@@ -182,11 +198,18 @@ public class RabbitController : MonoBehaviour
     {
         yield return new WaitForSeconds(jumpDelay);
 
-        if (!controller.isGrounded)
-            yield break;
+        if (!controller.isGrounded) yield break;
 
         verticalVelocity = jumpForce;
-        isJumping = true;
+
+        // ✅ Play jump animatie één keer
+        if (animator != null)
+            animator.SetTrigger("JumpTrigger");
+    }
+    void UpdateAnimation()
+    {
+
+        wasGrounded = controller.isGrounded;
     }
 
     // -------------------------
