@@ -165,8 +165,8 @@ MonoBehaviour:
   dogLookTarget: {fileID: 1875552271896197625}
   cameraLerpSpeed: 2
   lookFreezeDuration: 4
-  objectToActivate: {fileID: 2027343744}
-  objectToActivate2: {fileID: 521079942}
+  dollyObject: {fileID: 2027343744}
+  fmodAudioObject: {fileID: 0}
   objectToActivateAfterFreeze: {fileID: 958502243}
   dogAnimator: {fileID: 418605464}
   chase3DAudioEmitter: {fileID: 1347097652}
