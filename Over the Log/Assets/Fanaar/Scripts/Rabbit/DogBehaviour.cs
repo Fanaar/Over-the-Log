@@ -2,30 +2,44 @@
 
 public class DogBehaviour : MonoBehaviour
 {
+    [Header("Movement")]
     public float moveSpeed = 3f;
     public float circleRadius = 2.2f;
     public float circleSpeed = 120f;
+    public float finalApproachDuration = 1f;
+    public float stopDistance = 0.6f;
 
+    [Header("Circle Direction")]
+    public bool clockwise = true;
+
+    [Header("References")]
     public FirstPersonRabbitController playerController;
     public Animator animator;
 
     private Transform player;
     private bool approaching;
     private bool circling;
+    private bool finalApproach;
     private float circleAngle;
     private float fixedY;
+    private float finalApproachTimer;
 
     public void StartEncounter(Transform playerTransform)
     {
         player = playerTransform;
         approaching = true;
         circling = false;
+        finalApproach = false;
         circleAngle = 0f;
+        finalApproachTimer = 0f;
         fixedY = transform.position.y;
 
         animator.SetBool("isMoving", true);
         animator.SetBool("isCircling", false);
         animator.SetBool("isTalking", false);
+
+        if (playerController != null)
+            playerController.canMove = false;
     }
 
     void Update()
@@ -36,8 +50,11 @@ public class DogBehaviour : MonoBehaviour
         if (circling)
             CircleAroundPlayer();
 
+        if (finalApproach)
+            FinalApproach();
+
         if (circling && Input.GetKeyDown(KeyCode.T))
-            StopCircling();
+            StartFinalApproach();
     }
 
     void MoveTowardsCircleEntry()
@@ -64,7 +81,9 @@ public class DogBehaviour : MonoBehaviour
 
     void CircleAroundPlayer()
     {
-        circleAngle += circleSpeed * Time.deltaTime;
+        float dir = clockwise ? 1f : -1f;
+        circleAngle += circleSpeed * Time.deltaTime * dir;
+
         float rad = circleAngle * Mathf.Deg2Rad;
 
         Vector3 offset = new Vector3(Mathf.Cos(rad), 0, Mathf.Sin(rad)) * circleRadius;
@@ -75,11 +94,47 @@ public class DogBehaviour : MonoBehaviour
 
         transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
         RotateTowards(moveDir);
+
+        animator.SetBool("isMoving", true);
+    }
+
+    void StartFinalApproach()
+    {
+        circling = false;
+        finalApproach = true;
+        finalApproachTimer = 0f;
+
+        animator.SetBool("isCircling", false);
+        animator.SetBool("isMoving", true);
+    }
+
+    void FinalApproach()
+    {
+        finalApproachTimer += Time.deltaTime;
+
+        Vector3 targetPos = player.position;
+        targetPos.y = fixedY;
+
+        float dist = Vector3.Distance(transform.position, targetPos);
+
+        if (dist <= stopDistance)
+        {
+            StopCircling();
+            return;
+        }
+
+        Vector3 dir = (targetPos - transform.position).normalized;
+        transform.position += dir * moveSpeed * Time.deltaTime;
+        RotateTowards(dir);
+
+        if (finalApproachTimer >= finalApproachDuration)
+            StopCircling();
     }
 
     void RotateTowards(Vector3 direction)
     {
         if (direction.sqrMagnitude < 0.001f) return;
+
         Quaternion targetRot = Quaternion.LookRotation(direction);
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 6f);
     }
@@ -88,6 +143,7 @@ public class DogBehaviour : MonoBehaviour
     {
         circling = false;
         approaching = false;
+        finalApproach = false;
 
         animator.SetBool("isCircling", false);
         animator.SetBool("isMoving", false);
