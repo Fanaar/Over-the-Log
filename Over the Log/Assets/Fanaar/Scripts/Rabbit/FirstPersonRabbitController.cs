@@ -124,6 +124,7 @@ public class FirstPersonRabbitController : MonoBehaviour
 
             // 🔔 Trigger jump event voor konijnen
             OnPlayerJump?.Invoke();
+            Debug.Log("Player jumped");
         }
 
         velocity.y += gravity * Time.deltaTime;

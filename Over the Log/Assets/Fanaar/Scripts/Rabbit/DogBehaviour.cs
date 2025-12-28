@@ -24,6 +24,9 @@ public class DogBehaviour : MonoBehaviour
     private float fixedY;
     private float finalApproachTimer;
 
+    public DogJumpMimic jumpMimic;
+
+
     public void StartEncounter(Transform playerTransform)
     {
         player = playerTransform;
@@ -151,6 +154,9 @@ public class DogBehaviour : MonoBehaviour
 
         if (playerController != null)
             playerController.canMove = true;
+
+        if (jumpMimic != null)
+            jumpMimic.enabled = true;   // 👈 activeer jump mimic hier
     }
 
     public void SetTalking(bool talking)
