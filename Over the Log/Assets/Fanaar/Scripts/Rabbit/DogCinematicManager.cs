@@ -84,10 +84,6 @@ public class DogCinematicManager : MonoBehaviour
         {
             // Activate extra objects
             dollyObject?.SetActive(true);
-            fmodAudioObject?.SetActive(true);
-
-            // Wacht één frame zodat Unity de verandering registreert
-            yield return null;
 
             // Start scary face animatie
             if (dogAnimator != null)
@@ -131,6 +127,9 @@ public class DogCinematicManager : MonoBehaviour
         // Stop heavy breathing loop
         heavyBreathingLoop?.Stop();
 
+        // Wolf chase roar
+        wolfChaseRoarCue?.Play();
+
         // Start eerie ambience + animals reverb one-shot
         AmbienceManager.Instance?.StartEerieLoop();
         animalsReverbCue?.Play();
@@ -140,9 +139,6 @@ public class DogCinematicManager : MonoBehaviour
 
         // Trigger Run animation
         dogAnimator?.SetTrigger("Run");
-
-        // Wolf chase roar
-        wolfChaseRoarCue?.Play();
 
         // Start chasing player
         dog.GetComponent<DogController>()?.StartChase(playerController.transform);

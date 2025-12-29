@@ -1044,7 +1044,6 @@ GameObject:
   - component: {fileID: 1247382611}
   - component: {fileID: 1247382610}
   - component: {fileID: 1247382609}
-  - component: {fileID: 1247382608}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -1052,19 +1051,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1247382608
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1247382607}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3eb7492a671764b48a5270314a1101d5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tracker: {fileID: 0}
 --- !u!136 &1247382609
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1238,7 +1224,7 @@ Transform:
   m_GameObject: {fileID: 1247382607}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.74557626, z: 0, w: -0.66642034}
-  m_LocalPosition: {x: 50.9, y: 0.69, z: 50.6}
+  m_LocalPosition: {x: 50.9, y: 1.39, z: 50.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
