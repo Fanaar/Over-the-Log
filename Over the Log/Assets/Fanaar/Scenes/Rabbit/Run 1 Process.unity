@@ -6981,11 +6981,11 @@ MonoBehaviour:
   bobAmount: 0.03
   footstepEvent:
     Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
+      Data1: 90555783
+      Data2: 1282448023
+      Data3: 1545832103
+      Data4: 1651002404
+    Path: event:/ftstps_Rabbit 2
   footstepThreshold: -0.01
   rabbitBobSpeedMultiplier: 1.3
   rabbitBobAmountMultiplier: 3
