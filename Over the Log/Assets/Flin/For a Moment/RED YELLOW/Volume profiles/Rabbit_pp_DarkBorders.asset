@@ -15,10 +15,10 @@ MonoBehaviour:
   active: 1
   postExposure:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: -1.29
   contrast:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: 39
   colorFilter:
     m_OverrideState: 0
     m_Value: {r: 1, g: 1, b: 1, a: 1}
@@ -26,8 +26,24 @@ MonoBehaviour:
     m_OverrideState: 0
     m_Value: 0
   saturation:
-    m_OverrideState: 0
-    m_Value: 0
+    m_OverrideState: 1
+    m_Value: -100
+--- !u!114 &-4626946252328150079
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81180773991d8724ab7f2d216912b564, type: 3}
+  m_Name: ChromaticAberration
+  m_EditorClassIdentifier: 
+  active: 1
+  intensity:
+    m_OverrideState: 1
+    m_Value: 1
 --- !u!114 &-82358837599453105
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -40,7 +56,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 1
+  active: 0
   skipIterations:
     m_OverrideState: 0
     m_Value: 1
@@ -93,6 +109,7 @@ MonoBehaviour:
   - {fileID: 5349501652048338188}
   - {fileID: 658719608687405239}
   - {fileID: -8443033369462077046}
+  - {fileID: -4626946252328150079}
 --- !u!114 &658719608687405239
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -108,13 +125,13 @@ MonoBehaviour:
   active: 1
   color:
     m_OverrideState: 1
-    m_Value: {r: 0.13207549, g: 0.12170195, b: 0.1027946, a: 1}
+    m_Value: {r: 0.24528301, g: 0.09140263, b: 0.09140263, a: 1}
   center:
     m_OverrideState: 0
     m_Value: {x: 0.5, y: 0.5}
   intensity:
     m_OverrideState: 1
-    m_Value: 0.344
+    m_Value: 0.527
   smoothness:
     m_OverrideState: 1
     m_Value: 1
@@ -179,7 +196,7 @@ MonoBehaviour:
     m_Value: 30
   gaussianMaxRadius:
     m_OverrideState: 1
-    m_Value: 1.228
+    m_Value: 1.5
   highQualitySampling:
     m_OverrideState: 0
     m_Value: 0
