@@ -6194,11 +6194,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 29842acc97c6c2944b2719ef5224646a, type: 3}
       propertyPath: m_LocalScale.z
-      value: 935.0716
+      value: 1009.7838
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 29842acc97c6c2944b2719ef5224646a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -142.1
+      value: -130.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 29842acc97c6c2944b2719ef5224646a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -6239,6 +6239,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 29842acc97c6c2944b2719ef5224646a, type: 3}
       propertyPath: m_Name
       value: Borders_run1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 29842acc97c6c2944b2719ef5224646a, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -10466,7 +10470,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 2308f5b8a740c844fae0a0b4d35bd57d, type: 3}
       propertyPath: m_LocalScale.x
-      value: 2298.2869
+      value: 2415.2695
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2308f5b8a740c844fae0a0b4d35bd57d, type: 3}
       propertyPath: m_LocalScale.y
@@ -10474,11 +10478,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2308f5b8a740c844fae0a0b4d35bd57d, type: 3}
       propertyPath: m_LocalScale.z
-      value: 1106.3689
+      value: 985.7194
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2308f5b8a740c844fae0a0b4d35bd57d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -140
+      value: -126.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 2308f5b8a740c844fae0a0b4d35bd57d, type: 3}
       propertyPath: m_LocalPosition.y
@@ -10523,6 +10527,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 2308f5b8a740c844fae0a0b4d35bd57d, type: 3}
       propertyPath: m_Name
       value: Collision_borders(square)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 2308f5b8a740c844fae0a0b4d35bd57d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
