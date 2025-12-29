@@ -218,7 +218,7 @@ GameObject:
   - component: {fileID: 51298328}
   - component: {fileID: 51298327}
   - component: {fileID: 51298326}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Terrain
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1224,7 +1224,7 @@ Transform:
   m_GameObject: {fileID: 1247382607}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0.74557626, z: 0, w: -0.66642034}
-  m_LocalPosition: {x: 50.9, y: 1.39, z: 50.6}
+  m_LocalPosition: {x: 50.9, y: 0.68, z: 50.6}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1463,7 +1463,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 955695e891b14844e929c1c1fccc4c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  jumpForce: 4
+  jumpForce: 8
   mimicDelay: 0.5
 --- !u!54 &1520131938
 Rigidbody:
