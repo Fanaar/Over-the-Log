@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class RabbitRunAwayController : MonoBehaviour
 {
@@ -15,6 +15,9 @@ public class RabbitRunAwayController : MonoBehaviour
     [Header("Animation")]
     public Animator animator;
     public string runningBoolName = "isRunning"; // gewoon de naam van je bool in de animator
+
+    [Header("Digging Animation")]
+    public string diggingBoolName = "isDigging";
 
     private Vector3 runDirection;
     private bool isSettled = false;
@@ -66,13 +69,21 @@ public class RabbitRunAwayController : MonoBehaviour
         isSettled = true;
         enabled = false;
 
+        // Stop running animatie
         if (animator != null && isCurrentlyRunning)
         {
             animator.SetBool(runningBoolName, false);
             isCurrentlyRunning = false;
         }
 
+        // ▶ Start digging animatie
+        if (animator != null)
+        {
+            animator.SetBool(diggingBoolName, true);
+        }
+
         if (manager != null)
             manager.RabbitSettled(this);
     }
+
 }

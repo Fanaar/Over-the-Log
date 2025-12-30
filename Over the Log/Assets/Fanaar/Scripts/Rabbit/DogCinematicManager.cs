@@ -25,8 +25,8 @@ public class DogCinematicManager : MonoBehaviour
     public float lookFreezeDuration = 1.5f;
 
     [Header("Cinematic Extra Objects")]
-    public GameObject objectToActivate;
-    public GameObject objectToActivate2;
+    public GameObject dollyObject;
+    public GameObject fmodAudioObject;
     public GameObject objectToActivateAfterFreeze;
 
     [Header("Dog Animator")]
@@ -82,12 +82,8 @@ public class DogCinematicManager : MonoBehaviour
         // --- Smooth camera rotation to dog ---
         if (automaticCameraFocus && dogLookTarget != null)
         {
-            // Activeer objectToActivate2 meteen
-            objectToActivate2.transform.SetParent(null);
-            objectToActivate2?.SetActive(true);
-
-            // Wacht één frame zodat Unity de verandering registreert
-            yield return null;
+            // Activate extra objects
+            dollyObject?.SetActive(true);
 
             // Start scary face animatie
             if (dogAnimator != null)
@@ -106,9 +102,6 @@ public class DogCinematicManager : MonoBehaviour
 
             playerCamera.LookAt(dogLookTarget);
 
-            // Activate extra objects
-            objectToActivate?.SetActive(true);
-            //objectToActivate2?.SetActive(true);
 
             // Stop sneaky growl, start heavy breathing & siren
             lofiSneakyGrowl?.Stop();
@@ -134,6 +127,9 @@ public class DogCinematicManager : MonoBehaviour
         // Stop heavy breathing loop
         heavyBreathingLoop?.Stop();
 
+        // Wolf chase roar
+        wolfChaseRoarCue?.Play();
+
         // Start eerie ambience + animals reverb one-shot
         AmbienceManager.Instance?.StartEerieLoop();
         animalsReverbCue?.Play();
@@ -143,9 +139,6 @@ public class DogCinematicManager : MonoBehaviour
 
         // Trigger Run animation
         dogAnimator?.SetTrigger("Run");
-
-        // Wolf chase roar
-        wolfChaseRoarCue?.Play();
 
         // Start chasing player
         dog.GetComponent<DogController>()?.StartChase(playerController.transform);
