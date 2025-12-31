@@ -1,10 +1,16 @@
 ﻿using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class RabbitRunAwayController : MonoBehaviour
 {
     [Header("Movement")]
     public Transform directionHandle;
     public float speed = 5f;
+    public float rotationSpeed = 10f;
+
+    [Header("Gravity")]
+    public float gravity = -9.81f;
+    public float groundOffset = 0.2f;
 
     [Header("Identity")]
     public int rabbitIndex;
@@ -14,18 +20,23 @@ public class RabbitRunAwayController : MonoBehaviour
 
     [Header("Animation")]
     public Animator animator;
-    public string runningBoolName = "isRunning"; // gewoon de naam van je bool in de animator
-
-    [Header("Digging Animation")]
+    public string runningBoolName = "isRunning";
     public string diggingBoolName = "isDigging";
 
     private Vector3 runDirection;
     private bool isSettled = false;
+    private bool isCurrentlyRunning = false;
 
     [HideInInspector]
     public bool isInPlayerTrigger = false;
 
-    private bool isCurrentlyRunning = false; // interne flag om te checken of animator al loopt
+    private CharacterController controller;
+    private Vector3 velocity;
+
+    void Awake()
+    {
+        controller = GetComponent<CharacterController>();
+    }
 
     void OnEnable()
     {
@@ -39,25 +50,48 @@ public class RabbitRunAwayController : MonoBehaviour
 
             runDirection = dir.normalized;
         }
+
+        velocity = Vector3.zero;
     }
 
     void Update()
     {
+        HandleGravity();
+
         bool shouldRun = !isSettled && isInPlayerTrigger;
 
-        // Update animator alleen als toestand verandert
         if (animator != null && shouldRun != isCurrentlyRunning)
         {
             animator.SetBool(runningBoolName, shouldRun);
             isCurrentlyRunning = shouldRun;
         }
 
-        if (!shouldRun)
-            return;
+        if (shouldRun)
+        {
+            HandleMovement();
+        }
+    }
 
-        // Beweging
-        transform.position += runDirection * speed * Time.deltaTime;
-        transform.rotation = Quaternion.LookRotation(runDirection);
+    private void HandleMovement()
+    {
+        Vector3 move = runDirection * speed * Time.deltaTime;
+        controller.Move(move);
+
+        if (runDirection != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(runDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
+        }
+    }
+
+    private void HandleGravity()
+    {
+        if (controller.isGrounded)
+            velocity.y = -groundOffset;
+        else
+            velocity.y += gravity * Time.deltaTime;
+
+        controller.Move(velocity * Time.deltaTime);
     }
 
     void OnTriggerEnter(Collider other)
@@ -69,14 +103,12 @@ public class RabbitRunAwayController : MonoBehaviour
         isSettled = true;
         enabled = false;
 
-        // Stop running animatie
         if (animator != null && isCurrentlyRunning)
         {
             animator.SetBool(runningBoolName, false);
             isCurrentlyRunning = false;
         }
 
-        // ▶ Start digging animatie
         if (animator != null)
         {
             animator.SetBool(diggingBoolName, true);
@@ -85,5 +117,4 @@ public class RabbitRunAwayController : MonoBehaviour
         if (manager != null)
             manager.RabbitSettled(this);
     }
-
 }
