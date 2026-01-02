@@ -7278,7 +7278,7 @@ MonoBehaviour:
   fogDolly: 0
   fogAction: 0
   transitionDuration: 2
-  darkBordersFadeDuration: 1
+  darkBordersFadeDuration: 5
   fadeCurve:
     serializedVersion: 2
     m_Curve:
