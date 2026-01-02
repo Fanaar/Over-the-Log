@@ -6009,7 +6009,7 @@ GameObject:
   - component: {fileID: 232648358}
   m_Layer: 0
   m_Name: Border PP (5)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6239,7 +6239,7 @@ GameObject:
   - component: {fileID: 288544950}
   m_Layer: 0
   m_Name: Border PP (4)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6347,7 +6347,7 @@ GameObject:
   - component: {fileID: 290598032}
   m_Layer: 0
   m_Name: Border PP (6)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6455,7 +6455,7 @@ GameObject:
   - component: {fileID: 302866089}
   m_Layer: 0
   m_Name: Border PP (4)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6630,7 +6630,7 @@ GameObject:
   - component: {fileID: 309813473}
   m_Layer: 0
   m_Name: Border PP (1)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6738,7 +6738,7 @@ GameObject:
   - component: {fileID: 344986408}
   m_Layer: 0
   m_Name: Border PP (1)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6877,7 +6877,7 @@ GameObject:
   - component: {fileID: 417592218}
   m_Layer: 0
   m_Name: Border PP (2)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12917,7 +12917,7 @@ GameObject:
   - component: {fileID: 551310506}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Player
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12964,9 +12964,6 @@ Transform:
   - {fileID: 2861770517257333484}
   - {fileID: 281438406}
   - {fileID: 1485596796}
-  - {fileID: 1795275923}
-  - {fileID: 2027343748}
-  - {fileID: 958502247}
   - {fileID: 521079946}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 270, z: 0}
@@ -13021,18 +13018,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 551310501}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2738f16c53848944fbac242e889cf991, type: 3}
+  m_Script: {fileID: 11500000, guid: ddcbbad2239a86b408b10e962eac63b3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1246085684}
-  volumeUnderTheTrees: {fileID: 1596101624}
-  volumeAboveTheTrees: {fileID: 1596101624}
-  volumeReflect: {fileID: 1596101624}
-  controlFog: 1
-  fogUnderTheTrees: 0.01
-  fogAboveTheTrees: 0.02
-  fogReflect: 0.02
-  transitionDuration: 2
+  baseVolume: {fileID: 1596101624}
+  volumeDarkBorders: {fileID: 1139829036}
+  darkBordersFadeDuration: 5
+  darkBordersWeight: 1
   fadeCurve:
     serializedVersion: 2
     m_Curve:
@@ -13057,8 +13050,6 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  flyingTrigger1: {fileID: 2027343745}
-  flyingTrigger2: {fileID: 958502244}
 --- !u!1 &555765422
 GameObject:
   m_ObjectHideFlags: 0
@@ -13350,7 +13341,7 @@ GameObject:
   - component: {fileID: 598467572}
   m_Layer: 0
   m_Name: Border PP (4)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13602,7 +13593,7 @@ GameObject:
   - component: {fileID: 677095827}
   m_Layer: 0
   m_Name: Border PP (2)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14378,114 +14369,6 @@ Transform:
   - {fileID: 1337817478}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &958502243
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 958502247}
-  - component: {fileID: 958502246}
-  - component: {fileID: 958502245}
-  - component: {fileID: 958502244}
-  m_Layer: 0
-  m_Name: 'PP ACTION '
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!65 &958502244
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 958502243}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &958502245
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 958502243}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &958502246
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 958502243}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &958502247
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 958502243}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9144405, z: -0, w: -0.40472025}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 551310504}
-  m_LocalEulerAnglesHint: {x: 0, y: 42.253, z: 0}
 --- !u!1 &973087229
 GameObject:
   m_ObjectHideFlags: 0
@@ -15337,7 +15220,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsGlobal: 1
-  priority: 0
+  priority: 1
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 0ef28e3827cd31d4fba1328b47d6c788, type: 2}
@@ -15790,7 +15673,7 @@ GameObject:
   - component: {fileID: 1260922583}
   m_Layer: 0
   m_Name: Border PP (5)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16163,7 +16046,7 @@ GameObject:
   - component: {fileID: 1326886872}
   m_Layer: 0
   m_Name: Border PP (5)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16446,7 +16329,7 @@ GameObject:
   - component: {fileID: 1388956501}
   m_Layer: 0
   m_Name: Border PP (1)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16706,7 +16589,7 @@ GameObject:
   - component: {fileID: 1438207688}
   m_Layer: 0
   m_Name: Border PP
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17190,7 +17073,7 @@ GameObject:
   - component: {fileID: 1497753785}
   m_Layer: 0
   m_Name: Border PP (6)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17602,7 +17485,7 @@ GameObject:
   - component: {fileID: 1580065461}
   m_Layer: 0
   m_Name: Border PP (3)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17759,7 +17642,7 @@ GameObject:
   - component: {fileID: 1597314872}
   m_Layer: 0
   m_Name: Border PP (6)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18025,7 +17908,7 @@ GameObject:
   - component: {fileID: 1680873146}
   m_Layer: 0
   m_Name: Border PP (7)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18387,114 +18270,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 995886873}
   m_LocalEulerAnglesHint: {x: -36.554, y: 0.011, z: 0.369}
---- !u!1 &1795275919
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1795275923}
-  - component: {fileID: 1795275922}
-  - component: {fileID: 1795275921}
-  - component: {fileID: 1795275920}
-  m_Layer: 0
-  m_Name: Transition 2
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!65 &1795275920
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1795275919}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &1795275921
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1795275919}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &1795275922
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1795275919}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &1795275923
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1795275919}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0.20000073, y: 0.84999955, z: 0.5999986}
-  m_LocalScale: {x: 19.308748, y: 2.8931, z: 19.071917}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 551310504}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1806522605
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18621,7 +18396,7 @@ GameObject:
   - component: {fileID: 1813028727}
   m_Layer: 0
   m_Name: Border PP
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19111,7 +18886,7 @@ GameObject:
   - component: {fileID: 1849668882}
   m_Layer: 0
   m_Name: Border PP
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19354,7 +19129,7 @@ GameObject:
   - component: {fileID: 1863898604}
   m_Layer: 0
   m_Name: Border PP (3)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19781,7 +19556,7 @@ GameObject:
   - component: {fileID: 1986793354}
   m_Layer: 0
   m_Name: Border PP (3)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19889,7 +19664,7 @@ GameObject:
   - component: {fileID: 1994029977}
   m_Layer: 0
   m_Name: Border PP (2)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19983,134 +19758,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994029975}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &2027343744
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2027343748}
-  - component: {fileID: 2027343747}
-  - component: {fileID: 2027343746}
-  - component: {fileID: 2027343745}
-  - component: {fileID: 2027343749}
-  m_Layer: 0
-  m_Name: PP ACTION DOLLY
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!65 &2027343745
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2027343744}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 1
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
---- !u!23 &2027343746
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2027343744}
-  m_Enabled: 0
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_AdditionalVertexStreams: {fileID: 0}
---- !u!33 &2027343747
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2027343744}
-  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
---- !u!4 &2027343748
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2027343744}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0.9144405, z: -0, w: -0.40472025}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 551310504}
-  m_LocalEulerAnglesHint: {x: 0, y: 42.253, z: 0}
---- !u!114 &2027343749
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2027343744}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5ee80196bba23848abc60580b7d9a4f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  skyboxMaterial: {fileID: 2100000, guid: 4491c75084d4db04793dfdb39964d5c3, type: 2}
-  targetExposure: 7.13
-  targetAtmosphere: 4.14
-  enableFog: 1
-  targetFogColor: {r: 1, g: 0, b: 0, a: 1}
-  targetFogDensity: 0.03
-  transitionDuration: 2
 --- !u!1 &2056707376
 GameObject:
   m_ObjectHideFlags: 0
@@ -20125,7 +19772,7 @@ GameObject:
   - component: {fileID: 2056707378}
   m_Layer: 0
   m_Name: Border PP (7)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20233,7 +19880,7 @@ GameObject:
   - component: {fileID: 2060886219}
   m_Layer: 0
   m_Name: Border PP (7)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

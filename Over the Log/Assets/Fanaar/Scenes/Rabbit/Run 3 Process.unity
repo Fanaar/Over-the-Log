@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 4491c75084d4db04793dfdb39964d5c3, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: a7f0e0079cba65f44b3de2f6c330e90f, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -262,7 +262,7 @@ GameObject:
   - component: {fileID: 28403393}
   m_Layer: 0
   m_Name: Border PP (5)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -427,7 +427,7 @@ GameObject:
   - component: {fileID: 32046217}
   m_Layer: 0
   m_Name: Border PP (7)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3788,6 +3788,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 11d3143b57a5fae4a8d58e277bafb435, type: 3}
+--- !u!1 &329005843
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 329005844}
+  - component: {fileID: 329005845}
+  m_Layer: 19
+  m_Name: Run3_pp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &329005844
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329005843}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.4093817, z: -0, w: 0.91236323}
+  m_LocalPosition: {x: -142.52487, y: 0.13, z: -130.89159}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1116652335}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &329005845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 329005843}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 4b65b9a2a4a4dec4abc9d76b888a7048, type: 2}
 --- !u!1001 &331483400
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9002,7 +9051,7 @@ GameObject:
   - component: {fileID: 411598576}
   m_Layer: 0
   m_Name: Border PP (6)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9722,7 +9771,7 @@ GameObject:
   - component: {fileID: 512340978}
   m_Layer: 0
   m_Name: Border PP (7)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10096,10 +10145,10 @@ GameObject:
   - component: {fileID: 551310504}
   - component: {fileID: 551310503}
   - component: {fileID: 551310505}
-  - component: {fileID: 551310506}
   - component: {fileID: 551310507}
   - component: {fileID: 551310508}
   - component: {fileID: 551310510}
+  - component: {fileID: 551310511}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -10195,53 +10244,6 @@ MonoBehaviour:
     m_Bits: 8
   canLook: 1
   canMove: 1
---- !u!114 &551310506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 551310501}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2738f16c53848944fbac242e889cf991, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mainCamera: {fileID: 1246085684}
-  volumeUnderTheTrees: {fileID: 1596101624}
-  volumeAboveTheTrees: {fileID: 0}
-  volumeReflect: {fileID: 0}
-  controlFog: 1
-  fogUnderTheTrees: 0.01
-  fogAboveTheTrees: 0.02
-  fogReflect: 0.02
-  transitionDuration: 2
-  fadeCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 0
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 1
-      value: 1
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  flyingTrigger1: {fileID: 0}
-  flyingTrigger2: {fileID: 0}
 --- !u!54 &551310507
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -10305,6 +10307,50 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tracker: {fileID: 1209848105}
+--- !u!114 &551310511
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551310501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d89a570c68fbc3e48bda4569395e8f47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 1246085684}
+  baseVolume: {fileID: 329005845}
+  volumeDarkBorders: {fileID: 992130749}
+  volumeLightning: {fileID: 1972573307}
+  darkBordersFadeDuration: 1
+  lightningFadeDuration: 0.5
+  darkBordersWeight: 1
+  lightningWeight: 1
+  fadeCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!4 &556692496 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 306640882519099385, guid: 11d3143b57a5fae4a8d58e277bafb435, type: 3}
@@ -11753,7 +11799,7 @@ GameObject:
   - component: {fileID: 784229294}
   m_Layer: 0
   m_Name: Border PP (1)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11985,7 +12031,7 @@ GameObject:
   - component: {fileID: 819855953}
   m_Layer: 0
   m_Name: Border PP (2)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12595,7 +12641,7 @@ GameObject:
   - component: {fileID: 915401306}
   m_Layer: 0
   m_Name: Border PP (4)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12861,7 +12907,7 @@ GameObject:
   - component: {fileID: 952065030}
   m_Layer: 0
   m_Name: Border PP (4)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13076,7 +13122,7 @@ GameObject:
   - component: {fileID: 986713719}
   m_Layer: 0
   m_Name: Border PP (1)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13220,7 +13266,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_IsGlobal: 1
-  priority: 0
+  priority: 1
   blendDistance: 0
   weight: 1
   sharedProfile: {fileID: 11400000, guid: 0ef28e3827cd31d4fba1328b47d6c788, type: 2}
@@ -13398,7 +13444,7 @@ GameObject:
   - component: {fileID: 1041238612}
   m_Layer: 0
   m_Name: Border PP (7)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13506,7 +13552,7 @@ GameObject:
   - component: {fileID: 1044724095}
   m_Layer: 0
   m_Name: Border PP (6)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14200,8 +14246,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1596101623}
   - {fileID: 992130748}
+  - {fileID: 329005844}
+  - {fileID: 1972573306}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1121608743 stripped
@@ -14290,7 +14337,7 @@ GameObject:
   - component: {fileID: 1172278530}
   m_Layer: 0
   m_Name: Border PP
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14403,7 +14450,7 @@ GameObject:
   - component: {fileID: 1178329981}
   m_Layer: 0
   m_Name: Border PP (1)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -14900,6 +14947,9 @@ MonoBehaviour:
   cameraController: {fileID: 551310505}
   objectToActivate2: {fileID: 254513725}
   activationDelay: 5.5
+  postProcessing: {fileID: 551310511}
+  disableLightningAfterDelay: 1
+  lightningDuration: 0.4
 --- !u!4 &1209848106
 Transform:
   m_ObjectHideFlags: 0
@@ -15437,7 +15487,7 @@ MonoBehaviour:
   m_RendererIndex: -1
   m_VolumeLayerMask:
     serializedVersion: 2
-    m_Bits: 8192
+    m_Bits: 524288
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 1
@@ -15854,7 +15904,7 @@ GameObject:
   - component: {fileID: 1289327006}
   m_Layer: 0
   m_Name: Border PP (2)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16024,7 +16074,7 @@ GameObject:
   - component: {fileID: 1295918039}
   m_Layer: 0
   m_Name: Border PP (6)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -16451,7 +16501,7 @@ GameObject:
   - component: {fileID: 1353349551}
   m_Layer: 0
   m_Name: Border PP (4)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -18436,55 +18486,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 306640882519099385, guid: 11d3143b57a5fae4a8d58e277bafb435, type: 3}
   m_PrefabInstance: {fileID: 788272709}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1596101622
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1596101623}
-  - component: {fileID: 1596101624}
-  m_Layer: 13
-  m_Name: Rabbit_pp_ChildlikeWonder
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1596101623
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1596101622}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 176.79138, y: 0.392035, z: 137.04617}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1116652335}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1596101624
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1596101622}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_IsGlobal: 1
-  priority: 1
-  blendDistance: 0
-  weight: 1
-  sharedProfile: {fileID: 11400000, guid: 11d4ca9c387ad1b48a58d2ef1090a578, type: 2}
 --- !u!1001 &1607060275
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18710,7 +18711,7 @@ GameObject:
   - component: {fileID: 1664847388}
   m_Layer: 0
   m_Name: Border PP (5)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -19504,7 +19505,7 @@ GameObject:
   - component: {fileID: 1739231499}
   m_Layer: 0
   m_Name: Border PP
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20430,7 +20431,7 @@ GameObject:
   - component: {fileID: 1811574482}
   m_Layer: 0
   m_Name: Border PP (3)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20748,7 +20749,7 @@ GameObject:
   - component: {fileID: 1859566450}
   m_Layer: 0
   m_Name: Border PP (3)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -20918,7 +20919,7 @@ GameObject:
   - component: {fileID: 1883583692}
   m_Layer: 0
   m_Name: Border PP (3)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -21713,6 +21714,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb62e871dccddc44d9ed5b85badc56b4, type: 3}
+--- !u!1 &1972573305
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1972573306}
+  - component: {fileID: 1972573307}
+  m_Layer: 20
+  m_Name: BigDogSpawnLightning_pp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1972573306
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972573305}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.4093817, z: -0, w: 0.91236323}
+  m_LocalPosition: {x: -142.52487, y: 0.13, z: -130.89159}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1116652335}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1972573307
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1972573305}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 172515602e62fb746b5d573b38a5fe58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_IsGlobal: 1
+  priority: 0
+  blendDistance: 0
+  weight: 1
+  sharedProfile: {fileID: 11400000, guid: 9c2505084f4ba2a4383216f5ffe90c94, type: 2}
 --- !u!1001 &1973886278
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21983,7 +22033,7 @@ GameObject:
   - component: {fileID: 2025014983}
   m_Layer: 0
   m_Name: Border PP (5)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22091,7 +22141,7 @@ GameObject:
   - component: {fileID: 2026711641}
   m_Layer: 0
   m_Name: Border PP
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -22266,7 +22316,7 @@ GameObject:
   - component: {fileID: 2043672840}
   m_Layer: 0
   m_Name: Border PP (2)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
