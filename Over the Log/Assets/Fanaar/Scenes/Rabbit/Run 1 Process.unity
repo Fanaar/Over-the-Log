@@ -133,7 +133,7 @@ GameObject:
   - component: {fileID: 25138431}
   m_Layer: 0
   m_Name: PP Border Trigger (2)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -313,7 +313,7 @@ MonoBehaviour:
   dogSpawnHeightOffset: 1.5
   dogLookTarget: {fileID: 1875552271896197625}
   cameraLerpSpeed: 2
-  lookFreezeDuration: 4
+  lookFreezeDuration: 3
   dollyObject: {fileID: 2027343744}
   fmodAudioObject: {fileID: 39444584}
   objectToActivateAfterFreeze: {fileID: 958502243}
@@ -6120,7 +6120,7 @@ GameObject:
   - component: {fileID: 331568943}
   m_Layer: 0
   m_Name: PP Border Trigger
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -6611,7 +6611,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 2308f5b8a740c844fae0a0b4d35bd57d, type: 3}
       propertyPath: m_Enabled
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7511558181221131132, guid: 2308f5b8a740c844fae0a0b4d35bd57d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
@@ -7268,14 +7268,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mainCamera: {fileID: 1246085684}
-  volumeUnderTheTrees: {fileID: 1596101624}
-  volumeAboveTheTrees: {fileID: 381147817}
-  volumeReflect: {fileID: 572413413}
+  volumeChildLikeWonder: {fileID: 1596101624}
+  volumeDollyZoom: {fileID: 381147817}
+  volumeAction: {fileID: 572413413}
+  volumeDarkBorders: {fileID: 1206223461}
+  darkBordersWeight: 1
   controlFog: 1
-  fogUnderTheTrees: 0.01
-  fogAboveTheTrees: 0.02
-  fogReflect: 0.02
+  fogNormal: 0.02
+  fogDolly: 0
+  fogAction: 0
   transitionDuration: 2
+  darkBordersFadeDuration: 1
   fadeCurve:
     serializedVersion: 2
     m_Curve:
@@ -8052,7 +8055,7 @@ GameObject:
   - component: {fileID: 662542287}
   m_Layer: 0
   m_Name: PP Border Trigger (5)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10266,7 +10269,7 @@ GameObject:
   - component: {fileID: 1168498891}
   m_Layer: 0
   m_Name: PP Border Trigger (7)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10759,7 +10762,7 @@ GameObject:
   - component: {fileID: 1249356002}
   m_Layer: 0
   m_Name: PP Border Trigger (1)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11221,7 +11224,7 @@ GameObject:
   - component: {fileID: 1364834510}
   m_Layer: 0
   m_Name: PP Border Trigger (6)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12670,7 +12673,7 @@ GameObject:
   - component: {fileID: 1798734588}
   m_Layer: 0
   m_Name: PP Border Trigger (3)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13216,7 +13219,7 @@ GameObject:
   - component: {fileID: 2000014090}
   m_Layer: 0
   m_Name: PP Border Trigger (4)
-  m_TagString: Untagged
+  m_TagString: DarkBorders
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
