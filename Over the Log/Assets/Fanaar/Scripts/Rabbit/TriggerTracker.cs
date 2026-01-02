@@ -27,6 +27,9 @@ public class TriggerTracker : MonoBehaviour
     public bool disableLightningAfterDelay = true;
     public float lightningDuration = 2f;
 
+    [Header("Collect Trigger Cleanup")]
+    public string collectTriggerTag = "CollectTrigger";
+
     public void RegisterTrigger(Collider trigger)
     {
         if (triggeredColliders.Contains(trigger))
@@ -55,8 +58,22 @@ public class TriggerTracker : MonoBehaviour
         if (disableLightningAfterDelay)
             StartCoroutine(DisableLightningAfterSeconds(lightningDuration));
 
+        DeactivateCollectTriggers();
+
         if (playerCamera != null && lookTarget != null)
             StartCoroutine(SmoothLookAndLock());
+    }
+
+    private void DeactivateCollectTriggers()
+    {
+        GameObject[] collectTriggers = GameObject.FindGameObjectsWithTag(collectTriggerTag);
+
+        foreach (GameObject obj in collectTriggers)
+        {
+            obj.SetActive(false);
+        }
+
+        Debug.Log($"🧹 {collectTriggers.Length} CollectTriggers gedeactiveerd.");
     }
 
     private IEnumerator DisableLightningAfterSeconds(float delay)
