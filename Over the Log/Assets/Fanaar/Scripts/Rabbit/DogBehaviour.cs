@@ -18,20 +18,22 @@ public class DogBehaviour : MonoBehaviour
 
     [Header("Audio")]
     public AudioSource audioSource;
-    public AudioClip[] circlingClips;
+    public AudioClip[] circlingClips;          // 👈 Meerdere clips
     public float audioDelay = 2f;
-    public float talkingDelay = 2f;
+    public float talkingDelay = 2f;           // 👈 Instelbaar in inspector
 
-    private float circlingTimer = 0f;
-    private int currentClipIndex = 0;
     private bool audioStarted = false;
+    private int currentClipIndex = 0;
+    private float circlingTimer = 0f;
     private bool talkingSet = false;
 
     private Transform player;
     private bool approaching;
     private bool circling;
+    private bool finalApproach;
     private float circleAngle;
     private float fixedY;
+    private float finalApproachTimer;
 
     public DogJumpMimic jumpMimic;
 
@@ -40,10 +42,12 @@ public class DogBehaviour : MonoBehaviour
         player = playerTransform;
         approaching = true;
         circling = false;
+        finalApproach = false;
         circleAngle = 0f;
+        finalApproachTimer = 0f;
         circlingTimer = 0f;
-        currentClipIndex = 0;
         audioStarted = false;
+        currentClipIndex = 0;
         talkingSet = false;
         fixedY = transform.position.y;
 
@@ -62,6 +66,9 @@ public class DogBehaviour : MonoBehaviour
 
         if (circling)
             CircleAroundPlayer();
+
+        if (finalApproach)
+            FinalApproach();
     }
 
     void MoveTowardsCircleEntry()
@@ -70,7 +77,9 @@ public class DogBehaviour : MonoBehaviour
         Vector3 entryPoint = player.position + toDog * circleRadius;
         entryPoint.y = fixedY;
 
-        if (Vector3.Distance(transform.position, entryPoint) > 0.05f)
+        float dist = Vector3.Distance(transform.position, entryPoint);
+
+        if (dist > 0.05f)
         {
             Vector3 dir = (entryPoint - transform.position).normalized;
             transform.position += dir * moveSpeed * Time.deltaTime;
@@ -82,6 +91,9 @@ public class DogBehaviour : MonoBehaviour
             circling = true;
             animator.SetBool("isCircling", true);
             circlingTimer = 0f;
+            audioStarted = false;
+            currentClipIndex = 0;
+            talkingSet = false;
         }
     }
 
@@ -95,28 +107,33 @@ public class DogBehaviour : MonoBehaviour
         Vector3 targetPos = player.position + offset;
         targetPos.y = fixedY;
 
+        Vector3 moveDir = (targetPos - transform.position).normalized;
         transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-        RotateTowards((targetPos - transform.position).normalized);
+        RotateTowards(moveDir);
+
+        animator.SetBool("isMoving", true);
 
         circlingTimer += Time.deltaTime;
 
+        // Talking na delay
         if (!talkingSet && circlingTimer >= talkingDelay)
         {
             animator.SetBool("isTalking", true);
             talkingSet = true;
         }
 
-        if (!audioStarted && circlingTimer >= audioDelay && circlingClips.Length > 0)
+        // Start audio
+        if (!audioStarted && circlingTimer >= audioDelay && circlingClips.Length > 0 && audioSource != null)
         {
-            audioSource.clip = circlingClips[0];
+            audioSource.clip = circlingClips[currentClipIndex];
             audioSource.Play();
             audioStarted = true;
         }
 
-        if (audioStarted && !audioSource.isPlaying)
+        // Volgende clip of stoppen
+        if (audioStarted && audioSource != null && !audioSource.isPlaying)
         {
             currentClipIndex++;
-
             if (currentClipIndex < circlingClips.Length)
             {
                 audioSource.clip = circlingClips[currentClipIndex];
@@ -124,21 +141,56 @@ public class DogBehaviour : MonoBehaviour
             }
             else
             {
-                StopCircling();
+                StopCircling(); // 👈 automatisch stoppen na laatste clip
             }
         }
+    }
+
+    void StartFinalApproach()
+    {
+        circling = false;
+        finalApproach = true;
+        finalApproachTimer = 0f;
+
+        animator.SetBool("isCircling", false);
+        animator.SetBool("isMoving", true);
+    }
+
+    void FinalApproach()
+    {
+        finalApproachTimer += Time.deltaTime;
+
+        Vector3 targetPos = player.position;
+        targetPos.y = fixedY;
+
+        float dist = Vector3.Distance(transform.position, targetPos);
+
+        if (dist <= stopDistance)
+        {
+            StopCircling();
+            return;
+        }
+
+        Vector3 dir = (targetPos - transform.position).normalized;
+        transform.position += dir * moveSpeed * Time.deltaTime;
+        RotateTowards(dir);
+
+        if (finalApproachTimer >= finalApproachDuration)
+            StopCircling();
     }
 
     void RotateTowards(Vector3 direction)
     {
         if (direction.sqrMagnitude < 0.001f) return;
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 6f);
+        Quaternion targetRot = Quaternion.LookRotation(direction);
+        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 6f);
     }
 
     public void StopCircling()
     {
         circling = false;
         approaching = false;
+        finalApproach = false;
 
         animator.SetBool("isCircling", false);
         animator.SetBool("isMoving", false);
@@ -152,5 +204,10 @@ public class DogBehaviour : MonoBehaviour
 
         if (audioSource != null && audioSource.isPlaying)
             audioSource.Stop();
+    }
+
+    public void SetTalking(bool talking)
+    {
+        animator.SetBool("isTalking", talking);
     }
 }
