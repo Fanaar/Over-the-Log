@@ -30,6 +30,21 @@ public class TriggerTracker : MonoBehaviour
     [Header("Collect Trigger Cleanup")]
     public string collectTriggerTag = "CollectTrigger";
 
+    // 🔹 Flags
+    private bool triggersComplete = false;
+    private bool audioSequenceFinished = false;
+
+    private void OnEnable()
+    {
+        // Luister naar laatste clip event
+        TriggerAudioSequenceGlobal.OnSequenceFinished += OnAudioSequenceFinished;
+    }
+
+    private void OnDisable()
+    {
+        TriggerAudioSequenceGlobal.OnSequenceFinished -= OnAudioSequenceFinished;
+    }
+
     public void RegisterTrigger(Collider trigger)
     {
         if (triggeredColliders.Contains(trigger))
@@ -41,13 +56,24 @@ public class TriggerTracker : MonoBehaviour
 
         if (triggeredColliders.Count >= requiredTriggers)
         {
-            OnRequiredTriggersReached();
+            triggersComplete = true;
+            TryActivateFinalEffects();
         }
     }
 
-    private void OnRequiredTriggersReached()
+    private void OnAudioSequenceFinished()
     {
-        Debug.Log("🎉 Genoeg triggers geraakt!");
+        audioSequenceFinished = true;
+        TryActivateFinalEffects();
+    }
+
+    private void TryActivateFinalEffects()
+    {
+        // ✅ Beide voorwaarden moeten waar zijn
+        if (!triggersComplete || !audioSequenceFinished)
+            return;
+
+        Debug.Log("⚡ Triggers + Audio klaar — bliksem en objecten activeren!");
 
         if (objectToActivate != null)
             objectToActivate.SetActive(true);
