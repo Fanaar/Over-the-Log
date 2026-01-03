@@ -9,18 +9,41 @@ public class TriggerTracker : MonoBehaviour
 
     [Header("Smooth Look Settings")]
     public Transform playerCamera;
-    public Transform lookTarget; // het punt waar de speler naar moet kijken
+    public Transform lookTarget;
     public float lookSpeed = 2f;
 
     [Header("Activate Object")]
     public GameObject objectToActivate;
 
     [Header("Camera Lock")]
-    public MonoBehaviour cameraController; // bv. MouseLook script
+    public MonoBehaviour cameraController;
 
-    [Header("Activate Object")]
+    [Header("Activate Object 2")]
     public GameObject objectToActivate2;
-    public float activationDelay = 1f; // tijd in seconden voordat object geactiveerd wordt
+    public float activationDelay = 1f;
+
+    [Header("Post Processing")]
+    public PostProcessingWithDarkBordersAndLightning postProcessing;
+    public bool disableLightningAfterDelay = true;
+    public float lightningDuration = 2f;
+
+    [Header("Collect Trigger Cleanup")]
+    public string collectTriggerTag = "CollectTrigger";
+
+    // 🔹 Flags
+    private bool triggersComplete = false;
+    private bool audioSequenceFinished = false;
+
+    private void OnEnable()
+    {
+        // Luister naar laatste clip event
+        TriggerAudioSequenceGlobal.OnSequenceFinished += OnAudioSequenceFinished;
+    }
+
+    private void OnDisable()
+    {
+        TriggerAudioSequenceGlobal.OnSequenceFinished -= OnAudioSequenceFinished;
+    }
 
     public void RegisterTrigger(Collider trigger)
     {
@@ -33,58 +56,86 @@ public class TriggerTracker : MonoBehaviour
 
         if (triggeredColliders.Count >= requiredTriggers)
         {
-            OnRequiredTriggersReached();
+            triggersComplete = true;
+            TryActivateFinalEffects();
         }
     }
 
-    private void OnRequiredTriggersReached()
+    private void OnAudioSequenceFinished()
     {
-        Debug.Log("🎉 Genoeg triggers geraakt!");
+        audioSequenceFinished = true;
+        TryActivateFinalEffects();
+    }
+
+    private void TryActivateFinalEffects()
+    {
+        // ✅ Beide voorwaarden moeten waar zijn
+        if (!triggersComplete || !audioSequenceFinished)
+            return;
+
+        Debug.Log("⚡ Triggers + Audio klaar — bliksem en objecten activeren!");
 
         if (objectToActivate != null)
             objectToActivate.SetActive(true);
+
+        if (postProcessing != null)
+            postProcessing.TriggerLightning(true);
+
+        if (disableLightningAfterDelay)
+            StartCoroutine(DisableLightningAfterSeconds(lightningDuration));
+
+        DeactivateCollectTriggers();
 
         if (playerCamera != null && lookTarget != null)
             StartCoroutine(SmoothLookAndLock());
     }
 
+    private void DeactivateCollectTriggers()
+    {
+        GameObject[] collectTriggers = GameObject.FindGameObjectsWithTag(collectTriggerTag);
+
+        foreach (GameObject obj in collectTriggers)
+        {
+            obj.SetActive(false);
+        }
+
+        Debug.Log($"🧹 {collectTriggers.Length} CollectTriggers gedeactiveerd.");
+    }
+
+    private IEnumerator DisableLightningAfterSeconds(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (postProcessing != null)
+            postProcessing.TriggerLightning(false);
+    }
+
     private IEnumerator SmoothLookAndLock()
     {
-        // Eerst tijdelijk input uitzetten
         if (cameraController != null)
             cameraController.enabled = false;
 
-        float maxDegreesPerSecond = 90f; // snelheid van draaien, pas aan naar wens
+        float maxDegreesPerSecond = 90f;
 
         while (true)
         {
             Vector3 direction = (lookTarget.position - playerCamera.position).normalized;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-            // RotateTowards met maxDegreesPerSecond
             playerCamera.rotation = Quaternion.RotateTowards(playerCamera.rotation, targetRotation, maxDegreesPerSecond * Time.deltaTime);
 
-            // Check of we dicht genoeg zijn bij target
             if (Quaternion.Angle(playerCamera.rotation, targetRotation) < 0.1f)
             {
-                playerCamera.rotation = targetRotation; // fix kleine afwijking
+                playerCamera.rotation = targetRotation;
                 break;
             }
 
             yield return null;
         }
 
-        Debug.Log("Camera is nu gelocked op target.");
-
-        // Wacht de delay
         if (activationDelay > 0f)
             yield return new WaitForSeconds(activationDelay);
 
-        // Object activeren
         if (objectToActivate2 != null)
-        {
             objectToActivate2.SetActive(true);
-        }
-
     }
 }
