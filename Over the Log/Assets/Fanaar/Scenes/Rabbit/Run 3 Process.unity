@@ -12594,7 +12594,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &845035679
 Transform:
   m_ObjectHideFlags: 0
@@ -15170,7 +15170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5655250e59dba46a3cc618070d1a0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredTriggers: 3
+  requiredTriggers: 4
   playerCamera: {fileID: 1246085681}
   lookTarget: {fileID: 1466562933}
   lookSpeed: 2
@@ -20182,7 +20182,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1800382309
 Transform:
   m_ObjectHideFlags: 0
