@@ -17,19 +17,21 @@ public class DogBehaviour : MonoBehaviour
     public Animator animator;
 
     [Header("Audio")]
-    public AudioSource audioSource;           // AudioSource voor de hond
-    public AudioClip circlingClip;            // Clip die afgespeeld wordt tijdens cirkelen
-    public float audioDelay = 2f;             // Tijd (in seconden) voordat audio start
-    private bool audioPlayed = false;         // Check of audio al is afgespeeld
-    private float circlingTimer = 0f;         // Timer voor audio delay
+    public AudioSource audioSource;
+    public AudioClip[] circlingClips;
+    public float audioDelay = 2f;
+    public float talkingDelay = 2f;
+
+    private float circlingTimer = 0f;
+    private int currentClipIndex = 0;
+    private bool audioStarted = false;
+    private bool talkingSet = false;
 
     private Transform player;
     private bool approaching;
     private bool circling;
-    private bool finalApproach;
     private float circleAngle;
     private float fixedY;
-    private float finalApproachTimer;
 
     public DogJumpMimic jumpMimic;
 
@@ -38,11 +40,11 @@ public class DogBehaviour : MonoBehaviour
         player = playerTransform;
         approaching = true;
         circling = false;
-        finalApproach = false;
         circleAngle = 0f;
-        finalApproachTimer = 0f;
         circlingTimer = 0f;
-        audioPlayed = false;
+        currentClipIndex = 0;
+        audioStarted = false;
+        talkingSet = false;
         fixedY = transform.position.y;
 
         animator.SetBool("isMoving", true);
@@ -60,12 +62,6 @@ public class DogBehaviour : MonoBehaviour
 
         if (circling)
             CircleAroundPlayer();
-
-        if (finalApproach)
-            FinalApproach();
-
-        if (circling && Input.GetKeyDown(KeyCode.T))
-            StartFinalApproach();
     }
 
     void MoveTowardsCircleEntry()
@@ -74,9 +70,7 @@ public class DogBehaviour : MonoBehaviour
         Vector3 entryPoint = player.position + toDog * circleRadius;
         entryPoint.y = fixedY;
 
-        float dist = Vector3.Distance(transform.position, entryPoint);
-
-        if (dist > 0.05f)
+        if (Vector3.Distance(transform.position, entryPoint) > 0.05f)
         {
             Vector3 dir = (entryPoint - transform.position).normalized;
             transform.position += dir * moveSpeed * Time.deltaTime;
@@ -88,7 +82,6 @@ public class DogBehaviour : MonoBehaviour
             circling = true;
             animator.SetBool("isCircling", true);
             circlingTimer = 0f;
-            audioPlayed = false;
         }
     }
 
@@ -102,79 +95,50 @@ public class DogBehaviour : MonoBehaviour
         Vector3 targetPos = player.position + offset;
         targetPos.y = fixedY;
 
-        Vector3 moveDir = (targetPos - transform.position).normalized;
         transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
-        RotateTowards(moveDir);
+        RotateTowards((targetPos - transform.position).normalized);
 
-        animator.SetBool("isMoving", true);
+        circlingTimer += Time.deltaTime;
 
-        // --- Audio timer ---
-        if (!audioPlayed)
-        {
-            circlingTimer += Time.deltaTime;
-            if (circlingTimer >= audioDelay && audioSource != null && circlingClip != null)
-            {
-                audioSource.clip = circlingClip;
-                audioSource.Play();
-                audioPlayed = true;
-            }
-        }
-
-        // --- Talking bool na 2 seconden ---
-        if (circlingTimer >= 2f)  // Zet na 2 seconden
+        if (!talkingSet && circlingTimer >= talkingDelay)
         {
             animator.SetBool("isTalking", true);
+            talkingSet = true;
         }
-    }
 
-
-
-    void StartFinalApproach()
-    {
-        circling = false;
-        finalApproach = true;
-        finalApproachTimer = 0f;
-
-        animator.SetBool("isCircling", false);
-        animator.SetBool("isMoving", true);
-    }
-
-    void FinalApproach()
-    {
-        finalApproachTimer += Time.deltaTime;
-
-        Vector3 targetPos = player.position;
-        targetPos.y = fixedY;
-
-        float dist = Vector3.Distance(transform.position, targetPos);
-
-        if (dist <= stopDistance)
+        if (!audioStarted && circlingTimer >= audioDelay && circlingClips.Length > 0)
         {
-            StopCircling();
-            return;
+            audioSource.clip = circlingClips[0];
+            audioSource.Play();
+            audioStarted = true;
         }
 
-        Vector3 dir = (targetPos - transform.position).normalized;
-        transform.position += dir * moveSpeed * Time.deltaTime;
-        RotateTowards(dir);
+        if (audioStarted && !audioSource.isPlaying)
+        {
+            currentClipIndex++;
 
-        if (finalApproachTimer >= finalApproachDuration)
-            StopCircling();
+            if (currentClipIndex < circlingClips.Length)
+            {
+                audioSource.clip = circlingClips[currentClipIndex];
+                audioSource.Play();
+            }
+            else
+            {
+                StopCircling();
+            }
+        }
     }
 
     void RotateTowards(Vector3 direction)
     {
         if (direction.sqrMagnitude < 0.001f) return;
-
-        Quaternion targetRot = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 6f);
+        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), Time.deltaTime * 6f);
     }
 
     public void StopCircling()
     {
         circling = false;
         approaching = false;
-        finalApproach = false;
 
         animator.SetBool("isCircling", false);
         animator.SetBool("isMoving", false);
@@ -186,13 +150,7 @@ public class DogBehaviour : MonoBehaviour
         if (jumpMimic != null)
             jumpMimic.enabled = true;
 
-        // Optioneel: stop audio als het nog speelt
         if (audioSource != null && audioSource.isPlaying)
             audioSource.Stop();
-    }
-
-    public void SetTalking(bool talking)
-    {
-        animator.SetBool("isTalking", talking);
     }
 }
