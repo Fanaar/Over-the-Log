@@ -14,29 +14,35 @@ public class CameraPostProcessingController : MonoBehaviour
 
     [Header("Camera & Volumes")]
     [SerializeField] private Camera mainCamera;
+    [SerializeField] private Volume volumeChildLikeWonder;
+    [SerializeField] private Volume volumeDollyZoom;
+    [SerializeField] private Volume volumeAction;
 
-    [SerializeField] private Volume volumeUnderTheTrees;
-    [SerializeField] private Volume volumeAboveTheTrees;
-    [SerializeField] private Volume volumeReflect;
+    [Header("Dark Borders Overlay")]
+    [SerializeField] private Volume volumeDarkBorders;
+    [SerializeField] private float darkBordersWeight = 1f;
 
     [Header("Fog instellingen")]
     [SerializeField] private bool controlFog = true;
-    [SerializeField] private float fogUnderTheTrees = 0.02f;
-    [SerializeField] private float fogAboveTheTrees = 0f;
-    [SerializeField] private float fogReflect = 0f;
+    [SerializeField] private float fogNormal = 0.02f;
+    [SerializeField] private float fogDolly = 0f;
+    [SerializeField] private float fogAction = 0f;
 
     [Header("Transitie instellingen")]
     [SerializeField] private float transitionDuration = 2f;
+    [SerializeField] private float darkBordersFadeDuration = 1f;
 
     [Header("Fade Smoothing")]
     [SerializeField] private AnimationCurve fadeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
-    [Header("Trigger Objects (drag your colliders here)")]
+    [Header("Trigger Objects")]
     [SerializeField] private Collider flyingTrigger1;
     [SerializeField] private Collider flyingTrigger2;
 
     private State currentState = State.UnderTheTrees;
     private Coroutine transitionCoroutine;
+    private Coroutine darkBordersCoroutine;
+    private bool darkBordersActive = false;
 
     private void Awake()
     {
@@ -53,11 +59,12 @@ public class CameraPostProcessingController : MonoBehaviour
 
     private void Start()
     {
-        // Camera sees ALL volumes
         UniversalAdditionalCameraData camData = mainCamera.GetComponent<UniversalAdditionalCameraData>();
-        camData.volumeLayerMask = ~0; // every layer
+        camData.volumeLayerMask = ~0;
 
         SetStateInstant(State.UnderTheTrees);
+        if (volumeDarkBorders != null)
+            volumeDarkBorders.weight = 0f;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -69,6 +76,18 @@ public class CameraPostProcessingController : MonoBehaviour
         else if (other == flyingTrigger2)
         {
             ChangeState(State.Reflect);
+        }
+        else if (other.CompareTag("DarkBorders"))
+        {
+            SetDarkBorders(true);
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("DarkBorders"))
+        {
+            SetDarkBorders(false);
         }
     }
 
@@ -83,11 +102,45 @@ public class CameraPostProcessingController : MonoBehaviour
         transitionCoroutine = StartCoroutine(TransitionToState(newState));
     }
 
+    private void SetDarkBorders(bool active)
+    {
+        if (darkBordersActive == active || volumeDarkBorders == null)
+            return;
+
+        darkBordersActive = active;
+
+        if (darkBordersCoroutine != null)
+            StopCoroutine(darkBordersCoroutine);
+
+        darkBordersCoroutine = StartCoroutine(FadeDarkBorders(active));
+    }
+
+    private IEnumerator FadeDarkBorders(bool fadeIn)
+    {
+        float start = volumeDarkBorders.weight;
+        float end = fadeIn ? darkBordersWeight : 0f;
+
+        float t = 0f;
+
+        while (t < darkBordersFadeDuration)
+        {
+            t += Time.deltaTime;
+            float n = Mathf.Clamp01(t / darkBordersFadeDuration);
+            float smooth = fadeCurve.Evaluate(n);
+
+            volumeDarkBorders.weight = Mathf.Lerp(start, end, smooth);
+            yield return null;
+        }
+
+        volumeDarkBorders.weight = end;
+        darkBordersCoroutine = null;
+    }
+
     private void SetStateInstant(State state)
     {
-        volumeUnderTheTrees.weight = (state == State.UnderTheTrees) ? 1f : 0f;
-        volumeAboveTheTrees.weight = (state == State.AboveTheTrees) ? 1f : 0f;
-        volumeReflect.weight = (state == State.Reflect) ? 1f : 0f;
+        volumeChildLikeWonder.weight = (state == State.UnderTheTrees) ? 1f : 0f;
+        volumeDollyZoom.weight = (state == State.AboveTheTrees) ? 1f : 0f;
+        volumeAction.weight = (state == State.Reflect) ? 1f : 0f;
 
         if (controlFog)
             RenderSettings.fogDensity = GetFogForState(state);
@@ -111,8 +164,8 @@ public class CameraPostProcessingController : MonoBehaviour
         while (t < transitionDuration)
         {
             t += Time.deltaTime;
-            float normalized = Mathf.Clamp01(t / transitionDuration);
-            float smooth = fadeCurve.Evaluate(normalized);
+            float n = Mathf.Clamp01(t / transitionDuration);
+            float smooth = fadeCurve.Evaluate(n);
 
             if (fromVolume != null) fromVolume.weight = 1f - smooth;
             if (toVolume != null) toVolume.weight = smooth;
@@ -137,9 +190,9 @@ public class CameraPostProcessingController : MonoBehaviour
     {
         switch (state)
         {
-            case State.UnderTheTrees: return volumeUnderTheTrees;
-            case State.AboveTheTrees: return volumeAboveTheTrees;
-            case State.Reflect: return volumeReflect;
+            case State.UnderTheTrees: return volumeChildLikeWonder;
+            case State.AboveTheTrees: return volumeDollyZoom;
+            case State.Reflect: return volumeAction;
         }
         return null;
     }
@@ -148,10 +201,10 @@ public class CameraPostProcessingController : MonoBehaviour
     {
         switch (state)
         {
-            case State.UnderTheTrees: return fogUnderTheTrees;
-            case State.AboveTheTrees: return fogAboveTheTrees;
-            case State.Reflect: return fogReflect;
+            case State.UnderTheTrees: return fogNormal;
+            case State.AboveTheTrees: return fogDolly;
+            case State.Reflect: return fogAction;
         }
-        return fogUnderTheTrees;
+        return fogNormal;
     }
 }

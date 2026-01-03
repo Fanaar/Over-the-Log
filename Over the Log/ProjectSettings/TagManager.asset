@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 3
   tags:
   - CinemachineTarget
+  - CollectTrigger
+  - DarkBorders
   layers:
   - Default
   - TransparentFX
@@ -23,10 +25,10 @@ TagManager:
   - Rabbit_pp_Action
   - Rabbit_pp_Reflect
   - Rabbit_pp_dolly zoom
-  - 
-  - 
-  - 
-  - 
+  - Rabbit_pp_Hole
+  - Rabbit_pp_DarkBorders
+  - Run3_pp
+  - BigDogSpawnLightning_pp
   - 
   - 
   - 

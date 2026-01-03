@@ -1,22 +1,42 @@
-using UnityEngine;
+﻿using UnityEngine;
 
+[RequireComponent(typeof(CharacterController))]
 public class RabbitRunAwayController : MonoBehaviour
 {
     [Header("Movement")]
     public Transform directionHandle;
     public float speed = 5f;
+    public float rotationSpeed = 10f;
+
+    [Header("Gravity")]
+    public float gravity = -9.81f;
+    public float groundOffset = 0.2f;
 
     [Header("Identity")]
     public int rabbitIndex;
 
     [Header("Manager")]
-    public RabbitSettlementManager manager; // sleep hier de manager in inspector
+    public RabbitSettlementManager manager;
+
+    [Header("Animation")]
+    public Animator animator;
+    public string runningBoolName = "isRunning";
+    public string diggingBoolName = "isDigging";
 
     private Vector3 runDirection;
     private bool isSettled = false;
+    private bool isCurrentlyRunning = false;
 
     [HideInInspector]
-    public bool isInPlayerTrigger = false; // of hij binnen de spelertrigger is
+    public bool isInPlayerTrigger = false;
+
+    private CharacterController controller;
+    private Vector3 velocity;
+
+    void Awake()
+    {
+        controller = GetComponent<CharacterController>();
+    }
 
     void OnEnable()
     {
@@ -30,15 +50,48 @@ public class RabbitRunAwayController : MonoBehaviour
 
             runDirection = dir.normalized;
         }
+
+        velocity = Vector3.zero;
     }
 
     void Update()
     {
-        if (isSettled || !isInPlayerTrigger)
-            return; // Stoppen als gesettled of niet in trigger
+        HandleGravity();
 
-        transform.position += runDirection * speed * Time.deltaTime;
-        transform.rotation = Quaternion.LookRotation(runDirection);
+        bool shouldRun = !isSettled && isInPlayerTrigger;
+
+        if (animator != null && shouldRun != isCurrentlyRunning)
+        {
+            animator.SetBool(runningBoolName, shouldRun);
+            isCurrentlyRunning = shouldRun;
+        }
+
+        if (shouldRun)
+        {
+            HandleMovement();
+        }
+    }
+
+    private void HandleMovement()
+    {
+        Vector3 move = runDirection * speed * Time.deltaTime;
+        controller.Move(move);
+
+        if (runDirection != Vector3.zero)
+        {
+            Quaternion lookRotation = Quaternion.LookRotation(runDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, rotationSpeed * Time.deltaTime);
+        }
+    }
+
+    private void HandleGravity()
+    {
+        if (controller.isGrounded)
+            velocity.y = -groundOffset;
+        else
+            velocity.y += gravity * Time.deltaTime;
+
+        controller.Move(velocity * Time.deltaTime);
     }
 
     void OnTriggerEnter(Collider other)
@@ -47,11 +100,20 @@ public class RabbitRunAwayController : MonoBehaviour
         if (slot == null || slot.slotIndex != rabbitIndex)
             return;
 
-        // Konijn bereikt zijn slot
         isSettled = true;
         enabled = false;
 
-        // Notify manager (veilig tegen dubbel tellen)
+        if (animator != null && isCurrentlyRunning)
+        {
+            animator.SetBool(runningBoolName, false);
+            isCurrentlyRunning = false;
+        }
+
+        if (animator != null)
+        {
+            animator.SetBool(diggingBoolName, true);
+        }
+
         if (manager != null)
             manager.RabbitSettled(this);
     }

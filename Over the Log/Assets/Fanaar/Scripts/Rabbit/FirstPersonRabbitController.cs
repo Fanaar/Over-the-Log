@@ -1,4 +1,7 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using FMODUnity;
+
 
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonRabbitController : MonoBehaviour
@@ -23,29 +26,36 @@ public class FirstPersonRabbitController : MonoBehaviour
     public float cameraClampAngle = 85f;
 
     [Header("Head Bob Settings")]
-    public float bobSpeed = 6f;       // hoe snel het bobt
-    public float bobAmount = 0.05f;   // hoe hoog de camera op en neer gaat
+    public float bobSpeed = 6f;
+    public float bobAmount = 0.05f;
 
-    private float defaultCameraY;
-    private float bobTimer;
+    [Header("Footstep Audio")]
+    public EventReference footstepEvent;
+    public float footstepThreshold = -0.01f;
 
     [Header("Rabbit Bob Settings")]
-    public float rabbitBobSpeedMultiplier = 1.8f;   // hoe veel sneller de bob is
-    public float rabbitBobAmountMultiplier = 1.4f;  // hoe veel sterker de bob is
+    public float rabbitBobSpeedMultiplier = 1.8f;
+    public float rabbitBobAmountMultiplier = 1.4f;
 
     [Header("Ground Check Settings")]
-    public Transform groundCheckPoint; // plaats net onder de voeten
+    public Transform groundCheckPoint;
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
 
-    [HideInInspector] public bool canLook = true; // freeze camera when false
-
+    [HideInInspector] public bool canLook = true;
     [HideInInspector] public bool canMove = true;
 
     private CharacterController controller;
     private Vector3 velocity;
     private Vector3 currentMoveVelocity;
     private float verticalRotation;
+    private float defaultCameraY;
+    private float bobTimer;
+    private float lastBobY;
+
+
+    // --- Player Jump Event ---
+    public static event Action OnPlayerJump;
 
     void Start()
     {
@@ -57,27 +67,19 @@ public class FirstPersonRabbitController : MonoBehaviour
 
     void Update()
     {
-        // Always allow mouse look
         HandleMouseLook();
-
         HandleHeadBob();
 
-        // Only allow movement if canMove is true
         if (canMove)
             HandleMovement();
 
-        // Allow state switch anytime
         if (Input.GetKeyDown(KeyCode.R))
             SwitchState();
     }
 
-
-    // --------------------------
-    // MOUSE LOOK
-    // --------------------------
     void HandleMouseLook()
     {
-        if (!canLook) return; // skip looking if frozen
+        if (!canLook) return;
 
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity;
@@ -89,10 +91,6 @@ public class FirstPersonRabbitController : MonoBehaviour
         playerCamera.localEulerAngles = Vector3.right * verticalRotation;
     }
 
-
-    // --------------------------
-    // MOVEMENT
-    // --------------------------
     void HandleMovement()
     {
         switch (currentState)
@@ -121,7 +119,13 @@ public class FirstPersonRabbitController : MonoBehaviour
             velocity.y = -2f;
 
         if (Input.GetButtonDown("Jump") && grounded)
+        {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+            // 🔔 Trigger jump event voor konijnen
+            OnPlayerJump?.Invoke();
+            Debug.Log("Player jumped");
+        }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
@@ -148,24 +152,13 @@ public class FirstPersonRabbitController : MonoBehaviour
         Debug.Log("🐇 Movement state switched to: " + currentState);
     }
 
-    void OnDrawGizmosSelected()
-    {
-        if (groundCheckPoint != null)
-        {
-            Gizmos.color = Color.yellow;
-            Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);
-        }
-    }
-
     void HandleHeadBob()
     {
         bool isMoving = Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0;
 
-        // Base bob values (vertical + subtle horizontal sway)
         float speed = bobSpeed;
         float amount = bobAmount;
 
-        // Rabbit mode makes bob slightly faster, not jumpy
         if (currentState == MovementState.Rabbit)
         {
             speed *= rabbitBobSpeedMultiplier;
@@ -176,35 +169,37 @@ public class FirstPersonRabbitController : MonoBehaviour
         {
             bobTimer += Time.deltaTime * speed;
 
-            float bobOffsetY = Mathf.Sin(bobTimer * 1.3f) * amount;          // vertical
-            float bobOffsetX = Mathf.Sin(bobTimer * 0.7f) * amount * 0.4f;   // horizontal sway
+            float bobOffsetY = Mathf.Sin(bobTimer * 1.3f) * amount;
+            float bobOffsetX = Mathf.Sin(bobTimer * 0.7f) * amount * 0.4f;
 
-            Vector3 target = new Vector3(
-                0 + bobOffsetX,
-                defaultCameraY + bobOffsetY,
-                0
-            );
+            // 👣 FOOTSTEP TRIGGER (de magie)
+            if (lastBobY > footstepThreshold && bobOffsetY <= footstepThreshold)
+            {
+                RuntimeManager.PlayOneShot(footstepEvent, transform.position);
+            }
 
-            playerCamera.localPosition = Vector3.Lerp(
-                playerCamera.localPosition,
-                target,
-                Time.deltaTime * 10f
-            );
+            lastBobY = bobOffsetY;
+
+            Vector3 target = new Vector3(bobOffsetX, defaultCameraY + bobOffsetY, 0);
+            playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, target, Time.deltaTime * 10f);
         }
         else
         {
-            // Reset to center smoothly
             bobTimer = 0;
+            lastBobY = 0;
 
             Vector3 target = new Vector3(0, defaultCameraY, 0);
-
-            playerCamera.localPosition = Vector3.Lerp(
-                playerCamera.localPosition,
-                target,
-                Time.deltaTime * 8f
-            );
+            playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, target, Time.deltaTime * 8f);
         }
     }
 
 
+    void OnDrawGizmosSelected()
+    {
+        if (groundCheckPoint != null)
+        {
+            Gizmos.color = Color.yellow;
+            Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);
+        }
+    }
 }
