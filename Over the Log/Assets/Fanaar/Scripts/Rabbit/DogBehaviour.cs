@@ -16,6 +16,13 @@ public class DogBehaviour : MonoBehaviour
     public FirstPersonRabbitController playerController;
     public Animator animator;
 
+    [Header("Audio")]
+    public AudioSource audioSource;           // AudioSource voor de hond
+    public AudioClip circlingClip;            // Clip die afgespeeld wordt tijdens cirkelen
+    public float audioDelay = 2f;             // Tijd (in seconden) voordat audio start
+    private bool audioPlayed = false;         // Check of audio al is afgespeeld
+    private float circlingTimer = 0f;         // Timer voor audio delay
+
     private Transform player;
     private bool approaching;
     private bool circling;
@@ -26,7 +33,6 @@ public class DogBehaviour : MonoBehaviour
 
     public DogJumpMimic jumpMimic;
 
-
     public void StartEncounter(Transform playerTransform)
     {
         player = playerTransform;
@@ -35,6 +41,8 @@ public class DogBehaviour : MonoBehaviour
         finalApproach = false;
         circleAngle = 0f;
         finalApproachTimer = 0f;
+        circlingTimer = 0f;
+        audioPlayed = false;
         fixedY = transform.position.y;
 
         animator.SetBool("isMoving", true);
@@ -79,6 +87,8 @@ public class DogBehaviour : MonoBehaviour
             approaching = false;
             circling = true;
             animator.SetBool("isCircling", true);
+            circlingTimer = 0f;
+            audioPlayed = false;
         }
     }
 
@@ -88,18 +98,36 @@ public class DogBehaviour : MonoBehaviour
         circleAngle += circleSpeed * Time.deltaTime * dir;
 
         float rad = circleAngle * Mathf.Deg2Rad;
-
         Vector3 offset = new Vector3(Mathf.Cos(rad), 0, Mathf.Sin(rad)) * circleRadius;
         Vector3 targetPos = player.position + offset;
         targetPos.y = fixedY;
 
         Vector3 moveDir = (targetPos - transform.position).normalized;
-
         transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
         RotateTowards(moveDir);
 
         animator.SetBool("isMoving", true);
+
+        // --- Audio timer ---
+        if (!audioPlayed)
+        {
+            circlingTimer += Time.deltaTime;
+            if (circlingTimer >= audioDelay && audioSource != null && circlingClip != null)
+            {
+                audioSource.clip = circlingClip;
+                audioSource.Play();
+                audioPlayed = true;
+            }
+        }
+
+        // --- Talking bool na 2 seconden ---
+        if (circlingTimer >= 2f)  // Zet na 2 seconden
+        {
+            animator.SetBool("isTalking", true);
+        }
     }
+
+
 
     void StartFinalApproach()
     {
@@ -156,7 +184,11 @@ public class DogBehaviour : MonoBehaviour
             playerController.canMove = true;
 
         if (jumpMimic != null)
-            jumpMimic.enabled = true;   // 👈 activeer jump mimic hier
+            jumpMimic.enabled = true;
+
+        // Optioneel: stop audio als het nog speelt
+        if (audioSource != null && audioSource.isPlaying)
+            audioSource.Stop();
     }
 
     public void SetTalking(bool talking)
