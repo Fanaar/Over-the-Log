@@ -30,13 +30,17 @@ public class TriggerTracker : MonoBehaviour
     [Header("Collect Trigger Cleanup")]
     public string collectTriggerTag = "CollectTrigger";
 
+    [Header("Audio on Activate Object")]
+    public AudioSource audioSource;       // AudioSource voor de trigger
+    public AudioClip activationClip;      // Clip die afspeelt bij objectToActivate
+
     // 🔹 Flags
     private bool triggersComplete = false;
     private bool audioSequenceFinished = false;
+    private bool activationAudioPlayed = false;  // ✅ check dat audio maar één keer speelt
 
     private void OnEnable()
     {
-        // Luister naar laatste clip event
         TriggerAudioSequenceGlobal.OnSequenceFinished += OnAudioSequenceFinished;
     }
 
@@ -75,9 +79,20 @@ public class TriggerTracker : MonoBehaviour
 
         Debug.Log("⚡ Triggers + Audio klaar — bliksem en objecten activeren!");
 
+        // Object activeren
         if (objectToActivate != null)
+        {
             objectToActivate.SetActive(true);
 
+            // Speel audio maar één keer
+            if (!activationAudioPlayed && audioSource != null && activationClip != null)
+            {
+                audioSource.PlayOneShot(activationClip);
+                activationAudioPlayed = true;
+            }
+        }
+
+        // Trigger bliksem
         if (postProcessing != null)
             postProcessing.TriggerLightning(true);
 
