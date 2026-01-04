@@ -18,9 +18,9 @@ public class DogBehaviour : MonoBehaviour
 
     [Header("Audio")]
     public AudioSource audioSource;
-    public AudioClip[] circlingClips;          // 👈 Meerdere clips
+    public AudioClip[] circlingClips;
     public float audioDelay = 2f;
-    public float talkingDelay = 2f;           // 👈 Instelbaar in inspector
+    public float talkingDelay = 2f;
 
     private bool audioStarted = false;
     private int currentClipIndex = 0;
@@ -111,18 +111,16 @@ public class DogBehaviour : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
         RotateTowards(moveDir);
 
-        animator.SetBool("isMoving", true);
+        animator.SetBool("isMoving", false); // 👈 tijdens cirkelen niet "moving"
 
         circlingTimer += Time.deltaTime;
 
-        // Talking na delay
         if (!talkingSet && circlingTimer >= talkingDelay)
         {
             animator.SetBool("isTalking", true);
             talkingSet = true;
         }
 
-        // Start audio
         if (!audioStarted && circlingTimer >= audioDelay && circlingClips.Length > 0 && audioSource != null)
         {
             audioSource.clip = circlingClips[currentClipIndex];
@@ -130,7 +128,6 @@ public class DogBehaviour : MonoBehaviour
             audioStarted = true;
         }
 
-        // Volgende clip of stoppen
         if (audioStarted && audioSource != null && !audioSource.isPlaying)
         {
             currentClipIndex++;
@@ -141,10 +138,11 @@ public class DogBehaviour : MonoBehaviour
             }
             else
             {
-                StopCircling(); // 👈 automatisch stoppen na laatste clip
+                StartFinalApproach();
             }
         }
     }
+
 
     void StartFinalApproach()
     {
@@ -154,6 +152,7 @@ public class DogBehaviour : MonoBehaviour
 
         animator.SetBool("isCircling", false);
         animator.SetBool("isMoving", true);
+        animator.SetBool("isTalking", false);
     }
 
     void FinalApproach()
@@ -167,7 +166,7 @@ public class DogBehaviour : MonoBehaviour
 
         if (dist <= stopDistance)
         {
-            StopCircling();
+            FinishEncounter();
             return;
         }
 
@@ -176,7 +175,7 @@ public class DogBehaviour : MonoBehaviour
         RotateTowards(dir);
 
         if (finalApproachTimer >= finalApproachDuration)
-            StopCircling();
+            FinishEncounter();
     }
 
     void RotateTowards(Vector3 direction)
@@ -186,7 +185,7 @@ public class DogBehaviour : MonoBehaviour
         transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 6f);
     }
 
-    public void StopCircling()
+    void FinishEncounter()
     {
         circling = false;
         approaching = false;
