@@ -1205,15 +1205,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6a6e575ec17f9314cbcac62553713c0b, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -102.83157
+      value: -96.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6a6e575ec17f9314cbcac62553713c0b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 7.25
+      value: -28
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6a6e575ec17f9314cbcac62553713c0b, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 62.28482
+      value: 55.3
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 6a6e575ec17f9314cbcac62553713c0b, type: 3}
       propertyPath: m_LocalRotation.w
@@ -15271,11 +15271,11 @@ MonoBehaviour:
   requiredTriggers: 3
   playerCamera: {fileID: 1246085681}
   lookTarget: {fileID: 1466562933}
-  lookSpeed: 5
+  lookSpeed: 3
   objectToActivate: {fileID: 892364656}
   cameraController: {fileID: 551310505}
   objectToActivate2: {fileID: 254513725}
-  activationDelay: 8
+  activationDelay: 9
   postProcessing: {fileID: 551310511}
   disableLightningAfterDelay: 1
   lightningDuration: 0.4
@@ -17867,7 +17867,7 @@ Transform:
   m_GameObject: {fileID: 1466562932}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.8857935, z: -0, w: -0.46407965}
-  m_LocalPosition: {x: -28.253904, y: 41.07, z: 37.892776}
+  m_LocalPosition: {x: -15.7, y: 24.9, z: 29.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
