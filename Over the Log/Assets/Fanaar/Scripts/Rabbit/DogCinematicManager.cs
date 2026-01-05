@@ -82,14 +82,11 @@ public class DogCinematicManager : MonoBehaviour
         // --- Smooth camera rotation to dog ---
         if (automaticCameraFocus && dogLookTarget != null)
         {
-            // Activate extra objects
             dollyObject?.SetActive(true);
 
-            // Start scary face animatie
             if (dogAnimator != null)
                 dogAnimator.SetBool("isScaryFace", true);
 
-            // Slerp camera
             float elapsed = 0f;
             while (elapsed < dogFocusDuration)
             {
@@ -102,21 +99,15 @@ public class DogCinematicManager : MonoBehaviour
 
             playerCamera.LookAt(dogLookTarget);
 
-
             // Stop sneaky growl, start heavy breathing & siren
-            lofiSneakyGrowl?.Stop();
+            if (lofiSneakyGrowl != null)
+                lofiSneakyGrowl.EventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             heavyBreathingLoop?.Play();
             chaseSirenCue?.Play();
         }
 
-        // Hold camera frozen
         yield return new WaitForSeconds(lookFreezeDuration);
 
-        // Reset scary face after freeze
-        if (dogAnimator != null)
-            dogAnimator.SetBool("isScaryFace", false);
-
-        // Activate third object after freeze
         objectToActivateAfterFreeze?.SetActive(true);
 
         // --- Resume player control ---
@@ -125,25 +116,20 @@ public class DogCinematicManager : MonoBehaviour
         playerController.currentState = FirstPersonRabbitController.MovementState.Rabbit;
 
         // Stop heavy breathing loop
-        heavyBreathingLoop?.Stop();
+        if (heavyBreathingLoop != null)
+            heavyBreathingLoop.EventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
-        // Wolf chase roar
         wolfChaseRoarCue?.Play();
 
-        // Start eerie ambience + animals reverb one-shot
         AmbienceManager.Instance?.StartEerieLoop();
         animalsReverbCue?.Play();
 
-        // --- 4. Give dog a head start ---
         yield return new WaitForSeconds(headStartDuration);
 
-        // Trigger Run animation
         dogAnimator?.SetTrigger("Run");
 
-        // Start chasing player
         dog.GetComponent<DogController>()?.StartChase(playerController.transform);
 
-        // Start 3D chase audio
         chase3DAudioEmitter?.Play();
     }
 
