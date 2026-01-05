@@ -10,15 +10,27 @@ public class DogJumpMimic : MonoBehaviour
     public SimplePostProcessingWithDarkBorders postProcessing;
 
     [Header("Jump Audio")]
-    public AudioSource audioSource;         // AudioSource voor de hond
-    public AudioClip specialJumpClip;       // Clip die afspeelt na X sprongen
-    public int jumpAudioThreshold = 10;     // Hoeveel sprongen voordat special clip afspeelt
+    public AudioSource audioSource;
+    public AudioClip specialJumpClip;
+    public int jumpAudioThreshold = 10;
+
+    [Header("Ground Check")]
+    public Transform groundCheckPoint;
+    public float groundCheckRadius = 0.25f;
+    public LayerMask groundLayer;
+
+    [Header("Activate Object After Jumps")]
+    public GameObject objectToActivate;    // object dat geactiveerd wordt
+    public int jumpActivateThreshold = 5;  // na hoeveel sprongen
 
     private Rigidbody rb;
     private bool hasTriggeredPost = false;
+    private bool isGrounded = true;
+    private bool hasPlayedMusic = false;
+    private bool hasActivatedObject = false;  // voorkomt dat we het meerdere keren activeren
     public GameObject fallingFlowers;
 
-    private int jumpCount = 0;              // Telt het aantal sprongen
+    private int jumpCount = 0;
 
     void Awake()
     {
@@ -36,8 +48,17 @@ public class DogJumpMimic : MonoBehaviour
         FirstPersonRabbitController.OnPlayerJump -= OnPlayerJump;
     }
 
+    void Update()
+    {
+        // Ground check met CheckSphere
+        isGrounded = Physics.CheckSphere(groundCheckPoint.position, groundCheckRadius, groundLayer);
+    }
+
     void OnPlayerJump()
     {
+        // alleen springen als we grounded zijn
+        if (!isGrounded) return;
+
         // Eerste keer post-processing triggeren
         if (!hasTriggeredPost && postProcessing != null)
         {
@@ -45,23 +66,30 @@ public class DogJumpMimic : MonoBehaviour
             postProcessing.FadeThirdVolumeIn();
         }
 
-        // Falling leaves activeren
+        // Falling flowers activeren
         if (fallingFlowers != null)
             fallingFlowers.SetActive(true);
 
-        // Zet Rigidbody fysica aan (IsKinematic uit)
+        // Rigidbody fysica aanzetten
         if (rb != null)
             rb.isKinematic = false;
 
         // Tel sprong
         jumpCount++;
 
-        // Speel audio als threshold bereikt
-        if (audioSource != null && specialJumpClip != null && jumpCount >= jumpAudioThreshold)
+        // Speel audio als threshold bereikt, maar alleen 1 keer
+        if (!hasPlayedMusic && audioSource != null && specialJumpClip != null && jumpCount >= jumpAudioThreshold)
         {
             audioSource.clip = specialJumpClip;
             audioSource.Play();
-            jumpCount = 0; // reset teller als je wilt dat het opnieuw kan
+            hasPlayedMusic = true;
+        }
+
+        // Activeer object na bepaalde aantal sprongen
+        if (!hasActivatedObject && objectToActivate != null && jumpCount >= jumpActivateThreshold)
+        {
+            objectToActivate.SetActive(true);
+            hasActivatedObject = true;
         }
 
         // Start jump
@@ -72,7 +100,7 @@ public class DogJumpMimic : MonoBehaviour
     {
         yield return new WaitForSeconds(mimicDelay);
 
-        if (rb != null)
+        if (rb != null && isGrounded)
         {
             // reset verticale snelheid
             rb.linearVelocity = new Vector3(rb.linearVelocity.x, 0, rb.linearVelocity.z);
