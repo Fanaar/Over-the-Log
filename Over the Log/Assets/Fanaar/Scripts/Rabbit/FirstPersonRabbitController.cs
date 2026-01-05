@@ -73,8 +73,8 @@ public class FirstPersonRabbitController : MonoBehaviour
         if (canMove)
             HandleMovement();
 
-        if (Input.GetKeyDown(KeyCode.R))
-            SwitchState();
+        //if (Input.GetKeyDown(KeyCode.R))
+            //SwitchState();
     }
 
     void HandleMouseLook()
