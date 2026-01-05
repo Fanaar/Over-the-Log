@@ -7972,8 +7972,8 @@ MonoBehaviour:
   animator: {fileID: 1784256583}
   audioSource: {fileID: 1520131939}
   circlingClips:
-  - {fileID: 8300000, guid: d398cb558920b874596761f663ecf581, type: 3}
-  - {fileID: 8300000, guid: 10cc4ec330024624aad1476f5adc084e, type: 3}
+  - {fileID: 8300000, guid: bf5d0883292c2fd46a80ad46d0081c7a, type: 3}
+  - {fileID: 8300000, guid: e9ee0a68304cc744fbeff3a1b738fe35, type: 3}
   audioDelay: 2
   talkingDelay: 4
   jumpMimic: {fileID: 1520131937}
