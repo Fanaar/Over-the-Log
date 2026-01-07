@@ -38,20 +38,22 @@ public class StressManager : MonoBehaviour
     {
         if (!dogIsActive) return;
 
-        // ----- Stress berekenen -----
+        // Stress omhoog
         if (playerIsSprinting)
             stress += fleeRate * Time.deltaTime * 1.5f;
 
         if (playerIsMoving)
             stress += restlessRate * Time.deltaTime;
 
-        if (!playerIsLookingAtDog && !inDogTrigger)
+        if (!playerIsLookingAtDog)
             stress += avoidRate * Time.deltaTime;
 
-        if (inDogTrigger && playerIsLookingAtDog)
+        // Stress omlaag alleen bij echte acceptatie
+        if (playerIsLookingAtDog && inDogTrigger && !playerIsMoving)
             stress -= calmRate * Time.deltaTime;
 
         stress = Mathf.Clamp(stress, 0f, 100f);
+
 
         // ----- Acceptance logica -----
         bool isStill = !playerController.isMoving;
