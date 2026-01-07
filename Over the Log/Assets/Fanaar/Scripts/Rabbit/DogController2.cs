@@ -29,16 +29,17 @@ public class DogController2 : MonoBehaviour
         // Stress-factor en dynamicSpeed overal beschikbaar
         float stressFactor = StressManager.Instance != null ? StressManager.Instance.stress / 100f : 0f;
         float dynamicSpeed = Mathf.Lerp(speed * 0.6f, maxStressSpeed, stressFactor);
+        bool playerIsMoving = StressManager.Instance != null && StressManager.Instance.playerIsMoving;
 
-        if (isInPlayerTrigger)
+        if (isInPlayerTrigger && !playerIsMoving)
         {
-            animator.SetBool("isWalking", false);
-
             if (StressManager.Instance != null)
                 StressManager.Instance.playerIsLookingAtDog = true;
 
+            animator.SetBool("isWalking", false);
             return;
         }
+
         else
         {
             if (StressManager.Instance != null)

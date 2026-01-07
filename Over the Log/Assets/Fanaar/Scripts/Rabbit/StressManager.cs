@@ -14,9 +14,11 @@ public class StressManager : MonoBehaviour
     public float avoidRate = 8f;
     public float calmRate = 10f;
 
-    [Header("Acceptance")]
+    [Header("Acceptance Settings")]
     public float acceptanceTime = 10f; // seconden kijken en stil
     private float acceptanceTimer = 0f;
+    public string nextSceneName; // hier vul je in de Inspector de scene naam in
+
 
     [HideInInspector] public bool dogIsActive;
     [HideInInspector] public bool playerIsMoving;
@@ -61,7 +63,10 @@ public class StressManager : MonoBehaviour
             if (acceptanceTimer >= acceptanceTime)
             {
                 Debug.Log("Acceptance complete! Laad volgende scene...");
-                SceneManager.LoadScene("NextSceneName"); // pas naam aan
+                if (!string.IsNullOrEmpty(nextSceneName))
+                    SceneManager.LoadScene(nextSceneName);
+                else
+                    Debug.LogWarning("Next scene name niet ingesteld in de Inspector!");
             }
         }
         else
