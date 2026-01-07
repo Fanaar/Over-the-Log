@@ -41,6 +41,8 @@ public class DogCinematicManager : MonoBehaviour
     public StudioEventEmitter wolfChaseRoarCue;         // one-shot when chase starts
 
     private bool cinematicStarted = false;
+    private float originalSprintMultiplier;
+
 
     public void StartCinematic()
     {
@@ -48,6 +50,9 @@ public class DogCinematicManager : MonoBehaviour
 
         if (cinematicStarted) return;
         cinematicStarted = true;
+
+        originalSprintMultiplier = playerController.sprintMultiplier;
+
         StartCoroutine(CinematicSequence());
     }
 
@@ -113,7 +118,7 @@ public class DogCinematicManager : MonoBehaviour
         // --- Resume player control ---
         playerController.canMove = true;
         playerController.canLook = true;
-        playerController.currentState = FirstPersonRabbitController.MovementState.Rabbit;
+        playerController.sprintMultiplier = 3.5f;
 
         // Stop heavy breathing loop
         if (heavyBreathingLoop != null)

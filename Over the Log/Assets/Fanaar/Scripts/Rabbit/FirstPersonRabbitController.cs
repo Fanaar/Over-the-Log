@@ -2,32 +2,22 @@
 using UnityEngine;
 using FMODUnity;
 
-
 [RequireComponent(typeof(CharacterController))]
 public class FirstPersonRabbitController : MonoBehaviour
 {
-    public enum MovementState { Human, Rabbit }
-    public MovementState currentState = MovementState.Human;
-
-    [Header("Human Settings")]
+    [Header("Movement Settings")]
     public float walkSpeed = 5f;
     public float sprintMultiplier = 1.6f;
     public KeyCode sprintKey = KeyCode.LeftShift;
     public float jumpHeight = 1.5f;
-
-    [Header("Rabbit Settings")]
-    public float rabbitSpeed = 14f;
-    public float rabbitAcceleration = 30f;
-    public float rabbitJumpHeight = 3f;
-    public float airControl = 0.6f;
-
-    [Header("Shared Settings")]
     public float gravity = -9.81f;
+
+    [Header("Camera")]
     public Transform playerCamera;
     public float mouseSensitivity = 2f;
     public float cameraClampAngle = 85f;
 
-    [Header("Head Bob Settings")]
+    [Header("Head Bob")]
     public float bobSpeed = 6f;
     public float bobAmount = 0.05f;
 
@@ -35,11 +25,7 @@ public class FirstPersonRabbitController : MonoBehaviour
     public EventReference footstepEvent;
     public float footstepThreshold = -0.01f;
 
-    [Header("Rabbit Bob Settings")]
-    public float rabbitBobSpeedMultiplier = 1.8f;
-    public float rabbitBobAmountMultiplier = 1.4f;
-
-    [Header("Ground Check Settings")]
+    [Header("Ground Check")]
     public Transform groundCheckPoint;
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
@@ -49,15 +35,15 @@ public class FirstPersonRabbitController : MonoBehaviour
 
     private CharacterController controller;
     private Vector3 velocity;
-    private Vector3 currentMoveVelocity;
     private float verticalRotation;
     private float defaultCameraY;
     private float bobTimer;
     private float lastBobY;
 
-
-    // --- Player Jump Event ---
     public static event Action OnPlayerJump;
+
+    public bool isMoving;
+    private bool isSprinting;
 
     void Start()
     {
@@ -75,8 +61,7 @@ public class FirstPersonRabbitController : MonoBehaviour
         if (canMove)
             HandleMovement();
 
-        //if (Input.GetKeyDown(KeyCode.R))
-            //SwitchState();
+        ReportStressInputs();
     }
 
     void HandleMouseLook()
@@ -95,23 +80,6 @@ public class FirstPersonRabbitController : MonoBehaviour
 
     void HandleMovement()
     {
-        switch (currentState)
-        {
-            case MovementState.Human:
-                HumanMovement();
-                break;
-            case MovementState.Rabbit:
-                RabbitMovement();
-                break;
-        }
-    }
-
-    private bool IsGrounded()
-    {
-        return Physics.CheckSphere(groundCheckPoint.position, groundCheckRadius, groundLayer);
-    }
-    void HumanMovement()
-    {
         bool grounded = IsGrounded();
 
         float inputX = Input.GetAxis("Horizontal");
@@ -120,6 +88,9 @@ public class FirstPersonRabbitController : MonoBehaviour
         Vector3 move = (transform.right * inputX + transform.forward * inputZ).normalized;
 
         bool isSprinting = Input.GetKey(sprintKey) && inputZ > 0 && grounded;
+        this.isSprinting = isSprinting;
+        this.isMoving = move.magnitude > 0.1f;
+
         float speed = isSprinting ? walkSpeed * sprintMultiplier : walkSpeed;
 
         controller.Move(move * speed * Time.deltaTime);
@@ -137,38 +108,16 @@ public class FirstPersonRabbitController : MonoBehaviour
         controller.Move(velocity * Time.deltaTime);
     }
 
-
-    void RabbitMovement()
+    private bool IsGrounded()
     {
-        Vector3 targetMove = (transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical")).normalized;
-        float accel = IsGrounded() ? rabbitAcceleration : rabbitAcceleration * airControl;
-
-        currentMoveVelocity = Vector3.Lerp(currentMoveVelocity, targetMove * rabbitSpeed, accel * Time.deltaTime);
-        controller.Move(currentMoveVelocity * Time.deltaTime);
-
-        if (IsGrounded() && velocity.y < 0)
-            velocity.y = -2f;
-
-        velocity.y += gravity * Time.deltaTime;
-        controller.Move(velocity * Time.deltaTime);
-    }
-
-    private void SwitchState()
-    {
-        currentState = currentState == MovementState.Human ? MovementState.Rabbit : MovementState.Human;
-        Debug.Log("🐇 Movement state switched to: " + currentState);
+        return Physics.CheckSphere(groundCheckPoint.position, groundCheckRadius, groundLayer);
     }
 
     void HandleHeadBob()
     {
-        // ❌ Geen headbob als movement gelocked is
         if (!canMove)
         {
-            bobTimer = 0;
-            lastBobY = 0;
-
-            Vector3 target = new Vector3(0, defaultCameraY, 0);
-            playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, target, Time.deltaTime * 8f);
+            ResetHeadBob();
             return;
         }
 
@@ -177,10 +126,10 @@ public class FirstPersonRabbitController : MonoBehaviour
         float speed = bobSpeed;
         float amount = bobAmount;
 
-        if (currentState == MovementState.Rabbit)
+        if (Input.GetKey(sprintKey))
         {
-            speed *= rabbitBobSpeedMultiplier;
-            amount *= rabbitBobAmountMultiplier;
+            speed *= 1.5f;
+            amount *= 1.2f;
         }
 
         if (isMoving && IsGrounded())
@@ -190,11 +139,8 @@ public class FirstPersonRabbitController : MonoBehaviour
             float bobOffsetY = Mathf.Sin(bobTimer * 1.3f) * amount;
             float bobOffsetX = Mathf.Sin(bobTimer * 0.7f) * amount * 0.4f;
 
-            // 👣 FOOTSTEP TRIGGER
             if (lastBobY > footstepThreshold && bobOffsetY <= footstepThreshold)
-            {
                 RuntimeManager.PlayOneShot(footstepEvent, transform.position);
-            }
 
             lastBobY = bobOffsetY;
 
@@ -203,15 +149,18 @@ public class FirstPersonRabbitController : MonoBehaviour
         }
         else
         {
-            bobTimer = 0;
-            lastBobY = 0;
-
-            Vector3 target = new Vector3(0, defaultCameraY, 0);
-            playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, target, Time.deltaTime * 8f);
+            ResetHeadBob();
         }
     }
 
+    void ResetHeadBob()
+    {
+        bobTimer = 0;
+        lastBobY = 0;
 
+        Vector3 target = new Vector3(0, defaultCameraY, 0);
+        playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, target, Time.deltaTime * 8f);
+    }
 
     void OnDrawGizmosSelected()
     {
@@ -221,4 +170,14 @@ public class FirstPersonRabbitController : MonoBehaviour
             Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);
         }
     }
+
+    void ReportStressInputs()
+    {
+        if (StressManager.Instance == null) return;
+
+        // Check of speler beweegt / sprint
+        StressManager.Instance.playerIsMoving = isMoving;
+        StressManager.Instance.playerIsSprinting = isSprinting;
+    }
+
 }

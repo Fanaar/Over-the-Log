@@ -13,20 +13,42 @@ public class DogController2 : MonoBehaviour
     [HideInInspector]
     public bool isInPlayerTrigger = false;
 
+    [Header("Stress Settings")]
+    public float maxStressSpeed = 9f; // maximale hondensnelheid
+
+    private float debugTimer = 0f;
+    public float debugInterval = 0.1f; // print 10 keer per seconde
+
+
+
     private void Update()
     {
         if (!gameObject.activeInHierarchy || player == null)
             return;
 
-        if (isInPlayerTrigger)
+        // Stress-factor en dynamicSpeed overal beschikbaar
+        float stressFactor = StressManager.Instance != null ? StressManager.Instance.stress / 100f : 0f;
+        float dynamicSpeed = Mathf.Lerp(speed * 0.6f, maxStressSpeed, stressFactor);
+        bool playerIsMoving = StressManager.Instance != null && StressManager.Instance.playerIsMoving;
+
+        if (isInPlayerTrigger && !playerIsMoving)
         {
-            // Idle if in trigger
+            if (StressManager.Instance != null)
+                StressManager.Instance.playerIsLookingAtDog = true;
+
             animator.SetBool("isWalking", false);
             return;
         }
 
+        else
+        {
+            if (StressManager.Instance != null)
+                StressManager.Instance.playerIsLookingAtDog = false;
+        }
+
+
         Vector3 direction = player.position - transform.position;
-        direction.y = 0; // only horizontal movement
+        direction.y = 0;
 
         if (direction.sqrMagnitude > 0.01f)
         {
@@ -35,15 +57,25 @@ public class DogController2 : MonoBehaviour
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
 
             // Move
-            transform.position += transform.forward * speed * Time.deltaTime;
+            transform.position += transform.forward * dynamicSpeed * Time.deltaTime;
 
             // Walking animation
             animator.SetBool("isWalking", true);
         }
         else
         {
-            // Idle animation
             animator.SetBool("isWalking", false);
         }
+
+        // ----- DEBUG -----
+        debugTimer += Time.deltaTime;
+        if (debugTimer >= debugInterval)
+        {
+            float stressLevel = StressManager.Instance != null ? StressManager.Instance.stress : 0f;
+            Debug.Log($"[DEBUG] Stress: {stressLevel:F1} | DogSpeed: {dynamicSpeed:F2}");
+            debugTimer = 0f;
+        }
+        // ----- EIND DEBUG -----
     }
+
 }
