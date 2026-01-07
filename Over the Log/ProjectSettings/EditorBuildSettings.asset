@@ -8,22 +8,22 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Flin/Poep/Main Scene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  - enabled: 1
+  - enabled: 0
     path: Assets/Last version Scenes/Main Menu.unity
     guid: fdda28efc8f21114a825ca9a5c114b0a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Last version Scenes/Proloog.unity
     guid: 7c19d0b601f2ec646bc484ed1ea1eff0
-  - enabled: 1
+  - enabled: 0
     path: Assets/Last version Scenes/Run 1.unity
     guid: 34341db8ac5f0944ea6a9a1a2f51351d
-  - enabled: 1
+  - enabled: 0
     path: Assets/Last version Scenes/Run 2.unity
     guid: 9f97ddf7477dd4a44b4e1a68d309b9f5
-  - enabled: 1
+  - enabled: 0
     path: Assets/Last version Scenes/Run 3.unity
     guid: dc0b667c16c0d054c8b74d0e213c8154
-  - enabled: 1
+  - enabled: 0
     path: Assets/Last version Scenes/Void.unity
     guid: 20c249b5175425640a88c992b42ee4bf
   - enabled: 1

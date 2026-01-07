@@ -12982,13 +12982,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf91d56ec04733947be45a5e291ea365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
   walkSpeed: 2
+  sprintMultiplier: 1.6
+  sprintKey: 304
   jumpHeight: 1
-  rabbitSpeed: 5
-  rabbitAcceleration: 30
-  rabbitJumpHeight: 1.5
-  airControl: 0.6
   gravity: -20
   playerCamera: {fileID: 1246085681}
   mouseSensitivity: 2
@@ -13003,8 +13000,6 @@ MonoBehaviour:
       Data4: 1651002404
     Path: event:/ftstps_Rabbit 2
   footstepThreshold: -0.01
-  rabbitBobSpeedMultiplier: 1.3
-  rabbitBobAmountMultiplier: 3
   groundCheckPoint: {fileID: 1485596796}
   groundCheckRadius: 0.2
   groundLayer:
@@ -21724,7 +21719,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!33 &3652282529805008735
 MeshFilter:
   m_ObjectHideFlags: 0

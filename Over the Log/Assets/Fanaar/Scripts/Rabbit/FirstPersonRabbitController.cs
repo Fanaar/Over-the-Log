@@ -42,6 +42,9 @@ public class FirstPersonRabbitController : MonoBehaviour
 
     public static event Action OnPlayerJump;
 
+    public bool isMoving;
+    private bool isSprinting;
+
     void Start()
     {
         defaultCameraY = playerCamera.localPosition.y;
@@ -57,6 +60,8 @@ public class FirstPersonRabbitController : MonoBehaviour
 
         if (canMove)
             HandleMovement();
+
+        ReportStressInputs();
     }
 
     void HandleMouseLook()
@@ -83,6 +88,9 @@ public class FirstPersonRabbitController : MonoBehaviour
         Vector3 move = (transform.right * inputX + transform.forward * inputZ).normalized;
 
         bool isSprinting = Input.GetKey(sprintKey) && inputZ > 0 && grounded;
+        this.isSprinting = isSprinting;
+        this.isMoving = move.magnitude > 0.1f;
+
         float speed = isSprinting ? walkSpeed * sprintMultiplier : walkSpeed;
 
         controller.Move(move * speed * Time.deltaTime);
@@ -162,4 +170,14 @@ public class FirstPersonRabbitController : MonoBehaviour
             Gizmos.DrawWireSphere(groundCheckPoint.position, groundCheckRadius);
         }
     }
+
+    void ReportStressInputs()
+    {
+        if (StressManager.Instance == null) return;
+
+        // Check of speler beweegt / sprint
+        StressManager.Instance.playerIsMoving = isMoving;
+        StressManager.Instance.playerIsSprinting = isSprinting;
+    }
+
 }
