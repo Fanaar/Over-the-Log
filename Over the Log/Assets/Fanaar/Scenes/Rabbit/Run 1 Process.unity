@@ -283,7 +283,6 @@ GameObject:
   - component: {fileID: 39444588}
   - component: {fileID: 39444587}
   - component: {fileID: 39444590}
-  - component: {fileID: 39444592}
   m_Layer: 0
   m_Name: Dog Cinematic Manager
   m_TagString: Untagged
@@ -495,37 +494,6 @@ MonoBehaviour:
   OverrideAttenuation: 0
   OverrideMinDistance: 1
   OverrideMaxDistance: 20
---- !u!114 &39444592
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 39444584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 0
-      Data2: 0
-      Data3: 0
-      Data4: 0
-    Path: 
-  Event: 
-  EventPlayTrigger: 0
-  EventStopTrigger: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: -1
-  OverrideMaxDistance: -1
 --- !u!1 &48877911
 GameObject:
   m_ObjectHideFlags: 0
@@ -12220,6 +12188,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentState: 0
   walkSpeed: 2
+  sprintMultiplier: 5
+  sprintKey: 304
   jumpHeight: 1
   rabbitSpeed: 5
   rabbitAcceleration: 30
