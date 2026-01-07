@@ -11,6 +11,8 @@ public class FirstPersonRabbitController : MonoBehaviour
 
     [Header("Human Settings")]
     public float walkSpeed = 5f;
+    public float sprintMultiplier = 1.6f;
+    public KeyCode sprintKey = KeyCode.LeftShift;
     public float jumpHeight = 1.5f;
 
     [Header("Rabbit Settings")]
@@ -73,8 +75,8 @@ public class FirstPersonRabbitController : MonoBehaviour
         if (canMove)
             HandleMovement();
 
-        if (Input.GetKeyDown(KeyCode.R))
-            SwitchState();
+        //if (Input.GetKeyDown(KeyCode.R))
+            //SwitchState();
     }
 
     void HandleMouseLook()
@@ -108,28 +110,33 @@ public class FirstPersonRabbitController : MonoBehaviour
     {
         return Physics.CheckSphere(groundCheckPoint.position, groundCheckRadius, groundLayer);
     }
-
     void HumanMovement()
     {
-        Vector3 move = (transform.right * Input.GetAxis("Horizontal") + transform.forward * Input.GetAxis("Vertical")).normalized;
-        controller.Move(move * walkSpeed * Time.deltaTime);
-
         bool grounded = IsGrounded();
+
+        float inputX = Input.GetAxis("Horizontal");
+        float inputZ = Input.GetAxis("Vertical");
+
+        Vector3 move = (transform.right * inputX + transform.forward * inputZ).normalized;
+
+        bool isSprinting = Input.GetKey(sprintKey) && inputZ > 0 && grounded;
+        float speed = isSprinting ? walkSpeed * sprintMultiplier : walkSpeed;
+
+        controller.Move(move * speed * Time.deltaTime);
+
         if (grounded && velocity.y < 0)
             velocity.y = -2f;
 
         if (Input.GetButtonDown("Jump") && grounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
-
-            // 🔔 Trigger jump event voor konijnen
             OnPlayerJump?.Invoke();
-            Debug.Log("Player jumped");
         }
 
         velocity.y += gravity * Time.deltaTime;
         controller.Move(velocity * Time.deltaTime);
     }
+
 
     void RabbitMovement()
     {
@@ -154,6 +161,17 @@ public class FirstPersonRabbitController : MonoBehaviour
 
     void HandleHeadBob()
     {
+        // ❌ Geen headbob als movement gelocked is
+        if (!canMove)
+        {
+            bobTimer = 0;
+            lastBobY = 0;
+
+            Vector3 target = new Vector3(0, defaultCameraY, 0);
+            playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, target, Time.deltaTime * 8f);
+            return;
+        }
+
         bool isMoving = Input.GetAxis("Horizontal") != 0 || Input.GetAxis("Vertical") != 0;
 
         float speed = bobSpeed;
@@ -172,7 +190,7 @@ public class FirstPersonRabbitController : MonoBehaviour
             float bobOffsetY = Mathf.Sin(bobTimer * 1.3f) * amount;
             float bobOffsetX = Mathf.Sin(bobTimer * 0.7f) * amount * 0.4f;
 
-            // 👣 FOOTSTEP TRIGGER (de magie)
+            // 👣 FOOTSTEP TRIGGER
             if (lastBobY > footstepThreshold && bobOffsetY <= footstepThreshold)
             {
                 RuntimeManager.PlayOneShot(footstepEvent, transform.position);
@@ -192,6 +210,7 @@ public class FirstPersonRabbitController : MonoBehaviour
             playerCamera.localPosition = Vector3.Lerp(playerCamera.localPosition, target, Time.deltaTime * 8f);
         }
     }
+
 
 
     void OnDrawGizmosSelected()

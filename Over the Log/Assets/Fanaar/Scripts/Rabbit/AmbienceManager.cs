@@ -47,14 +47,14 @@ public class AmbienceManager : MonoBehaviour
 
     public void PlayIntroAmbience()
     {
-        StopAllAmbienceImmediate();
+        StopAllAmbienceWithFade();
         ambienceIntro?.Play();
     }
 
     public void FadeOutIntro()
     {
         if (ambienceIntro != null && ambienceIntro.IsPlaying())
-            ambienceIntro.Stop(); // FMOD emitter fade out settings zorgen voor smooth fade
+            ambienceIntro.EventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 
     public void StartEerieLoop()
@@ -66,26 +66,30 @@ public class AmbienceManager : MonoBehaviour
 
     public void PlayEerieEnding()
     {
-        // Stop alles anders behalve deze
-        StopAllAmbienceImmediate();
+        StopAllAmbienceWithFade();
         if (eerieEnding != null)
             eerieEnding.Play();
     }
 
     public void QuickFadeOutAll()
     {
-        StopAllAmbienceImmediate();
+        StopAllAmbienceWithFade();
     }
 
     // ─────────────────────────────────────────
     // INTERNAL
     // ─────────────────────────────────────────
 
-    private void StopAllAmbienceImmediate()
+    private void StopAllAmbienceWithFade()
     {
-        if (ambienceIntro != null && ambienceIntro.IsPlaying()) ambienceIntro.Stop();
-        if (eerieLoop != null && eerieLoop.IsPlaying()) eerieLoop.Stop();
-        if (eerieEnding != null && eerieEnding.IsPlaying()) eerieEnding.Stop();
+        if (ambienceIntro != null && ambienceIntro.IsPlaying())
+            ambienceIntro.EventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+
+        if (eerieLoop != null && eerieLoop.IsPlaying())
+            eerieLoop.EventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+
+        if (eerieEnding != null && eerieEnding.IsPlaying())
+            eerieEnding.EventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
     }
 
     private void HandleSceneFade()

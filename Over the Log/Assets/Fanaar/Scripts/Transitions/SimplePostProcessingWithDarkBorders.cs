@@ -10,12 +10,19 @@ public class SimplePostProcessingWithDarkBorders : MonoBehaviour
     [SerializeField] private Volume baseVolume;
     [SerializeField] private Volume volumeDarkBorders;
 
+    [Header("Third Volume (External Control)")]
+    [SerializeField] private Volume thirdVolume;
+    [SerializeField] private float thirdVolumeFadeDuration = 1f;
+    [SerializeField] private float thirdVolumeTargetWeight = 1f;
+
     [Header("Fade Settings")]
     [SerializeField] private float darkBordersFadeDuration = 1f;
     [SerializeField] private float darkBordersWeight = 1f;
     [SerializeField] private AnimationCurve fadeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     private Coroutine darkBordersCoroutine;
+    private Coroutine thirdVolumeCoroutine;
+
     private bool darkBordersActive = false;
 
     private void Awake()
@@ -34,6 +41,9 @@ public class SimplePostProcessingWithDarkBorders : MonoBehaviour
 
         if (volumeDarkBorders != null)
             volumeDarkBorders.weight = 0f;
+
+        if (thirdVolume != null)
+            thirdVolume.weight = 0f;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -58,27 +68,48 @@ public class SimplePostProcessingWithDarkBorders : MonoBehaviour
         if (darkBordersCoroutine != null)
             StopCoroutine(darkBordersCoroutine);
 
-        darkBordersCoroutine = StartCoroutine(FadeDarkBorders(active));
+        darkBordersCoroutine = StartCoroutine(FadeVolume(volumeDarkBorders, active ? darkBordersWeight : 0f, darkBordersFadeDuration));
     }
 
-    private IEnumerator FadeDarkBorders(bool fadeIn)
-    {
-        float start = volumeDarkBorders.weight;
-        float end = fadeIn ? darkBordersWeight : 0f;
+    // ===== Public API for third volume =====
 
+    public void FadeThirdVolumeIn()
+    {
+        if (thirdVolume == null) return;
+
+        if (thirdVolumeCoroutine != null)
+            StopCoroutine(thirdVolumeCoroutine);
+
+        thirdVolumeCoroutine = StartCoroutine(FadeVolume(thirdVolume, thirdVolumeTargetWeight, thirdVolumeFadeDuration));
+    }
+
+    public void FadeThirdVolumeOut()
+    {
+        if (thirdVolume == null) return;
+
+        if (thirdVolumeCoroutine != null)
+            StopCoroutine(thirdVolumeCoroutine);
+
+        thirdVolumeCoroutine = StartCoroutine(FadeVolume(thirdVolume, 0f, thirdVolumeFadeDuration));
+    }
+
+    // ===== Generic fade =====
+
+    private IEnumerator FadeVolume(Volume volume, float target, float duration)
+    {
+        float start = volume.weight;
         float t = 0f;
 
-        while (t < darkBordersFadeDuration)
+        while (t < duration)
         {
             t += Time.deltaTime;
-            float n = Mathf.Clamp01(t / darkBordersFadeDuration);
+            float n = Mathf.Clamp01(t / duration);
             float smooth = fadeCurve.Evaluate(n);
 
-            volumeDarkBorders.weight = Mathf.Lerp(start, end, smooth);
+            volume.weight = Mathf.Lerp(start, target, smooth);
             yield return null;
         }
 
-        volumeDarkBorders.weight = end;
-        darkBordersCoroutine = null;
+        volume.weight = target;
     }
 }
