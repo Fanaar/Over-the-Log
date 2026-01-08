@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   actions:
-  - targetObject: {fileID: 4758230451993988448}
+  - targetObject: {fileID: 0}
     setActive: 0
   - targetObject: {fileID: 8698028954354185445}
     setActive: 1
@@ -727,11 +727,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30bd04b8ef9c23c418f84304632b7e9d, type: 3}
---- !u!1 &4758230451993988448 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1114205559721329344, guid: 30bd04b8ef9c23c418f84304632b7e9d, type: 3}
-  m_PrefabInstance: {fileID: 5584135262507159456}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5279188319131670490 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 305581362122119290, guid: 30bd04b8ef9c23c418f84304632b7e9d, type: 3}

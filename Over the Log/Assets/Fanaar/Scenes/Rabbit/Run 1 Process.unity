@@ -19126,6 +19126,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Hier zit een konijn verstopt
       objectReference: {fileID: 0}
+    - target: {fileID: 4445909009810048931, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      propertyPath: actions.Array.data[0].targetObject
+      value: 
+      objectReference: {fileID: 5058805015267214382}
     - target: {fileID: 4738976802494220466, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 52.8
@@ -19171,6 +19175,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+--- !u!1 &5058805015267214382 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4758230451993988448, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+  m_PrefabInstance: {fileID: 5058805015267214381}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5289171311605768200 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
