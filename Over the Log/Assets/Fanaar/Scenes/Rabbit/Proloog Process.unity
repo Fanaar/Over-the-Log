@@ -833,7 +833,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d053212ec29a6af40afe286f564123af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  clip: {fileID: 8300000, guid: f4a76cf2be6176749ad742b7db0b8446, type: 3}
+  clip: {fileID: 8300000, guid: 7efad2cd36d27a04aba9081162b2a689, type: 3}
   volume: 1
   fadeGroup: {fileID: 1437194884}
   fadeDuration: 1

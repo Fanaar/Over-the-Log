@@ -12994,6 +12994,8 @@ MonoBehaviour:
   fadeDuration: 0.5
   sceneToLoad: Run 3
   objectsToDeactivate: []
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!65 &1246513716
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -14815,6 +14817,8 @@ MonoBehaviour:
   fadeDuration: 0.5
   sceneToLoad: Rabbit Hole 2
   objectsToDeactivate: []
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!1 &1680873144
 GameObject:
   m_ObjectHideFlags: 0
@@ -15897,7 +15901,7 @@ GameObject:
   - component: {fileID: 2018406601}
   - component: {fileID: 2018406600}
   m_Layer: 0
-  m_Name: SkyBoxController
+  m_Name: Stress Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
