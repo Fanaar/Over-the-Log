@@ -7,40 +7,49 @@ public class RabbitDanceTrigger : MonoBehaviour
     public StudioEventEmitter rabbitDanceEmitter;
     public RabbitMusicController musicController;
 
-    [Header("Settings")]
-    public float danceStateValue = 1f;
+    [Header("Trigger")]
+    [SerializeField] public Collider triggerCollider;
 
-    private bool hasTriggered = false;
+    private bool hasStartedDance = false;
+    private bool hasStoppedDance = false;
+
+    private void Awake()
+    {
+        // Trigger start UIT
+        if (triggerCollider != null)
+            triggerCollider.enabled = false;
+    }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (hasTriggered) return;
+        if (!triggerCollider.enabled) return;
+        if (hasStartedDance) return;
         if (!other.CompareTag("Player")) return;
 
-        hasTriggered = true;
+        hasStartedDance = true;
 
-        // Stop de muziek
+        // Stop eerdere muziek
         musicController?.StopMusic();
 
-        if (rabbitDanceEmitter != null)
-        {
-            rabbitDanceEmitter.Play();
-            rabbitDanceEmitter.SetParameter("DanceState", danceStateValue);
-        }
+        // Start dance muziek (1x)
+        rabbitDanceEmitter?.Play();
+
+        Debug.Log("🐇 Dance circle music STARTED");
     }
 
-    public void StopDance()
+    public void EnableTrigger()
     {
-        rabbitDanceEmitter.EventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-
+        if (triggerCollider != null)
+            triggerCollider.enabled = true;
     }
 
     public void StopCircleDance()
     {
-        if (rabbitDanceEmitter != null)
-        {
-            rabbitDanceEmitter.Stop();
-        }
-    }
+        if (hasStoppedDance) return;
 
+        hasStoppedDance = true;
+        rabbitDanceEmitter?.Stop();
+
+        Debug.Log("🛑 Dance circle music STOPPED");
+    }
 }

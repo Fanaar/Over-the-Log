@@ -2,6 +2,7 @@
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
+using FMODUnity;
 
 public class FadeAndLoadScene : MonoBehaviour
 {
@@ -13,14 +14,16 @@ public class FadeAndLoadScene : MonoBehaviour
     [Header("Objects to deactivate")]
     public GameObject[] objectsToDeactivate;
 
+    [Header("FMOD")]
+    public StudioEventEmitter wolfUnderGrowlEmitter;   // 🐺 3D geluid onder de wolf
+    public StudioEventEmitter extraEmitterToStop;     // 🔊 extra FMOD event
+
     private bool isFading = false;
 
-    // 🔔 Event voor andere systemen (audio, UI, analytics)
     public static event Action OnSceneFadeStarted;
 
     private void Start()
     {
-        // Zorg dat het panel intern volledig opaque is
         Image img = fadeCanvasGroup.GetComponent<Image>();
         if (img != null)
         {
@@ -35,12 +38,9 @@ public class FadeAndLoadScene : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (isFading) return;
-
         if (!other.CompareTag("Player")) return;
 
-        // 🔒 Voorkom dubbele triggers (meerdere colliders)
         GetComponent<Collider>().enabled = false;
-
         StartCoroutine(FadeAndLoad());
     }
 
@@ -48,10 +48,13 @@ public class FadeAndLoadScene : MonoBehaviour
     {
         isFading = true;
 
-        // 🔔 Trigger event, andere systemen kunnen hierop reageren
+        // 🔔 Event
         OnSceneFadeStarted?.Invoke();
 
-        // ✅ Objecten deactiveren
+        // 🛑 Stop FMOD audio netjes
+        wolfUnderGrowlEmitter?.Stop();
+        extraEmitterToStop?.Stop();
+
         foreach (GameObject obj in objectsToDeactivate)
         {
             if (obj != null)
