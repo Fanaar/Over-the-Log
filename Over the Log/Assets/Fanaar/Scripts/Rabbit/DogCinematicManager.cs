@@ -29,6 +29,7 @@ public class DogCinematicManager : MonoBehaviour
     public GameObject fmodAudioObject;
     public GameObject objectToActivateAfterFreeze;
     public GameObject spikesObject;
+    public GameObject spikesCollider;
 
     [Header("Dog Animator")]
     public Animator dogAnimator;
@@ -123,6 +124,7 @@ public class DogCinematicManager : MonoBehaviour
         playerController.sprintMultiplier = 3.5f;
 
         spikesObject.SetActive(true);
+        spikesCollider.SetActive(true);
 
         // Stop heavy breathing loop
         if (heavyBreathingLoop != null)
