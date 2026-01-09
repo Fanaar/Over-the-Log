@@ -19,15 +19,17 @@ public class StressManager : MonoBehaviour
     private float acceptanceTimer = 0f;
     public string nextSceneName; // hier vul je in de Inspector de scene naam in
 
-
     [HideInInspector] public bool dogIsActive;
     [HideInInspector] public bool playerIsMoving;
     [HideInInspector] public bool playerIsSprinting;
     [HideInInspector] public bool playerIsLookingAtDog;
     [HideInInspector] public bool inDogTrigger = false;
 
-    public FirstPersonRabbitController playerController; // nodig voor stillness check
-    public DogController2 dog; // optioneel, alleen voor debug/log
+    public FirstPersonRabbitController playerController;
+    public DogController2 dog;
+
+    // ----- Read-only property voor andere scripts -----
+    public float Acceptance01 => Mathf.Clamp01(acceptanceTimer / acceptanceTime);
 
     void Awake()
     {
@@ -38,22 +40,23 @@ public class StressManager : MonoBehaviour
     {
         if (!dogIsActive) return;
 
-        // ----- Stress berekenen -----
+        // ----- Stress berekening -----
         if (playerIsSprinting)
             stress += fleeRate * Time.deltaTime * 1.5f;
 
         if (playerIsMoving)
             stress += restlessRate * Time.deltaTime;
 
-        if (!playerIsLookingAtDog && !inDogTrigger)
+        if (!playerIsLookingAtDog)
             stress += avoidRate * Time.deltaTime;
 
-        if (inDogTrigger && playerIsLookingAtDog)
+        // Stress dalen alleen als speler stil staat en kijkt naar hond
+        if (playerIsLookingAtDog && inDogTrigger && !playerIsMoving)
             stress -= calmRate * Time.deltaTime;
 
         stress = Mathf.Clamp(stress, 0f, 100f);
 
-        // ----- Acceptance logica -----
+        // ----- Acceptance -----
         bool isStill = !playerController.isMoving;
 
         if (playerIsLookingAtDog && isStill)
@@ -71,10 +74,10 @@ public class StressManager : MonoBehaviour
         }
         else
         {
-            acceptanceTimer = 0f; // reset timer als speler beweegt of niet kijkt
+            acceptanceTimer = 0f;
         }
 
         // Debug
-        Debug.Log($"[DEBUG] Stress: {stress:F1} | AcceptanceTimer: {acceptanceTimer:F1}");
+        Debug.Log($"[StressManager] Stress: {stress:F1} | AcceptanceTimer: {acceptanceTimer:F1}");
     }
 }
