@@ -40,6 +40,7 @@ public class DogCinematicManager : MonoBehaviour
     public StudioEventEmitter chaseSirenCue;            // one-shot when camera locks
     public StudioEventEmitter animalsReverbCue;         // one-shot when controls unlock
     public StudioEventEmitter wolfChaseRoarCue;         // one-shot when chase starts
+    public StudioEventEmitter wolfChaseMusic;         // music when chase starts
 
     private bool cinematicStarted = false;
     private float originalSprintMultiplier;
@@ -128,6 +129,7 @@ public class DogCinematicManager : MonoBehaviour
             heavyBreathingLoop.EventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
         wolfChaseRoarCue?.Play();
+        wolfChaseMusic.Play();
 
         AmbienceManager.Instance?.StartEerieLoop();
         animalsReverbCue?.Play();
