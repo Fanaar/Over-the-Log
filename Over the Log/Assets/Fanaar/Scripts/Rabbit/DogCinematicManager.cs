@@ -29,6 +29,7 @@ public class DogCinematicManager : MonoBehaviour
     public GameObject fmodAudioObject;
     public GameObject objectToActivateAfterFreeze;
     public GameObject spikesObject;
+    public GameObject spikesCollider;
 
     [Header("Dog Animator")]
     public Animator dogAnimator;
@@ -40,6 +41,7 @@ public class DogCinematicManager : MonoBehaviour
     public StudioEventEmitter chaseSirenCue;            // one-shot when camera locks
     public StudioEventEmitter animalsReverbCue;         // one-shot when controls unlock
     public StudioEventEmitter wolfChaseRoarCue;         // one-shot when chase starts
+    public StudioEventEmitter wolfChaseMusic;         // music when chase starts
 
     private bool cinematicStarted = false;
     private float originalSprintMultiplier;
@@ -122,12 +124,14 @@ public class DogCinematicManager : MonoBehaviour
         playerController.sprintMultiplier = 3.5f;
 
         spikesObject.SetActive(true);
+        spikesCollider.SetActive(true);
 
         // Stop heavy breathing loop
         if (heavyBreathingLoop != null)
             heavyBreathingLoop.EventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
 
         wolfChaseRoarCue?.Play();
+        wolfChaseMusic.Play();
 
         AmbienceManager.Instance?.StartEerieLoop();
         animalsReverbCue?.Play();

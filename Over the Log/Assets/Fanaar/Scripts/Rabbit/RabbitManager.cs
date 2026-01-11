@@ -5,23 +5,43 @@ public class RabbitManager : MonoBehaviour
 {
     public static RabbitManager Instance;
 
-    public int totalRabbits = 10;        // Hoeveel konijnen er bestaan
-    public int collectedRabbits = 0;     // Hoeveel er geactiveerd zijn
+    [Header("Rabbit Count")]
+    public int totalRabbits = 10;
+    public int collectedRabbits = 0;
+
+    public RabbitDanceTrigger rabbitDanceTrigger;
+    public bool allRabbitsCollected = false;
 
     public event Action<int> OnRabbitCollected;
-    // Event → handig voor later (FMOD of UI)
+    public event Action OnAllRabbitsCollected;
+    public GameObject voiceLine;
 
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
     }
 
     public void RegisterRabbitActivated()
     {
-        collectedRabbits++;
+        if (allRabbitsCollected) return;
 
-        Debug.Log("Rabbit collected! Total: " + collectedRabbits);
+        collectedRabbits++;
+        Debug.Log("🐇 Rabbit collected! Total: " + collectedRabbits);
 
         OnRabbitCollected?.Invoke(collectedRabbits);
+
+        if (collectedRabbits >= totalRabbits)
+        {
+            rabbitDanceTrigger.EnableTrigger();
+            voiceLine.SetActive(true);
+            allRabbitsCollected = true;
+            Debug.Log("🎉 ALL RABBITS COLLECTED");
+            OnAllRabbitsCollected?.Invoke();
+        }
     }
 }

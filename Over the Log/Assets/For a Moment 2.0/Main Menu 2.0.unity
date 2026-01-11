@@ -5913,7 +5913,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadePanel: {fileID: 1437194884}
   fadeDuration: 2
-  sceneToLoad: Proloog
+  sceneToLoad: Proloog 2.0
   musicSource: {fileID: 728821115}
   sfxSource: {fileID: 2005717341}
   clickSound: {fileID: 8300000, guid: 6916a5ba7e2e0ab4487e9d99fad3c2fb, type: 3}
