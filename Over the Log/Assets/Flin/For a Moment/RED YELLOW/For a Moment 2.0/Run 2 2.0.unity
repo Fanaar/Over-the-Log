@@ -5839,6 +5839,8 @@ MonoBehaviour:
   fadeDuration: 0.5
   sceneToLoad: Rabbit Hole 2
   objectsToDeactivate: []
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!1 &224240527
 GameObject:
   m_ObjectHideFlags: 0
@@ -7100,6 +7102,8 @@ MonoBehaviour:
   fadeDuration: 0.5
   sceneToLoad: Rabbit Hole 2
   objectsToDeactivate: []
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!1 &436748677
 GameObject:
   m_ObjectHideFlags: 0
@@ -12512,6 +12516,8 @@ MonoBehaviour:
   fadeDuration: 0.5
   sceneToLoad: Rabbit Hole 2
   objectsToDeactivate: []
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!1 &499447768
 GameObject:
   m_ObjectHideFlags: 0
@@ -12982,13 +12988,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf91d56ec04733947be45a5e291ea365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
   walkSpeed: 2
+  sprintMultiplier: 1.6
+  sprintKey: 304
   jumpHeight: 1
-  rabbitSpeed: 5
-  rabbitAcceleration: 30
-  rabbitJumpHeight: 1.5
-  airControl: 0.6
   gravity: -20
   playerCamera: {fileID: 1246085681}
   mouseSensitivity: 2
@@ -13003,8 +13006,6 @@ MonoBehaviour:
       Data4: 1651002404
     Path: event:/ftstps_Rabbit 2
   footstepThreshold: -0.01
-  rabbitBobSpeedMultiplier: 1.3
-  rabbitBobAmountMultiplier: 3
   groundCheckPoint: {fileID: 1485596796}
   groundCheckRadius: 0.2
   groundLayer:
@@ -13012,6 +13013,7 @@ MonoBehaviour:
     m_Bits: 8
   canLook: 1
   canMove: 1
+  isMoving: 0
 --- !u!114 &551310506
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13538,6 +13540,33 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 598467570}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &622002021 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+  m_PrefabInstance: {fileID: 859188529}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &622002022
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 622002021}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 210ededff6c688e41b10318b5f080ed5, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &653039358
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13917,6 +13946,8 @@ MonoBehaviour:
   fadeDuration: 0.5
   sceneToLoad: Rabbit Hole 2
   objectsToDeactivate: []
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!1 &726734980
 GameObject:
   m_ObjectHideFlags: 0
@@ -14323,6 +14354,78 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 827821996}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1001 &859188529
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 512.8862
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 512.8862
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 512.8862
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 49.305
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -104.35
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      propertyPath: m_Name
+      value: Spike Animation run 2,3,4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 622002022}
+  m_SourcePrefab: {fileID: 100100000, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
 --- !u!1 &914085012
 GameObject:
   m_ObjectHideFlags: 0
@@ -15688,6 +15791,8 @@ MonoBehaviour:
   fadeDuration: 0.5
   sceneToLoad: Run 3
   objectsToDeactivate: []
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!65 &1246513716
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17997,6 +18102,8 @@ MonoBehaviour:
   fadeDuration: 0.5
   sceneToLoad: Rabbit Hole 2
   objectsToDeactivate: []
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!1 &1680873144
 GameObject:
   m_ObjectHideFlags: 0
@@ -25011,6 +25118,8 @@ MonoBehaviour:
   rotationSpeed: 5
   animator: {fileID: 1465133108}
   isInPlayerTrigger: 0
+  maxStressSpeed: 9
+  debugInterval: 0.1
 --- !u!65 &9222007891085739612
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -25577,3 +25686,4 @@ SceneRoots:
   - {fileID: 174070702}
   - {fileID: 945218887}
   - {fileID: 794698885}
+  - {fileID: 859188529}

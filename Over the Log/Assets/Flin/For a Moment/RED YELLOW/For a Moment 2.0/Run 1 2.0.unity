@@ -318,6 +318,7 @@ MonoBehaviour:
   fmodAudioObject: {fileID: 39444584}
   objectToActivateAfterFreeze: {fileID: 958502243}
   spikesObject: {fileID: 1047089731}
+  spikesCollider: {fileID: 0}
   dogAnimator: {fileID: 418605464}
   chase3DAudioEmitter: {fileID: 1347097652}
   lofiSneakyGrowl: {fileID: 39444591}
@@ -325,6 +326,7 @@ MonoBehaviour:
   chaseSirenCue: {fileID: 39444588}
   animalsReverbCue: {fileID: 39444587}
   wolfChaseRoarCue: {fileID: 39444590}
+  wolfChaseMusic: {fileID: 0}
 --- !u!4 &39444586
 Transform:
   m_ObjectHideFlags: 0
@@ -12191,6 +12193,8 @@ MonoBehaviour:
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!135 &547128022
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -13096,6 +13100,8 @@ MonoBehaviour:
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!135 &663204383
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -14237,7 +14243,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: a10aa30ea3326994c8994186db5fe9e5, type: 2}
+  m_MaterialTemplate: {fileID: 2100000, guid: dcc5c5fa88cc8424f8b725274cefe901, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -14614,6 +14620,8 @@ MonoBehaviour:
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!135 &922753414
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -15138,6 +15146,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalRabbits: 10
   collectedRabbits: 0
+  rabbitDanceTrigger: {fileID: 0}
+  allRabbitsCollected: 0
+  voiceLine: {fileID: 0}
 --- !u!4 &1057375734
 Transform:
   m_ObjectHideFlags: 0
@@ -15172,10 +15183,6 @@ MonoBehaviour:
       Data3: -1357715569
       Data4: -1740775693
     Path: event:/IntrExp
-  parameterName: rabbits collected
-  beginningThreshold: 0
-  midThreshold: 3
-  endThreshold: 7
 --- !u!114 &1096809305 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
@@ -16064,6 +16071,8 @@ MonoBehaviour:
   fadeDuration: 0.5
   sceneToLoad: Run 2
   objectsToDeactivate: []
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!65 &1316644116
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17861,6 +17870,8 @@ MonoBehaviour:
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!135 &1736318627
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -18016,6 +18027,7 @@ MonoBehaviour:
   coneLength: 5
   dogCinematicManager: {fileID: 39444585}
   playerRunTrigger: {fileID: 1998402739}
+  rabbitDanceTrigger: {fileID: 0}
   allReady: 0
 --- !u!4 &1766627586
 Transform:
@@ -18108,6 +18120,64 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1047089732}
   m_SourcePrefab: {fileID: 100100000, guid: 0c00c5a565e4f1d4e86016cca94dfbf0, type: 3}
+--- !u!1001 &1788007653
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: faf6f800e66c7ba449db925cd2a5cf32, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -232.26436
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faf6f800e66c7ba449db925cd2a5cf32, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.00000047683716
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faf6f800e66c7ba449db925cd2a5cf32, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -109.33821
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faf6f800e66c7ba449db925cd2a5cf32, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faf6f800e66c7ba449db925cd2a5cf32, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faf6f800e66c7ba449db925cd2a5cf32, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faf6f800e66c7ba449db925cd2a5cf32, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faf6f800e66c7ba449db925cd2a5cf32, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faf6f800e66c7ba449db925cd2a5cf32, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: faf6f800e66c7ba449db925cd2a5cf32, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: faf6f800e66c7ba449db925cd2a5cf32, type: 3}
+      propertyPath: m_Name
+      value: Test
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects:
+    - {fileID: 2657123502868814782, guid: faf6f800e66c7ba449db925cd2a5cf32, type: 3}
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: faf6f800e66c7ba449db925cd2a5cf32, type: 3}
 --- !u!1 &1795275919
 GameObject:
   m_ObjectHideFlags: 0
@@ -18537,6 +18607,8 @@ MonoBehaviour:
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!135 &1983488621
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -19496,3 +19568,4 @@ SceneRoots:
   - {fileID: 961604667}
   - {fileID: 1780774304}
   - {fileID: 3755261986479039484}
+  - {fileID: 1788007653}
