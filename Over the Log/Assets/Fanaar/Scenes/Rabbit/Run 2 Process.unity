@@ -5162,7 +5162,7 @@ GameObject:
   - component: {fileID: 205301706}
   - component: {fileID: 205301705}
   m_Layer: 0
-  m_Name: Spawn Dog
+  m_Name: Spawn Dog trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5181,6 +5181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dogObject: {fileID: 3601758332329209821}
+  spikes: {fileID: 1228087222}
   playerTag: Player
 --- !u!65 &205301706
 BoxCollider:
@@ -12328,6 +12329,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Spike Animation run 2,3,4
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -12335,6 +12340,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1228087223}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1228087224}
   m_SourcePrefab: {fileID: 100100000, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
 --- !u!1001 &693983513
 PrefabInstance:
@@ -13082,6 +13090,24 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1228087224
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1228087222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 393f9d6b18b8c4b408103796e6045ed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stressManager: {fileID: 2018406601}
+  animationStateName: Spike circle animation
+  forwardSpeed: 2
+  acceptanceYOffset: -25
+  positionLerpSpeed: 0.1
+  debugLog: 1
 --- !u!1 &1238000656
 GameObject:
   m_ObjectHideFlags: 0
@@ -16325,7 +16351,7 @@ MonoBehaviour:
   avoidRate: 8
   calmRate: 10
   acceptanceTime: 10
-  nextSceneName: 
+  nextSceneName: Void
   dogIsActive: 0
   playerIsMoving: 0
   playerIsSprinting: 0
