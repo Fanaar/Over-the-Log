@@ -11702,7 +11702,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   walkSpeed: 2
-  sprintMultiplier: 1.6
+  sprintMultiplier: 1.5
   sprintKey: 304
   jumpHeight: 1
   gravity: -20
@@ -19234,7 +19234,7 @@ MonoBehaviour:
   rotationSpeed: 5
   animator: {fileID: 1465133108}
   isInPlayerTrigger: 0
-  maxStressSpeed: 9
+  maxStressSpeed: 6
   debugInterval: 0.1
 --- !u!65 &9222007891142486253
 BoxCollider:
