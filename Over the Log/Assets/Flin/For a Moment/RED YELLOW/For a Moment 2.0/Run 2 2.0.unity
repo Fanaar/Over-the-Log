@@ -16303,11 +16303,11 @@ PrefabInstance:
     - target: {fileID: -6835773263095277841, guid: 80cbbb432ade39642b5cd493afab4805, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: f94941d5effe9fd4083c9fee6a8190cb, type: 2}
+      objectReference: {fileID: 2100000, guid: 77f2f6f2e919d904a9170f7f4d5a6530, type: 2}
     - target: {fileID: -1374969743735643819, guid: 80cbbb432ade39642b5cd493afab4805, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: f94941d5effe9fd4083c9fee6a8190cb, type: 2}
+      objectReference: {fileID: 2100000, guid: 77f2f6f2e919d904a9170f7f4d5a6530, type: 2}
     - target: {fileID: 919132149155446097, guid: 80cbbb432ade39642b5cd493afab4805, type: 3}
       propertyPath: m_Name
       value: DogPose3
@@ -20329,6 +20329,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6835773263095277841, guid: b044392337aad2e44a33733461c2eff7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 77f2f6f2e919d904a9170f7f4d5a6530, type: 2}
+    - target: {fileID: -1374969743735643819, guid: b044392337aad2e44a33733461c2eff7, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 77f2f6f2e919d904a9170f7f4d5a6530, type: 2}
     - target: {fileID: 919132149155446097, guid: b044392337aad2e44a33733461c2eff7, type: 3}
       propertyPath: m_Name
       value: DogPose1
