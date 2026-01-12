@@ -18445,6 +18445,12 @@ MonoBehaviour:
   isInPlayerTrigger: 0
   maxStressSpeed: 6
   debugInterval: 0.1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundCheckHeight: 2
+  groundSnapSpeed: 10
+  groundOffset: 1.6
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

@@ -20,6 +20,12 @@ public class DogController2 : MonoBehaviour
     public float debugInterval = 0.1f; // print 10 keer per seconde
 
 
+    [Header("Grounding")]
+    public LayerMask groundLayer;
+    public float groundCheckHeight = 2f;
+    public float groundSnapSpeed = 10f;
+    public float groundOffset = 0.5f; // height from pivot to feet
+
 
     private void Update()
     {
@@ -76,6 +82,24 @@ public class DogController2 : MonoBehaviour
             debugTimer = 0f;
         }
         // ----- EIND DEBUG -----
+        StickToGround();
+    }
+    void StickToGround()
+    {
+        RaycastHit hit;
+        Vector3 rayStart = transform.position + Vector3.up * groundCheckHeight;
+
+        if (Physics.Raycast(rayStart, Vector3.down, out hit, groundCheckHeight * 2f, groundLayer))
+        {
+            Vector3 targetPos = transform.position;
+            targetPos.y = hit.point.y + groundOffset;
+
+            transform.position = Vector3.Lerp(
+                transform.position,
+                targetPos,
+                groundSnapSpeed * Time.deltaTime
+            );
+        }
     }
 
 }
