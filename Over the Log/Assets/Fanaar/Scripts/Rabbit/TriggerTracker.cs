@@ -10,7 +10,6 @@ public class TriggerTracker : MonoBehaviour
     [Header("Smooth Look Settings")]
     public Transform playerCamera;
     public Transform lookTarget;
-    public float lookSpeed = 2f;
 
     [Header("Activate Object")]
     public GameObject objectToActivate;
@@ -31,13 +30,22 @@ public class TriggerTracker : MonoBehaviour
     public string collectTriggerTag = "CollectTrigger";
 
     [Header("Audio on Activate Object")]
-    public AudioSource audioSource;       // AudioSource voor de trigger
-    public AudioClip activationClip;      // Clip die afspeelt bij objectToActivate
+    public AudioSource audioSource;
+    public AudioClip activationClip;
+
+    [Header("Final Delay")]
+    public float finalDelayAfterLastTrigger = 3f; // ⏱️ NIEUW
+
+    [Header("Audio on Last Trigger")]
+    public AudioSource lastTriggerAudioSource;
+    public AudioClip lastTriggerClip;
+
 
     // 🔹 Flags
     private bool triggersComplete = false;
-    private bool audioSequenceFinished = false;
-    private bool activationAudioPlayed = false;  // ✅ check dat audio maar één keer speelt
+    private bool audioSequenceFinished = true;
+    private bool delayAfterTriggersFinished = false; // ⏱️ NIEUW
+    private bool activationAudioPlayed = false;
 
     private void OnEnable()
     {
@@ -51,18 +59,38 @@ public class TriggerTracker : MonoBehaviour
 
     public void RegisterTrigger(Collider trigger)
     {
+        // ✅ voorkom dubbele registratie
         if (triggeredColliders.Contains(trigger))
             return;
 
+        // ✅ TEL de trigger
         triggeredColliders.Add(trigger);
 
         Debug.Log($"Trigger count: {triggeredColliders.Count}/{requiredTriggers}");
 
-        if (triggeredColliders.Count >= requiredTriggers)
+        // ✅ check of dit de laatste trigger is
+        if (triggeredColliders.Count >= requiredTriggers && !triggersComplete)
         {
             triggersComplete = true;
-            TryActivateFinalEffects();
+
+            // 🔊 Audio bij laatste trigger
+            if (lastTriggerAudioSource != null && lastTriggerClip != null)
+            {
+                lastTriggerAudioSource.PlayOneShot(lastTriggerClip);
+            }
+
+            StartCoroutine(WaitAfterLastTrigger());
         }
+    }
+
+
+    private IEnumerator WaitAfterLastTrigger()
+    {
+        Debug.Log("⏳ Laatste trigger verzameld — 3 seconden wachten...");
+        yield return new WaitForSeconds(finalDelayAfterLastTrigger);
+
+        delayAfterTriggersFinished = true;
+        TryActivateFinalEffects();
     }
 
     private void OnAudioSequenceFinished()
@@ -73,18 +101,16 @@ public class TriggerTracker : MonoBehaviour
 
     private void TryActivateFinalEffects()
     {
-        // ✅ Beide voorwaarden moeten waar zijn
-        if (!triggersComplete || !audioSequenceFinished)
+        // ✅ Alle drie voorwaarden moeten waar zijn
+        if (!triggersComplete || !audioSequenceFinished || !delayAfterTriggersFinished)
             return;
 
-        Debug.Log("⚡ Triggers + Audio klaar — bliksem en objecten activeren!");
+        Debug.Log("⚡ Alles klaar — finale sequence start!");
 
-        // Object activeren
         if (objectToActivate != null)
         {
             objectToActivate.SetActive(true);
 
-            // Speel audio maar één keer
             if (!activationAudioPlayed && audioSource != null && activationClip != null)
             {
                 audioSource.PlayOneShot(activationClip);
@@ -92,7 +118,6 @@ public class TriggerTracker : MonoBehaviour
             }
         }
 
-        // Trigger bliksem
         if (postProcessing != null)
             postProcessing.TriggerLightning(true);
 
@@ -110,9 +135,7 @@ public class TriggerTracker : MonoBehaviour
         GameObject[] collectTriggers = GameObject.FindGameObjectsWithTag(collectTriggerTag);
 
         foreach (GameObject obj in collectTriggers)
-        {
             obj.SetActive(false);
-        }
 
         Debug.Log($"🧹 {collectTriggers.Length} CollectTriggers gedeactiveerd.");
     }
@@ -136,7 +159,11 @@ public class TriggerTracker : MonoBehaviour
             Vector3 direction = (lookTarget.position - playerCamera.position).normalized;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
 
-            playerCamera.rotation = Quaternion.RotateTowards(playerCamera.rotation, targetRotation, maxDegreesPerSecond * Time.deltaTime);
+            playerCamera.rotation = Quaternion.RotateTowards(
+                playerCamera.rotation,
+                targetRotation,
+                maxDegreesPerSecond * Time.deltaTime
+            );
 
             if (Quaternion.Angle(playerCamera.rotation, targetRotation) < 0.1f)
             {

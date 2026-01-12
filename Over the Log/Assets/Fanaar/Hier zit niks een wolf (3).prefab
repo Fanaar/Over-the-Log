@@ -452,7 +452,6 @@ GameObject:
   - component: {fileID: 3375207790253725644}
   - component: {fileID: 1831197914834172439}
   - component: {fileID: 4381000906282486654}
-  - component: {fileID: 5722954543672045147}
   m_Layer: 0
   m_Name: Hier zit niks een wolf (3)
   m_TagString: CollectTrigger
@@ -578,21 +577,6 @@ MonoBehaviour:
     setActive: 1
   - targetObject: {fileID: 3422952541881706912}
     setActive: 1
---- !u!114 &5722954543672045147
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3563548456472418659}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 66f5ca00daaa67c4585a844ec92d0f49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioSource: {fileID: 6100135837225094879}
-  clips: []
-  volume: 0.5
 --- !u!1 &7870570907713056263
 GameObject:
   m_ObjectHideFlags: 0
