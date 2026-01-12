@@ -7972,9 +7972,9 @@ MonoBehaviour:
   animator: {fileID: 1784256583}
   audioSource: {fileID: 1520131939}
   circlingClips:
-  - {fileID: 0}
+  - {fileID: 8300000, guid: 6b398854160976e42a9f6a18c50bdaf4, type: 3}
   audioDelay: 2
-  talkingDelay: 4
+  talkingDelay: 3
   jumpMimic: {fileID: 1520131937}
 --- !u!65 &1520131933
 BoxCollider:
