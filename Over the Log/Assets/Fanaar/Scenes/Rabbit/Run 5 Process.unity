@@ -12851,7 +12851,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &845035679
 Transform:
   m_ObjectHideFlags: 0
@@ -15332,9 +15332,9 @@ MonoBehaviour:
   collectTriggerTag: CollectTrigger
   audioSource: {fileID: 551310512}
   activationClip: {fileID: 8300000, guid: a255055cedffbca46bf2dc967167d9e1, type: 3}
-  finalDelayAfterLastTrigger: 5.5
+  finalDelayAfterLastTrigger: 23
   lastTriggerAudioSource: {fileID: 551310512}
-  lastTriggerClip: {fileID: 8300000, guid: eb56dde48ef244548bf67cf3a3d11234, type: 3}
+  lastTriggerClip: {fileID: 8300000, guid: bf5d0883292c2fd46a80ad46d0081c7a, type: 3}
 --- !u!4 &1209848106
 Transform:
   m_ObjectHideFlags: 0
@@ -20435,7 +20435,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1800382309
 Transform:
   m_ObjectHideFlags: 0
