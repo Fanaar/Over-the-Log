@@ -15927,9 +15927,9 @@ MonoBehaviour:
   stressExposureOffset: 8
   stressSkyTint: {r: 0.3882353, g: 0.3882353, b: 0.3882353, a: 1}
   stressGroundTint: {r: 0.5647059, g: 0.5647059, b: 0.5647059, a: 1}
-  acceptanceAtmosphereOffset: 0.71
+  acceptanceAtmosphereOffset: 0
   acceptanceExposureOffset: 4.14
-  acceptanceSkyTint: {r: 0.7176471, g: 0.20784314, b: 0.7058824, a: 1}
+  acceptanceSkyTint: {r: 0.64705884, g: 0.64705884, b: 0, a: 1}
   acceptanceGroundTint: {r: 1, g: 0.9372549, b: 0.9490196, a: 1}
   blendSpeed: 1.2
 --- !u!114 &2018406601
