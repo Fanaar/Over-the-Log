@@ -15,49 +15,98 @@ public class DogBehaviour : MonoBehaviour
     [Header("References")]
     public FirstPersonRabbitController playerController;
     public Animator animator;
+    public DogJumpMimic jumpMimic;
 
-    [Header("Audio")]
-    public AudioSource audioSource;
+    [Header("Circling Voice Audio")]
+    public AudioSource voiceSource;
     public AudioClip[] circlingClips;
     public float audioDelay = 2f;
     public float talkingDelay = 2f;
 
-    private bool audioStarted = false;
-    private int currentClipIndex = 0;
-    private float circlingTimer = 0f;
-    private bool talkingSet = false;
+    [Header("Emotional Music")]
+    public AudioSource emotionalMusicSource;
+    public AudioClip emotionalMusicClip;
+    public float emotionalMusicFadeDuration = 4f;
+    [Range(0f, 1f)] public float emotionalMusicTargetVolume = 1f;
+    public GameObject objectToActivateAfterMusic;
+
+    [Header("Falling Flowers")]
+    public GameObject fallingFlowers;
+    public float flowersDelay = 3f;
+
+    [Header("Post Processing")]
+    public SimplePostProcessingWithDarkBorders postProcessing;
+    private bool postProcessingTriggered = false;
+
+
+    // ──────────────────────────────
+    // Internal state
+    // ──────────────────────────────
 
     private Transform player;
+
     private bool approaching;
     private bool circling;
     private bool finalApproach;
+
     private float circleAngle;
     private float fixedY;
     private float finalApproachTimer;
+    private float circlingTimer;
 
-    public DogJumpMimic jumpMimic;
+    private bool talkingSet = false;
+    private bool audioStarted = false;
+    private int currentClipIndex = 0;
+
+    private bool emotionalMusicStarted = false;
+    private bool emotionalMusicFinished = false;
+    private float emotionalMusicFadeTimer = 0f;
+
+    private bool flowersActivated = false;
+
+    // ──────────────────────────────
+    // Public entry
+    // ──────────────────────────────
 
     public void StartEncounter(Transform playerTransform)
     {
         player = playerTransform;
+        postProcessingTriggered = false;
+
         approaching = true;
         circling = false;
         finalApproach = false;
+
         circleAngle = 0f;
         finalApproachTimer = 0f;
         circlingTimer = 0f;
+
+        talkingSet = false;
         audioStarted = false;
         currentClipIndex = 0;
-        talkingSet = false;
+
+        emotionalMusicStarted = false;
+        emotionalMusicFinished = false;
+        emotionalMusicFadeTimer = 0f;
+
+        flowersActivated = false;
+
         fixedY = transform.position.y;
 
         animator.SetBool("isMoving", true);
         animator.SetBool("isCircling", false);
         animator.SetBool("isTalking", false);
 
+        if (fallingFlowers != null)
+            fallingFlowers.SetActive(false);
+
         if (playerController != null)
             playerController.canMove = false;
     }
+
+    // ──────────────────────────────
+    // Update
+    // ──────────────────────────────
 
     void Update()
     {
@@ -69,7 +118,15 @@ public class DogBehaviour : MonoBehaviour
 
         if (finalApproach)
             FinalApproach();
+
+        HandleEmotionalMusicFade();
+        CheckEmotionalMusicFinished();
+        HandleFallingFlowers();
     }
+
+    // ──────────────────────────────
+    // Movement logic
+    // ──────────────────────────────
 
     void MoveTowardsCircleEntry()
     {
@@ -89,16 +146,30 @@ public class DogBehaviour : MonoBehaviour
         {
             approaching = false;
             circling = true;
+
+            animator.SetBool("isMoving", false);
             animator.SetBool("isCircling", true);
+
             circlingTimer = 0f;
+            talkingSet = false;
             audioStarted = false;
             currentClipIndex = 0;
-            talkingSet = false;
         }
     }
 
     void CircleAroundPlayer()
     {
+        // Start emotional music (once)
+        if (!emotionalMusicStarted && emotionalMusicClip != null && emotionalMusicSource != null)
+        {
+            emotionalMusicSource.volume = 0f;
+            emotionalMusicSource.clip = emotionalMusicClip;
+            emotionalMusicSource.Play();
+
+            emotionalMusicFadeTimer = 0f;
+            emotionalMusicStarted = true;
+        }
+
         float dir = clockwise ? 1f : -1f;
         circleAngle += circleSpeed * Time.deltaTime * dir;
 
@@ -111,38 +182,39 @@ public class DogBehaviour : MonoBehaviour
         transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
         RotateTowards(moveDir);
 
-        animator.SetBool("isMoving", false); // 👈 tijdens cirkelen niet "moving"
-
         circlingTimer += Time.deltaTime;
 
+        // Talking animation
         if (!talkingSet && circlingTimer >= talkingDelay)
         {
             animator.SetBool("isTalking", true);
             talkingSet = true;
         }
 
-        if (!audioStarted && circlingTimer >= audioDelay && circlingClips.Length > 0 && audioSource != null)
+        // Voice clips
+        if (!audioStarted && circlingTimer >= audioDelay && circlingClips.Length > 0 && voiceSource != null)
         {
-            audioSource.clip = circlingClips[currentClipIndex];
-            audioSource.Play();
+            voiceSource.clip = circlingClips[currentClipIndex];
+            voiceSource.Play();
             audioStarted = true;
         }
 
-        if (audioStarted && audioSource != null && !audioSource.isPlaying)
+        if (audioStarted && voiceSource != null && !voiceSource.isPlaying)
         {
             currentClipIndex++;
+
             if (currentClipIndex < circlingClips.Length)
             {
-                audioSource.clip = circlingClips[currentClipIndex];
-                audioSource.Play();
+                voiceSource.clip = circlingClips[currentClipIndex];
+                voiceSource.Play();
             }
             else
             {
+                TriggerPostProcessing();
                 StartFinalApproach();
             }
         }
     }
-
 
     void StartFinalApproach()
     {
@@ -155,6 +227,15 @@ public class DogBehaviour : MonoBehaviour
         animator.SetBool("isTalking", false);
     }
 
+    void TriggerPostProcessing()
+    {
+        if (postProcessingTriggered || postProcessing == null)
+            return;
+
+        postProcessingTriggered = true;
+        postProcessing.FadeThirdVolumeIn();
+    }
+
     void FinalApproach()
     {
         finalApproachTimer += Time.deltaTime;
@@ -164,7 +245,7 @@ public class DogBehaviour : MonoBehaviour
 
         float dist = Vector3.Distance(transform.position, targetPos);
 
-        if (dist <= stopDistance)
+        if (dist <= stopDistance || finalApproachTimer >= finalApproachDuration)
         {
             FinishEncounter();
             return;
@@ -173,26 +254,68 @@ public class DogBehaviour : MonoBehaviour
         Vector3 dir = (targetPos - transform.position).normalized;
         transform.position += dir * moveSpeed * Time.deltaTime;
         RotateTowards(dir);
-
-        if (finalApproachTimer >= finalApproachDuration)
-            FinishEncounter();
     }
 
-    void RotateTowards(Vector3 direction)
+    // ──────────────────────────────
+    // Emotional music logic
+    // ──────────────────────────────
+
+    void HandleEmotionalMusicFade()
     {
-        if (direction.sqrMagnitude < 0.001f) return;
-        Quaternion targetRot = Quaternion.LookRotation(direction);
-        transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 6f);
+        if (!emotionalMusicStarted || emotionalMusicFinished || emotionalMusicSource == null)
+            return;
+
+        if (emotionalMusicFadeTimer < emotionalMusicFadeDuration)
+        {
+            emotionalMusicFadeTimer += Time.deltaTime;
+            float t = emotionalMusicFadeTimer / emotionalMusicFadeDuration;
+            emotionalMusicSource.volume =
+                Mathf.Lerp(0f, emotionalMusicTargetVolume, t);
+        }
     }
+
+    void CheckEmotionalMusicFinished()
+    {
+        if (emotionalMusicStarted && !emotionalMusicFinished && emotionalMusicSource != null)
+        {
+            if (!emotionalMusicSource.isPlaying)
+            {
+                emotionalMusicFinished = true;
+
+                if (objectToActivateAfterMusic != null)
+                    objectToActivateAfterMusic.SetActive(true);
+            }
+        }
+    }
+
+    // ──────────────────────────────
+    // Flowers
+    // ──────────────────────────────
+
+    void HandleFallingFlowers()
+    {
+        if (!circling || flowersActivated || fallingFlowers == null)
+            return;
+
+        if (circlingTimer >= flowersDelay)
+        {
+            fallingFlowers.SetActive(true);
+            flowersActivated = true;
+        }
+    }
+
+    // ──────────────────────────────
+    // Finish
+    // ──────────────────────────────
 
     void FinishEncounter()
     {
-        circling = false;
         approaching = false;
+        circling = false;
         finalApproach = false;
 
-        animator.SetBool("isCircling", false);
         animator.SetBool("isMoving", false);
+        animator.SetBool("isCircling", false);
         animator.SetBool("isTalking", false);
 
         if (playerController != null)
@@ -201,12 +324,16 @@ public class DogBehaviour : MonoBehaviour
         if (jumpMimic != null)
             jumpMimic.enabled = true;
 
-        if (audioSource != null && audioSource.isPlaying)
-            audioSource.Stop();
+        if (voiceSource != null && voiceSource.isPlaying)
+            voiceSource.Stop();
     }
 
-    public void SetTalking(bool talking)
+    void RotateTowards(Vector3 direction)
     {
-        animator.SetBool("isTalking", talking);
+        if (direction.sqrMagnitude < 0.001f) return;
+
+        Quaternion targetRot = Quaternion.LookRotation(direction);
+        transform.rotation =
+            Quaternion.Slerp(transform.rotation, targetRot, Time.deltaTime * 6f);
     }
 }

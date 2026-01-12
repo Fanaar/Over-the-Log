@@ -8084,7 +8084,7 @@ MonoBehaviour:
   mimicDelay: 0.5
   postProcessing: {fileID: 1247382615}
   audioSource: {fileID: 1719740714}
-  specialJumpClip: {fileID: 8300000, guid: 493b102e1e5d76f4ca6210cea42937dc, type: 3}
+  specialJumpClip: {fileID: 8300000, guid: 86750b45538f86447822909ca48704f1, type: 3}
   jumpAudioThreshold: 1
   groundCheckPoint: {fileID: 900930301}
   groundCheckRadius: 0.25
