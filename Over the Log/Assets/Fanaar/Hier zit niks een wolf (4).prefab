@@ -5209,8 +5209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 3839186660964782493}
-  clips:
-  - {fileID: 8300000, guid: eb56dde48ef244548bf67cf3a3d11234, type: 3}
+  clips: []
   volume: 0.5
 --- !u!1 &5652658867796699682
 GameObject:
@@ -5600,11 +5599,11 @@ PrefabInstance:
     - target: {fileID: -6835773263095277841, guid: 80cbbb432ade39642b5cd493afab4805, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: f94941d5effe9fd4083c9fee6a8190cb, type: 2}
+      objectReference: {fileID: 2100000, guid: 77f2f6f2e919d904a9170f7f4d5a6530, type: 2}
     - target: {fileID: -1374969743735643819, guid: 80cbbb432ade39642b5cd493afab4805, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: f94941d5effe9fd4083c9fee6a8190cb, type: 2}
+      objectReference: {fileID: 2100000, guid: 77f2f6f2e919d904a9170f7f4d5a6530, type: 2}
     - target: {fileID: 919132149155446097, guid: 80cbbb432ade39642b5cd493afab4805, type: 3}
       propertyPath: m_Name
       value: DogPose3
@@ -5620,7 +5619,7 @@ PrefabInstance:
     - target: {fileID: 6784919044079829124, guid: 80cbbb432ade39642b5cd493afab4805, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 58e60dbbc59f130489867aa293ddbdf8, type: 2}
+      objectReference: {fileID: 2100000, guid: 77f2f6f2e919d904a9170f7f4d5a6530, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
