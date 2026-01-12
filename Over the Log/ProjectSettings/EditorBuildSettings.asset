@@ -6,11 +6,35 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/For a Moment 1.0/Rabbit Hole 1 1.0.unity
-    guid: 5a0ac6bfaae17534abd3780bd78720b9
+    path: Assets/For a Moment 2.0/Main Menu.unity
+    guid: 5d74e780968f8954abffc8cb4a2324bd
   - enabled: 1
-    path: Assets/For a Moment 1.0/Rabbit Hole 2 1.0.unity
-    guid: 7d01954001044ef4fa0f78b1ae529a52
+    path: Assets/For a Moment 2.0/Proloog.unity
+    guid: 29b793cc3841a9845a0750bb93651839
+  - enabled: 1
+    path: Assets/For a Moment 2.0/Rabbit Hole 1.unity
+    guid: 7b437b2acd88b7d43899c8ab9033e679
+  - enabled: 1
+    path: Assets/For a Moment 2.0/Rabbit Hole 2.unity
+    guid: 43740c6aac493fe43ac8715d74a954b6
+  - enabled: 1
+    path: Assets/For a Moment 2.0/Run 1.unity
+    guid: 17a2fe7e41315804c88f7033a42323a8
+  - enabled: 1
+    path: Assets/For a Moment 2.0/Run 2.unity
+    guid: 60d8d397ba480b146b2bb04bd09ef0ce
+  - enabled: 1
+    path: Assets/For a Moment 2.0/Run 3.unity
+    guid: 7d119908d223f234e816af9a175f49aa
+  - enabled: 1
+    path: Assets/For a Moment 2.0/Run 4.unity
+    guid: 4d53831a26719a3499fdda1e6feb0af9
+  - enabled: 1
+    path: Assets/For a Moment 2.0/Run 5.unity
+    guid: cc56586949e05a9438b8a37962130874
+  - enabled: 1
+    path: Assets/For a Moment 2.0/Void.unity
+    guid: 6a900b520ce89e54da0dbc4eec987b4a
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

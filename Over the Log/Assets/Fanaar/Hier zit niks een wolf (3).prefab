@@ -592,8 +592,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   audioSource: {fileID: 6100135837225094879}
   clips:
-  - {fileID: 8300000, guid: c4ff6b9911910c34d950ce880e8efad3, type: 3}
-  - {fileID: 8300000, guid: f2ffa0810cf79464da75324a54e8821a, type: 3}
   - {fileID: 8300000, guid: eb56dde48ef244548bf67cf3a3d11234, type: 3}
   volume: 0.5
 --- !u!1 &7870570907713056263
