@@ -30,6 +30,7 @@ public class StressManager : MonoBehaviour
 
     // ----- Read-only property voor andere scripts -----
     public float Acceptance01 => Mathf.Clamp01(acceptanceTimer / acceptanceTime);
+    public bool AcceptanceSitReached => acceptanceTimer >= 5f;
 
     void Awake()
     {
