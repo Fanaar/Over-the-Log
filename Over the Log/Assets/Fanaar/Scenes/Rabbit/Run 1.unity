@@ -14776,7 +14776,6 @@ GameObject:
   m_Component:
   - component: {fileID: 919719146}
   - component: {fileID: 919719145}
-  - component: {fileID: 919719149}
   - component: {fileID: 919719150}
   m_Layer: 0
   m_Name: Konijnen Dans plek
@@ -14809,21 +14808,6 @@ Transform:
   - {fileID: 821933425}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 40.164, z: 0}
---- !u!114 &919719149
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 919719142}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 962cf92fc80b86247afa025805cd9b83, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  rabbitDanceEmitter: {fileID: 364054724}
-  musicController: {fileID: 1057375735}
-  triggerCollider: {fileID: 919719150}
 --- !u!136 &919719150
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -15422,6 +15406,7 @@ GameObject:
   - component: {fileID: 1057375734}
   - component: {fileID: 1057375733}
   - component: {fileID: 1057375735}
+  - component: {fileID: 1057375736}
   m_Layer: 0
   m_Name: AE_RabbitExploreState
   m_TagString: Untagged
@@ -15443,9 +15428,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalRabbits: 10
   collectedRabbits: 0
-  rabbitDanceTrigger: {fileID: 919719149}
   allRabbitsCollected: 0
+  rabbitMusicController: {fileID: 1057375735}
   voiceLine: {fileID: 821933419}
+  rabbitDanceEmitter: {fileID: 364054724}
 --- !u!4 &1057375734
 Transform:
   m_ObjectHideFlags: 0
@@ -15473,13 +15459,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a9ca592e53e5f048a8d02763e1b2a45, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicEvent:
+  musicEmitter: {fileID: 1057375736}
+--- !u!114 &1057375736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1057375732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
     Guid:
       Data1: 260523894
       Data2: 1300748262
       Data3: -1077733444
       Data4: 1982510009
     Path: event:/Rabbit_ExploreDEZE
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!114 &1096809305 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
@@ -18468,7 +18479,7 @@ MonoBehaviour:
   coneLength: 5
   dogCinematicManager: {fileID: 39444585}
   playerRunTrigger: {fileID: 1998402739}
-  rabbitDanceTrigger: {fileID: 919719149}
+  rabbitManager: {fileID: 1057375733}
   allReady: 0
 --- !u!4 &1766627586
 Transform:

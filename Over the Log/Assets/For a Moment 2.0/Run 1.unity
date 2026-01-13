@@ -15429,7 +15429,6 @@ MonoBehaviour:
   totalRabbits: 10
   collectedRabbits: 0
   allRabbitsCollected: 0
-  rabbitDanceTrigger: {fileID: 0}
   rabbitMusicController: {fileID: 1057375735}
   voiceLine: {fileID: 821933419}
   rabbitDanceEmitter: {fileID: 364054724}
