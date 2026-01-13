@@ -318,6 +318,7 @@ MonoBehaviour:
   fmodAudioObject: {fileID: 39444584}
   objectToActivateAfterFreeze: {fileID: 958502243}
   spikesObject: {fileID: 1047089731}
+  spikesCollider: {fileID: 0}
   dogAnimator: {fileID: 418605464}
   chase3DAudioEmitter: {fileID: 1347097652}
   lofiSneakyGrowl: {fileID: 39444591}
@@ -12560,8 +12561,8 @@ MonoBehaviour:
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
-  wolfUnderGrowlEmitter: {fileID: 0}
-  extraEmitterToStop: {fileID: 0}
+  wolfUnderGrowlEmitter: {fileID: 1347097652}
+  extraEmitterToStop: {fileID: 1172919028}
 --- !u!135 &547128022
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -13467,8 +13468,8 @@ MonoBehaviour:
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
-  wolfUnderGrowlEmitter: {fileID: 0}
-  extraEmitterToStop: {fileID: 0}
+  wolfUnderGrowlEmitter: {fileID: 1347097652}
+  extraEmitterToStop: {fileID: 1172919028}
 --- !u!135 &663204383
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -14917,8 +14918,8 @@ MonoBehaviour:
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
-  wolfUnderGrowlEmitter: {fileID: 0}
-  extraEmitterToStop: {fileID: 0}
+  wolfUnderGrowlEmitter: {fileID: 1347097652}
+  extraEmitterToStop: {fileID: 1172919028}
 --- !u!135 &922753414
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -16429,7 +16430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeCanvasGroup: {fileID: 583843156}
   fadeDuration: 0.5
-  sceneToLoad: Run 2
+  sceneToLoad: Dog bite scene 1
   objectsToDeactivate: []
   wolfUnderGrowlEmitter: {fileID: 1347097652}
   extraEmitterToStop: {fileID: 1172919028}
@@ -18310,8 +18311,8 @@ MonoBehaviour:
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
-  wolfUnderGrowlEmitter: {fileID: 0}
-  extraEmitterToStop: {fileID: 0}
+  wolfUnderGrowlEmitter: {fileID: 1347097652}
+  extraEmitterToStop: {fileID: 1172919028}
 --- !u!135 &1736318627
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -18989,8 +18990,8 @@ MonoBehaviour:
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
-  wolfUnderGrowlEmitter: {fileID: 0}
-  extraEmitterToStop: {fileID: 0}
+  wolfUnderGrowlEmitter: {fileID: 1347097652}
+  extraEmitterToStop: {fileID: 1172919028}
 --- !u!135 &1983488621
 SphereCollider:
   m_ObjectHideFlags: 0
