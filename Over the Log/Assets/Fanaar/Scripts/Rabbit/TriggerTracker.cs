@@ -34,17 +34,21 @@ public class TriggerTracker : MonoBehaviour
     public AudioClip activationClip;
 
     [Header("Final Delay")]
-    public float finalDelayAfterLastTrigger = 3f; // ⏱️ NIEUW
+    public float finalDelayAfterLastTrigger = 3f;
 
     [Header("Audio on Last Trigger")]
     public AudioSource lastTriggerAudioSource;
     public AudioClip lastTriggerClip;
 
+    // 🔥 NIEUW
+    [Header("Reverse Audio Activation")]
+    public GameObject reverseAudioObject;
+    public float reverseAudioDelay = 1.5f;
 
     // 🔹 Flags
     private bool triggersComplete = false;
     private bool audioSequenceFinished = true;
-    private bool delayAfterTriggersFinished = false; // ⏱️ NIEUW
+    private bool delayAfterTriggersFinished = false;
     private bool activationAudioPlayed = false;
 
     private void OnEnable()
@@ -59,38 +63,41 @@ public class TriggerTracker : MonoBehaviour
 
     public void RegisterTrigger(Collider trigger)
     {
-        // ✅ voorkom dubbele registratie
         if (triggeredColliders.Contains(trigger))
             return;
 
-        // ✅ TEL de trigger
         triggeredColliders.Add(trigger);
 
         Debug.Log($"Trigger count: {triggeredColliders.Count}/{requiredTriggers}");
 
-        // ✅ check of dit de laatste trigger is
         if (triggeredColliders.Count >= requiredTriggers && !triggersComplete)
         {
             triggersComplete = true;
 
-            // 🔊 Audio bij laatste trigger
             if (lastTriggerAudioSource != null && lastTriggerClip != null)
-            {
                 lastTriggerAudioSource.PlayOneShot(lastTriggerClip);
-            }
 
             StartCoroutine(WaitAfterLastTrigger());
+
+            // 🔥 NIEUW
+            if (reverseAudioObject != null)
+                StartCoroutine(ActivateReverseAudioWithDelay());
         }
     }
 
-
     private IEnumerator WaitAfterLastTrigger()
     {
-        Debug.Log("⏳ Laatste trigger verzameld — 3 seconden wachten...");
         yield return new WaitForSeconds(finalDelayAfterLastTrigger);
-
         delayAfterTriggersFinished = true;
         TryActivateFinalEffects();
+    }
+
+    // 🔥 NIEUW
+    private IEnumerator ActivateReverseAudioWithDelay()
+    {
+        yield return new WaitForSeconds(reverseAudioDelay);
+        reverseAudioObject.SetActive(true);
+        Debug.Log("🔊 Reverse audio geactiveerd");
     }
 
     private void OnAudioSequenceFinished()
@@ -101,11 +108,8 @@ public class TriggerTracker : MonoBehaviour
 
     private void TryActivateFinalEffects()
     {
-        // ✅ Alle drie voorwaarden moeten waar zijn
         if (!triggersComplete || !audioSequenceFinished || !delayAfterTriggersFinished)
             return;
-
-        Debug.Log("⚡ Alles klaar — finale sequence start!");
 
         if (objectToActivate != null)
         {
@@ -132,12 +136,8 @@ public class TriggerTracker : MonoBehaviour
 
     private void DeactivateCollectTriggers()
     {
-        GameObject[] collectTriggers = GameObject.FindGameObjectsWithTag(collectTriggerTag);
-
-        foreach (GameObject obj in collectTriggers)
+        foreach (GameObject obj in GameObject.FindGameObjectsWithTag(collectTriggerTag))
             obj.SetActive(false);
-
-        Debug.Log($"🧹 {collectTriggers.Length} CollectTriggers gedeactiveerd.");
     }
 
     private IEnumerator DisableLightningAfterSeconds(float delay)

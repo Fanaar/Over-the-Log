@@ -30,6 +30,10 @@ public class FirstPersonRabbitController : MonoBehaviour
     public float groundCheckRadius = 0.2f;
     public LayerMask groundLayer;
 
+    [Header("Jump Audio")]
+    public AudioSource jumpAudioSource;
+    public AudioClip[] jumpClips;
+
     [HideInInspector] public bool canLook = true;
     [HideInInspector] public bool canMove = true;
 
@@ -101,6 +105,8 @@ public class FirstPersonRabbitController : MonoBehaviour
         if (Input.GetButtonDown("Jump") && grounded)
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
+
+            PlayRandomJumpSound();
             OnPlayerJump?.Invoke();
         }
 
@@ -179,5 +185,15 @@ public class FirstPersonRabbitController : MonoBehaviour
         StressManager.Instance.playerIsMoving = isMoving;
         StressManager.Instance.playerIsSprinting = isSprinting;
     }
+
+    void PlayRandomJumpSound()
+    {
+        if (jumpClips == null || jumpClips.Length == 0 || jumpAudioSource == null)
+            return;
+
+        AudioClip randomClip = jumpClips[UnityEngine.Random.Range(0, jumpClips.Length)];
+        jumpAudioSource.PlayOneShot(randomClip);
+    }
+
 
 }

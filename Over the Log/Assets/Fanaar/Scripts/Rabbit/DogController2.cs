@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class DogController2 : MonoBehaviour
 {
@@ -8,64 +8,101 @@ public class DogController2 : MonoBehaviour
     public float rotationSpeed = 5f;
 
     [Header("Animation")]
-    public Animator animator;          // reference to the dog's Animator
+    public Animator animator;
 
     [HideInInspector]
     public bool isInPlayerTrigger = false;
 
     [Header("Stress Settings")]
-    public float maxStressSpeed = 9f; // maximale hondensnelheid
-
-    private float debugTimer = 0f;
-    public float debugInterval = 0.1f; // print 10 keer per seconde
-
+    public float maxStressSpeed = 9f;
 
     [Header("Grounding")]
     public LayerMask groundLayer;
     public float groundCheckHeight = 2f;
     public float groundSnapSpeed = 10f;
-    public float groundOffset = 0.5f; // height from pivot to feet
+    public float groundOffset = 0.5f;
 
+    // =========================
+    // Internal state
+    // =========================
+    private bool isInAcceptanceSit = false;
 
-    private void Update()
+    void Update()
     {
         if (!gameObject.activeInHierarchy || player == null)
             return;
 
-        // Stress-factor en dynamicSpeed overal beschikbaar
-        float stressFactor = StressManager.Instance != null ? StressManager.Instance.stress / 100f : 0f;
-        float dynamicSpeed = Mathf.Lerp(speed * 0.6f, maxStressSpeed, stressFactor);
-        bool playerIsMoving = StressManager.Instance != null && StressManager.Instance.playerIsMoving;
+        StressManager stressManager = StressManager.Instance;
+        bool playerIsMoving = stressManager != null && stressManager.playerIsMoving;
 
-        if (isInPlayerTrigger && !playerIsMoving)
+        // =====================================================
+        // 1️⃣ ACCEPTANCE SIT (HARD LOCK)
+        // =====================================================
+        if (isInAcceptanceSit)
         {
-            if (StressManager.Instance != null)
-                StressManager.Instance.playerIsLookingAtDog = true;
-
             animator.SetBool("isWalking", false);
+
+            if (playerIsMoving)
+            {
+                isInAcceptanceSit = false;
+                animator.SetBool("isSitting", false);
+            }
+
+            StickToGround();
             return;
         }
 
-        else
+        // =====================================================
+        // 2️⃣ PLAYER STIL + KIJKEN = STOPPEN (IDLE)
+        // =====================================================
+        if (isInPlayerTrigger && !playerIsMoving)
         {
-            if (StressManager.Instance != null)
-                StressManager.Instance.playerIsLookingAtDog = false;
+            if (stressManager != null)
+                stressManager.playerIsLookingAtDog = true;
+
+            animator.SetBool("isWalking", false);
+
+            // ---- ENTER acceptance sit
+            if (stressManager != null && stressManager.AcceptanceSitReached)
+            {
+                isInAcceptanceSit = true;
+                animator.SetBool("isSitting", true);
+            }
+
+            StickToGround();
+            return;
         }
 
+        // =====================================================
+        // 3️⃣ NORMAAL VOLGEN / LOPEN
+        // =====================================================
+        if (stressManager != null)
+            stressManager.playerIsLookingAtDog = false;
+
+        HandleMovement(stressManager);
+    }
+
+    // =========================
+    // Movement logic
+    // =========================
+    void HandleMovement(StressManager stressManager)
+    {
+        float stressFactor = stressManager != null ? stressManager.stress / 100f : 0f;
+        float dynamicSpeed = Mathf.Lerp(speed * 0.6f, maxStressSpeed, stressFactor);
 
         Vector3 direction = player.position - transform.position;
-        direction.y = 0;
+        direction.y = 0f;
 
         if (direction.sqrMagnitude > 0.01f)
         {
-            // Rotate towards player
             Quaternion targetRot = Quaternion.LookRotation(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRot, rotationSpeed * Time.deltaTime);
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRot,
+                rotationSpeed * Time.deltaTime
+            );
 
-            // Move
             transform.position += transform.forward * dynamicSpeed * Time.deltaTime;
-
-            // Walking animation
             animator.SetBool("isWalking", true);
         }
         else
@@ -73,17 +110,12 @@ public class DogController2 : MonoBehaviour
             animator.SetBool("isWalking", false);
         }
 
-        // ----- DEBUG -----
-        debugTimer += Time.deltaTime;
-        if (debugTimer >= debugInterval)
-        {
-            float stressLevel = StressManager.Instance != null ? StressManager.Instance.stress : 0f;
-            Debug.Log($"[DEBUG] Stress: {stressLevel:F1} | DogSpeed: {dynamicSpeed:F2}");
-            debugTimer = 0f;
-        }
-        // ----- EIND DEBUG -----
         StickToGround();
     }
+
+    // =========================
+    // Ground snapping
+    // =========================
     void StickToGround()
     {
         RaycastHit hit;
@@ -101,5 +133,4 @@ public class DogController2 : MonoBehaviour
             );
         }
     }
-
 }

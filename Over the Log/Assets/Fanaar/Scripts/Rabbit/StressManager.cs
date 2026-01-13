@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
+using FMODUnity;
+using FMOD.Studio;
+
 
 public class StressManager : MonoBehaviour
 {
@@ -19,6 +22,10 @@ public class StressManager : MonoBehaviour
     private float acceptanceTimer = 0f;
     public string nextSceneName; // hier vul je in de Inspector de scene naam in
 
+    [Header("FMOD")]
+    public StudioEventEmitter[] emittersToStop;
+
+
     [HideInInspector] public bool dogIsActive;
     [HideInInspector] public bool playerIsMoving;
     [HideInInspector] public bool playerIsSprinting;
@@ -30,6 +37,7 @@ public class StressManager : MonoBehaviour
 
     // ----- Read-only property voor andere scripts -----
     public float Acceptance01 => Mathf.Clamp01(acceptanceTimer / acceptanceTime);
+    public bool AcceptanceSitReached => acceptanceTimer >= 5f;
 
     void Awake()
     {
@@ -66,6 +74,9 @@ public class StressManager : MonoBehaviour
             if (acceptanceTimer >= acceptanceTime)
             {
                 Debug.Log("Acceptance complete! Laad volgende scene...");
+
+                StopFMODEmittersImmediate();   // 🔊 AUDIO STOP HIER
+
                 if (!string.IsNullOrEmpty(nextSceneName))
                     SceneManager.LoadScene(nextSceneName);
                 else
@@ -80,4 +91,18 @@ public class StressManager : MonoBehaviour
         // Debug
         Debug.Log($"[StressManager] Stress: {stress:F1} | AcceptanceTimer: {acceptanceTimer:F1}");
     }
+
+    void StopFMODEmittersImmediate()
+    {
+        if (emittersToStop == null) return;
+
+        foreach (var emitter in emittersToStop)
+        {
+            if (emitter == null) continue;
+
+            emitter.EventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            emitter.EventInstance.release();
+        }
+    }
+
 }

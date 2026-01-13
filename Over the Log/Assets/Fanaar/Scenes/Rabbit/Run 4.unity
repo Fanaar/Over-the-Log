@@ -11681,6 +11681,12 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
+  jumpAudioSource: {fileID: 551310507}
+  jumpClips:
+  - {fileID: 8300000, guid: d8370682bf90b8940ab5402145ca1a4c, type: 3}
+  - {fileID: 8300000, guid: f40ca4e5102ba3b45919d81afbce912b, type: 3}
+  - {fileID: 8300000, guid: a6ee64142f0f7c44caf18ae77d650996, type: 3}
+  - {fileID: 8300000, guid: 5dd9338442401964bb8d8b0082debf31, type: 3}
   canLook: 1
   canMove: 1
   isMoving: 0
@@ -15467,6 +15473,8 @@ MonoBehaviour:
   calmRate: 10
   acceptanceTime: 10
   nextSceneName: Void
+  emittersToStop:
+  - {fileID: 130767042}
   dogIsActive: 0
   playerIsMoving: 0
   playerIsSprinting: 0
@@ -17835,7 +17843,6 @@ MonoBehaviour:
   animator: {fileID: 1465133108}
   isInPlayerTrigger: 0
   maxStressSpeed: 6
-  debugInterval: 0.1
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
