@@ -13063,6 +13063,69 @@ MonoBehaviour:
   blendDistance: 0
   weight: 0
   sharedProfile: {fileID: 11400000, guid: 0ef28e3827cd31d4fba1328b47d6c788, type: 2}
+--- !u!1 &1151231505
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1151231507}
+  - component: {fileID: 1151231506}
+  m_Layer: 0
+  m_Name: Ambience
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1151231506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151231505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 451202483
+      Data2: 1228221762
+      Data3: -1841796163
+      Data4: 179414934
+    Path: event:/Ambience_Eerieloop
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!4 &1151231507
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151231505}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 34.7, y: 1.1500001, z: -107.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1228087222 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
@@ -13335,7 +13398,7 @@ MonoBehaviour:
   sceneToLoad: Dog Bite 2
   objectsToDeactivate: []
   wolfUnderGrowlEmitter: {fileID: 1347097652}
-  extraEmitterToStop: {fileID: 0}
+  extraEmitterToStop: {fileID: 1151231506}
 --- !u!65 &1246513716
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15091,7 +15154,7 @@ MonoBehaviour:
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
   wolfUnderGrowlEmitter: {fileID: 1347097652}
-  extraEmitterToStop: {fileID: 0}
+  extraEmitterToStop: {fileID: 1151231506}
 --- !u!198 &1668861558 stripped
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 1006306196490776435, guid: 6a11905860378544c9bc1062fd45bb54, type: 3}
@@ -19421,3 +19484,4 @@ SceneRoots:
   - {fileID: 592990081}
   - {fileID: 693983513}
   - {fileID: 679881134}
+  - {fileID: 1151231507}

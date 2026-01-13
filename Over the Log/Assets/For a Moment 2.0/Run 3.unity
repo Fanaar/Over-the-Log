@@ -13449,7 +13449,7 @@ MonoBehaviour:
   sceneToLoad: Dog Bite 3
   objectsToDeactivate: []
   wolfUnderGrowlEmitter: {fileID: 1347097652}
-  extraEmitterToStop: {fileID: 0}
+  extraEmitterToStop: {fileID: 1822007244}
 --- !u!65 &1246513716
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15429,7 +15429,7 @@ MonoBehaviour:
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
   wolfUnderGrowlEmitter: {fileID: 1347097652}
-  extraEmitterToStop: {fileID: 0}
+  extraEmitterToStop: {fileID: 1822007244}
 --- !u!1 &1680873144
 GameObject:
   m_ObjectHideFlags: 0
@@ -15838,6 +15838,69 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1813028725}
   m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &1822007243
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1822007245}
+  - component: {fileID: 1822007244}
+  m_Layer: 0
+  m_Name: Ambience
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1822007244
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822007243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 451202483
+      Data2: 1228221762
+      Data3: -1841796163
+      Data4: 179414934
+    Path: event:/Ambience_Eerieloop
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!4 &1822007245
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1822007243}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 34.7, y: 1.1500001, z: -107.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1839937582
 GameObject:
   m_ObjectHideFlags: 0
@@ -19238,3 +19301,4 @@ SceneRoots:
   - {fileID: 664254108}
   - {fileID: 493733147}
   - {fileID: 383055227}
+  - {fileID: 1822007245}
