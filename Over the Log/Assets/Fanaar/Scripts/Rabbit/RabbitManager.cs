@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System;
+using FMODUnity;
+using FMOD.Studio;
 
 public class RabbitManager : MonoBehaviour
 {
@@ -8,13 +10,19 @@ public class RabbitManager : MonoBehaviour
     [Header("Rabbit Count")]
     public int totalRabbits = 10;
     public int collectedRabbits = 0;
-
-    public RabbitDanceTrigger rabbitDanceTrigger;
     public bool allRabbitsCollected = false;
+
+    [Header("References")]
+    public RabbitMusicController rabbitMusicController;
+    public GameObject voiceLine;
+
+    [Header("FMOD – Dance Music")]
+    public StudioEventEmitter rabbitDanceEmitter;
 
     public event Action<int> OnRabbitCollected;
     public event Action OnAllRabbitsCollected;
-    public GameObject voiceLine;
+
+    private bool hasStoppedDanceMusic = false;
 
     private void Awake()
     {
@@ -37,11 +45,39 @@ public class RabbitManager : MonoBehaviour
 
         if (collectedRabbits >= totalRabbits)
         {
-            rabbitDanceTrigger.EnableTrigger();
-            voiceLine.SetActive(true);
             allRabbitsCollected = true;
+
             Debug.Log("🎉 ALL RABBITS COLLECTED");
+
+            // 🛑 Stop huidige (exploration / chase) muziek
+            rabbitMusicController?.StopMusic();
+
+            // 🎮 Gameplay
+            if (voiceLine != null)
+                voiceLine.SetActive(true);
+
             OnAllRabbitsCollected?.Invoke();
+            rabbitDanceEmitter.Play();
+        }
+    }
+
+    /// <summary>
+    /// Stopt expliciet de dance-circle muziek.
+    /// Wordt aangeroepen door RabbitDanceManager (niet door triggers).
+    /// </summary>
+    public void StopCircleDance()
+    {
+        if (hasStoppedDanceMusic) return;
+        hasStoppedDanceMusic = true;
+
+        if (rabbitDanceEmitter != null)
+        {
+            rabbitDanceEmitter.Stop();
+            Debug.Log("🛑 Dance circle music STOPPED (via RabbitManager)");
+        }
+        else
+        {
+            Debug.LogWarning("RabbitManager: rabbitDanceEmitter not assigned!");
         }
     }
 }

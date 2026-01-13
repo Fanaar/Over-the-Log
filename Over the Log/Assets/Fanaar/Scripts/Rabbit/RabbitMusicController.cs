@@ -5,33 +5,27 @@ using FMOD.Studio;
 public class RabbitMusicController : MonoBehaviour
 {
     [Header("FMOD")]
-    public EventReference musicEvent;
+    public StudioEventEmitter musicEmitter;
 
-    private EventInstance musicInstance;
-    private bool isPlaying = false;
+    private bool isStopping = false;
 
     private void Start()
     {
-        musicInstance = RuntimeManager.CreateInstance(musicEvent);
-        musicInstance.start();
-        isPlaying = true;
+        if (musicEmitter == null)
+        {
+            Debug.LogWarning("RabbitMusicController: musicEmitter not assigned!");
+            return;
+        }
+
+        musicEmitter.Play();
     }
 
     public void StopMusic()
     {
-        if (!isPlaying) return;
+        if (isStopping) return;
+        isStopping = true;
 
-        musicInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        musicInstance.release();
-        isPlaying = false;
-    }
-
-    private void OnDestroy()
-    {
-        if (isPlaying)
-        {
-            musicInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
-            musicInstance.release();
-        }
+        musicEmitter.Stop();
+        Debug.Log("🎵 Rabbit music STOP (fade)");
     }
 }
