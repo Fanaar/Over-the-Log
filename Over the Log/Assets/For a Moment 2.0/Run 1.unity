@@ -278,7 +278,6 @@ GameObject:
   m_Component:
   - component: {fileID: 39444586}
   - component: {fileID: 39444585}
-  - component: {fileID: 39444591}
   - component: {fileID: 39444589}
   - component: {fileID: 39444588}
   - component: {fileID: 39444587}
@@ -321,7 +320,6 @@ MonoBehaviour:
   spikesCollider: {fileID: 1457942334}
   dogAnimator: {fileID: 418605464}
   chase3DAudioEmitter: {fileID: 1347097652}
-  lofiSneakyGrowl: {fileID: 39444591}
   heavyBreathingLoop: {fileID: 39444589}
   chaseSirenCue: {fileID: 39444588}
   animalsReverbCue: {fileID: 39444587}
@@ -455,37 +453,6 @@ MonoBehaviour:
       Data3: 777602477
       Data4: -1894365612
     Path: event:/WolfChase_Roar
-  Event: 
-  EventPlayTrigger: 0
-  EventStopTrigger: 0
-  AllowFadeout: 1
-  TriggerOnce: 0
-  Preload: 0
-  NonRigidbodyVelocity: 0
-  Params: []
-  OverrideAttenuation: 0
-  OverrideMinDistance: 1
-  OverrideMaxDistance: 20
---- !u!114 &39444591
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 39444584}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  CollisionTag: 
-  EventReference:
-    Guid:
-      Data1: 1396197318
-      Data2: 1241028879
-      Data3: 380493453
-      Data4: 595010501
-    Path: event:/Wolf_SneakyGrowl
   Event: 
   EventPlayTrigger: 0
   EventStopTrigger: 0

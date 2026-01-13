@@ -36,7 +36,6 @@ public class DogCinematicManager : MonoBehaviour
 
     [Header("Audio (Inspector Drag & Drop)")]
     public StudioEventEmitter chase3DAudioEmitter;      // 3D growl for dog while chasing
-    public StudioEventEmitter lofiSneakyGrowl;          // starts when dog spawns
     public StudioEventEmitter heavyBreathingLoop;       // starts when camera locks
     public StudioEventEmitter chaseSirenCue;            // one-shot when camera locks
     public StudioEventEmitter animalsReverbCue;         // one-shot when controls unlock
@@ -66,7 +65,7 @@ public class DogCinematicManager : MonoBehaviour
 
         // AUDIO: Fade out normal ambience & start sneaky growl
         AmbienceManager.Instance?.FadeOutIntro();
-        lofiSneakyGrowl?.Play();
+        heavyBreathingLoop?.Play();
 
         // Spawn position behind player
         Vector3 spawnPos = playerController.transform.position - playerCamera.forward * dogSpawnDistance;
@@ -106,11 +105,6 @@ public class DogCinematicManager : MonoBehaviour
             }
 
             playerCamera.LookAt(dogLookTarget);
-
-            // Stop sneaky growl, start heavy breathing & siren
-            if (lofiSneakyGrowl != null)
-                lofiSneakyGrowl.EventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-            heavyBreathingLoop?.Play();
             chaseSirenCue?.Play();
         }
 
