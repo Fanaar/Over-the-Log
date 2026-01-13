@@ -38,6 +38,18 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/For a Moment 2.0/Void.unity
     guid: 6a900b520ce89e54da0dbc4eec987b4a
+  - enabled: 1
+    path: Assets/For a Moment 2.0/Dog Bite 1.unity
+    guid: 72e1d86f3543a0e4984f08f363f96c90
+  - enabled: 1
+    path: Assets/For a Moment 2.0/Dog Bite 2.unity
+    guid: fc6871118456f3542b93f271b94c4d2c
+  - enabled: 1
+    path: Assets/For a Moment 2.0/Dog Bite 3.unity
+    guid: c964527497c05d047a08b6892d870f1d
+  - enabled: 1
+    path: Assets/For a Moment 2.0/Dog Bite 4.unity
+    guid: ac2c9e3a9ae928443bcd91cba453c5c8
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

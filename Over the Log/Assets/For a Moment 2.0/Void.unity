@@ -7970,13 +7970,20 @@ MonoBehaviour:
   clockwise: 0
   playerController: {fileID: 1247382612}
   animator: {fileID: 1784256583}
-  audioSource: {fileID: 1520131939}
-  circlingClips:
-  - {fileID: 8300000, guid: bf5d0883292c2fd46a80ad46d0081c7a, type: 3}
-  - {fileID: 8300000, guid: e9ee0a68304cc744fbeff3a1b738fe35, type: 3}
-  audioDelay: 2
-  talkingDelay: 4
   jumpMimic: {fileID: 1520131937}
+  voiceSource: {fileID: 1520131939}
+  circlingClips:
+  - {fileID: 8300000, guid: 6b398854160976e42a9f6a18c50bdaf4, type: 3}
+  audioDelay: 2
+  talkingDelay: 3
+  emotionalMusicSource: {fileID: 1719740714}
+  emotionalMusicClip: {fileID: 8300000, guid: 938f9734fe87c504586be29a9f296259, type: 3}
+  emotionalMusicFadeDuration: 4
+  emotionalMusicTargetVolume: 1
+  objectToActivateAfterMusic: {fileID: 638370905}
+  fallingFlowers: {fileID: 902730491}
+  flowersDelay: 3
+  postProcessing: {fileID: 1247382615}
 --- !u!65 &1520131933
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8083,18 +8090,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 5
   mimicDelay: 0.5
-  postProcessing: {fileID: 1247382615}
-  audioSource: {fileID: 1719740714}
-  specialJumpClip: {fileID: 8300000, guid: 493b102e1e5d76f4ca6210cea42937dc, type: 3}
-  jumpAudioThreshold: 1
   groundCheckPoint: {fileID: 900930301}
   groundCheckRadius: 0.25
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  objectToActivate: {fileID: 638370905}
-  jumpActivateThreshold: 10
-  fallingFlowers: {fileID: 902730491}
 --- !u!54 &1520131938
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8680,7 +8680,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -8689,7 +8689,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -8697,13 +8697,22 @@ AudioSource:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      time: 0.5642238
+      value: 0.22380063
+      inSlope: 1.083322
+      outSlope: 1.083322
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1.1
+      inSlope: 3.1110067
+      outSlope: 3.1110067
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.083886564
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
