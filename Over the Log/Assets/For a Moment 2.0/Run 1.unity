@@ -318,6 +318,7 @@ MonoBehaviour:
   fmodAudioObject: {fileID: 39444584}
   objectToActivateAfterFreeze: {fileID: 958502243}
   spikesObject: {fileID: 1047089731}
+  spikesCollider: {fileID: 0}
   dogAnimator: {fileID: 418605464}
   chase3DAudioEmitter: {fileID: 1347097652}
   lofiSneakyGrowl: {fileID: 39444591}
@@ -325,6 +326,7 @@ MonoBehaviour:
   chaseSirenCue: {fileID: 39444588}
   animalsReverbCue: {fileID: 39444587}
   wolfChaseRoarCue: {fileID: 39444590}
+  wolfChaseMusic: {fileID: 0}
 --- !u!4 &39444586
 Transform:
   m_ObjectHideFlags: 0
@@ -12191,6 +12193,8 @@ MonoBehaviour:
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!135 &547128022
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -12333,7 +12337,7 @@ Transform:
   m_GameObject: {fileID: 551310501}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7154848, z: -0, w: -0.69862837}
-  m_LocalPosition: {x: 45, y: 0.15, z: -107.7}
+  m_LocalPosition: {x: 38.47, y: 0.15, z: -107.81}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -13096,6 +13100,8 @@ MonoBehaviour:
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!135 &663204383
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -14573,9 +14579,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 962cf92fc80b86247afa025805cd9b83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  circleForming: {fileID: 0}
-  circleDance: {fileID: 0}
-  danceManager: {fileID: 1766627585}
+  rabbitDanceEmitter: {fileID: 0}
+  musicController: {fileID: 0}
+  triggerCollider: {fileID: 0}
 --- !u!1 &922753412
 GameObject:
   m_ObjectHideFlags: 0
@@ -14614,6 +14620,8 @@ MonoBehaviour:
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!135 &922753414
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -15138,6 +15146,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalRabbits: 10
   collectedRabbits: 0
+  rabbitDanceTrigger: {fileID: 0}
+  allRabbitsCollected: 0
+  voiceLine: {fileID: 0}
 --- !u!4 &1057375734
 Transform:
   m_ObjectHideFlags: 0
@@ -15172,10 +15183,6 @@ MonoBehaviour:
       Data3: -1357715569
       Data4: -1740775693
     Path: event:/IntrExp
-  parameterName: rabbits collected
-  beginningThreshold: 0
-  midThreshold: 3
-  endThreshold: 7
 --- !u!114 &1096809305 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
@@ -16064,6 +16071,8 @@ MonoBehaviour:
   fadeDuration: 0.5
   sceneToLoad: Run 2
   objectsToDeactivate: []
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!65 &1316644116
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -17861,6 +17870,8 @@ MonoBehaviour:
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!135 &1736318627
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -18016,6 +18027,7 @@ MonoBehaviour:
   coneLength: 5
   dogCinematicManager: {fileID: 39444585}
   playerRunTrigger: {fileID: 1998402739}
+  rabbitDanceTrigger: {fileID: 0}
   allReady: 0
 --- !u!4 &1766627586
 Transform:
@@ -18537,6 +18549,8 @@ MonoBehaviour:
   sceneToLoad: Rabbit Hole 1
   objectsToDeactivate:
   - {fileID: 3601758332329209821}
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!135 &1983488621
 SphereCollider:
   m_ObjectHideFlags: 0

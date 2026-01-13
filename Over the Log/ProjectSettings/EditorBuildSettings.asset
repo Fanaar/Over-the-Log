@@ -18,6 +18,9 @@ EditorBuildSettings:
     path: Assets/For a Moment 2.0/Rabbit Hole 2.unity
     guid: 43740c6aac493fe43ac8715d74a954b6
   - enabled: 1
+    path: Assets/For a Moment 2.0/Rabbit Hole 3.unity
+    guid: d6b60d0b1485b4049afea950b011d610
+  - enabled: 1
     path: Assets/For a Moment 2.0/Run 1.unity
     guid: 17a2fe7e41315804c88f7033a42323a8
   - enabled: 1
