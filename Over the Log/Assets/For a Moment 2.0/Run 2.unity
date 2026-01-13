@@ -13073,6 +13073,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1151231507}
   - component: {fileID: 1151231506}
+  - component: {fileID: 1151231508}
   m_Layer: 0
   m_Name: Ambience
   m_TagString: Untagged
@@ -13126,6 +13127,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1151231508
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1151231505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b240ce864909f04db44766f49decba3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ambienceEmitter: {fileID: 1151231506}
 --- !u!1 &1228087222 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 56eae3266a9c273449db709bfa34c119, type: 3}
