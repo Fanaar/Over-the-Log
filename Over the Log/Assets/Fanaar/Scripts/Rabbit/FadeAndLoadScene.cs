@@ -3,6 +3,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using System;
 using FMODUnity;
+using FMOD.Studio;
 
 public class FadeAndLoadScene : MonoBehaviour
 {
@@ -52,8 +53,19 @@ public class FadeAndLoadScene : MonoBehaviour
         OnSceneFadeStarted?.Invoke();
 
         // 🛑 Stop FMOD audio netjes
-        wolfUnderGrowlEmitter?.Stop();
-        extraEmitterToStop?.Stop();
+
+        if (wolfUnderGrowlEmitter != null)
+        {
+            wolfUnderGrowlEmitter.EventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            wolfUnderGrowlEmitter.EventInstance.release();
+        }
+
+        if (extraEmitterToStop != null)
+        {
+            extraEmitterToStop.EventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            extraEmitterToStop.EventInstance.release();
+        }
+
 
         foreach (GameObject obj in objectsToDeactivate)
         {

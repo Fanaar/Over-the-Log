@@ -15473,6 +15473,8 @@ MonoBehaviour:
   calmRate: 10
   acceptanceTime: 10
   nextSceneName: Void
+  emittersToStop:
+  - {fileID: 130767042}
   dogIsActive: 0
   playerIsMoving: 0
   playerIsSprinting: 0
@@ -17841,7 +17843,6 @@ MonoBehaviour:
   animator: {fileID: 1465133108}
   isInPlayerTrigger: 0
   maxStressSpeed: 6
-  debugInterval: 0.1
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
