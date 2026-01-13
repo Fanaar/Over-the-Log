@@ -1,21 +1,12 @@
 ﻿using UnityEngine;
-using FMODUnity;
 
 public class RabbitDanceTrigger : MonoBehaviour
 {
-    [Header("FMOD")]
-    public StudioEventEmitter rabbitDanceEmitter;
-    public RabbitMusicController musicController;
-
-    [Header("Trigger")]
-    [SerializeField] public Collider triggerCollider;
-
-    private bool hasStartedDance = false;
-    private bool hasStoppedDance = false;
+    [SerializeField] private Collider triggerCollider;
+    private bool hasTriggered = false;
 
     private void Awake()
     {
-        // Trigger start UIT
         if (triggerCollider != null)
             triggerCollider.enabled = false;
     }
@@ -23,33 +14,16 @@ public class RabbitDanceTrigger : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!triggerCollider.enabled) return;
-        if (hasStartedDance) return;
+        if (hasTriggered) return;
         if (!other.CompareTag("Player")) return;
 
-        hasStartedDance = true;
-
-        // Stop eerdere muziek
-        musicController?.StopMusic();
-
-        // Start dance muziek (1x)
-        rabbitDanceEmitter?.Play();
-
-        Debug.Log("🐇 Dance circle music STARTED");
+        hasTriggered = true;
+        Debug.Log("🐇 Dance circle TRIGGERED");
     }
 
     public void EnableTrigger()
     {
         if (triggerCollider != null)
             triggerCollider.enabled = true;
-    }
-
-    public void StopCircleDance()
-    {
-        if (hasStoppedDance) return;
-
-        hasStoppedDance = true;
-        rabbitDanceEmitter?.Stop();
-
-        Debug.Log("🛑 Dance circle music STOPPED");
     }
 }

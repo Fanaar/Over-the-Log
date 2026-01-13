@@ -35,9 +35,8 @@ public class RabbitDanceManager : MonoBehaviour
     public Collider playerRunTrigger; // sleep hier de trigger in inspector
     private bool playerInTrigger = false;
 
-    [Header("Audio")]
-    public RabbitDanceTrigger rabbitDanceTrigger;
-
+    [Header("Managers")]
+    public RabbitManager rabbitManager;
 
     [SerializeField] private bool allReady = false;  // blijft in inspector zichtbaar
     public bool AllReady => allReady;               // read-only voor andere scripts
@@ -96,7 +95,7 @@ public class RabbitDanceManager : MonoBehaviour
     private void StartRunAway()
     {
         // Stop circle dance audio
-        rabbitDanceTrigger?.StopCircleDance();
+        rabbitManager?.StopCircleDance();
 
         SpawnDogClean();  // NEW
 
