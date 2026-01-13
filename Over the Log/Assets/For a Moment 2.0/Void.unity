@@ -578,6 +578,69 @@ Transform:
   - {fileID: 997018304}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &158300159
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 158300161}
+  - component: {fileID: 158300160}
+  m_Layer: 0
+  m_Name: Ambience
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &158300160
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158300159}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 1454604776
+      Data2: 1133843901
+      Data3: 1905458571
+      Data4: -914491719
+    Path: event:/Ambience_Intro
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
+--- !u!4 &158300161
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 158300159}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 34.7, y: 1.1500001, z: -107.9}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &206746024
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,6 +1184,8 @@ MonoBehaviour:
   fadeDuration: 0.5
   sceneToLoad: Void
   objectsToDeactivate: []
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 0}
 --- !u!65 &373765923
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1674,6 +1739,8 @@ MonoBehaviour:
   fadeDuration: 2
   sceneToLoad: Main Menu
   objectsToDeactivate: []
+  wolfUnderGrowlEmitter: {fileID: 0}
+  extraEmitterToStop: {fileID: 158300160}
 --- !u!65 &638370907
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7509,13 +7576,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf91d56ec04733947be45a5e291ea365, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentState: 0
   walkSpeed: 2
+  sprintMultiplier: 1.6
+  sprintKey: 304
   jumpHeight: 1
-  rabbitSpeed: 5
-  rabbitAcceleration: 30
-  rabbitJumpHeight: 1.5
-  airControl: 0.6
   gravity: -20
   playerCamera: {fileID: 317496005}
   mouseSensitivity: 2
@@ -7530,8 +7594,6 @@ MonoBehaviour:
       Data4: 1651002404
     Path: event:/ftstps_Rabbit 2
   footstepThreshold: -0.01
-  rabbitBobSpeedMultiplier: 1.3
-  rabbitBobAmountMultiplier: 3
   groundCheckPoint: {fileID: 1115690282}
   groundCheckRadius: 0.2
   groundLayer:
@@ -7539,6 +7601,7 @@ MonoBehaviour:
     m_Bits: 8
   canLook: 1
   canMove: 1
+  isMoving: 0
 --- !u!143 &1247382613
 CharacterController:
   m_ObjectHideFlags: 0
@@ -7970,13 +8033,20 @@ MonoBehaviour:
   clockwise: 0
   playerController: {fileID: 1247382612}
   animator: {fileID: 1784256583}
-  audioSource: {fileID: 1520131939}
-  circlingClips:
-  - {fileID: 8300000, guid: bf5d0883292c2fd46a80ad46d0081c7a, type: 3}
-  - {fileID: 8300000, guid: e9ee0a68304cc744fbeff3a1b738fe35, type: 3}
-  audioDelay: 2
-  talkingDelay: 4
   jumpMimic: {fileID: 1520131937}
+  voiceSource: {fileID: 1520131939}
+  circlingClips:
+  - {fileID: 8300000, guid: 6b398854160976e42a9f6a18c50bdaf4, type: 3}
+  audioDelay: 2
+  talkingDelay: 3
+  emotionalMusicSource: {fileID: 1719740714}
+  emotionalMusicClip: {fileID: 8300000, guid: 938f9734fe87c504586be29a9f296259, type: 3}
+  emotionalMusicFadeDuration: 4
+  emotionalMusicTargetVolume: 1
+  objectToActivateAfterMusic: {fileID: 638370905}
+  fallingFlowers: {fileID: 902730491}
+  flowersDelay: 3
+  postProcessing: {fileID: 1247382615}
 --- !u!65 &1520131933
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8083,18 +8153,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   jumpForce: 5
   mimicDelay: 0.5
-  postProcessing: {fileID: 1247382615}
-  audioSource: {fileID: 1719740714}
-  specialJumpClip: {fileID: 8300000, guid: 493b102e1e5d76f4ca6210cea42937dc, type: 3}
-  jumpAudioThreshold: 1
   groundCheckPoint: {fileID: 900930301}
   groundCheckRadius: 0.25
   groundLayer:
     serializedVersion: 2
     m_Bits: 8
-  objectToActivate: {fileID: 638370905}
-  jumpActivateThreshold: 10
-  fallingFlowers: {fileID: 902730491}
 --- !u!54 &1520131938
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -8614,7 +8677,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -8680,7 +8743,7 @@ AudioSource:
   MinDistance: 1
   MaxDistance: 500
   Pan2D: 0
-  rolloffMode: 0
+  rolloffMode: 2
   BypassEffects: 0
   BypassListenerEffects: 0
   BypassReverbZones: 0
@@ -8689,7 +8752,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 1
+      value: 0
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -8697,13 +8760,22 @@ AudioSource:
       inWeight: 0.33333334
       outWeight: 0.33333334
     - serializedVersion: 3
-      time: 1
-      value: 0
-      inSlope: 0
-      outSlope: 0
+      time: 0.5642238
+      value: 0.22380063
+      inSlope: 1.083322
+      outSlope: 1.083322
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 1.1
+      inSlope: 3.1110067
+      outSlope: 3.1110067
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.083886564
       outWeight: 0.33333334
     m_PreInfinity: 2
     m_PostInfinity: 2
@@ -10051,3 +10123,4 @@ SceneRoots:
   - {fileID: 38527438}
   - {fileID: 902730494}
   - {fileID: 1719740715}
+  - {fileID: 158300161}

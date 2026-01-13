@@ -4,6 +4,7 @@ public class DogActivateTrigger : MonoBehaviour
 {
     [Header("References")]
     public GameObject dogObject;      // Sleep hier het Dog GameObject in
+    public GameObject spikes;      // Sleep hier het Dog GameObject in
     public string playerTag = "Player";
 
     private bool activated = false;
@@ -18,6 +19,7 @@ public class DogActivateTrigger : MonoBehaviour
             if (dogObject != null)
             {
                 dogObject.SetActive(true);
+                spikes.SetActive(true);
                 Debug.Log("Dog GameObject geactiveerd via trigger!");
             }
 

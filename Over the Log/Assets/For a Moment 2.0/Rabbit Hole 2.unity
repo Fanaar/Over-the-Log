@@ -1095,7 +1095,7 @@ MonoBehaviour:
   fadeInDuration: 2
   visibleDuration: 4
   fadeOutDuration: 2
-  sceneToLoad: Run 2
+  sceneToLoad: Run 3
 --- !u!4 &2127037231
 Transform:
   m_ObjectHideFlags: 0
