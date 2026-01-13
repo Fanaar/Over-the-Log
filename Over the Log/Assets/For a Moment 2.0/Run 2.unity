@@ -5181,6 +5181,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dogObject: {fileID: 3601758332329209821}
+  spikes: {fileID: 0}
   playerTag: Player
 --- !u!65 &205301706
 BoxCollider:
@@ -13077,9 +13078,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeCanvasGroup: {fileID: 583843156}
   fadeDuration: 0.5
-  sceneToLoad: Run 3
+  sceneToLoad: Dog bite scene 2
   objectsToDeactivate: []
-  wolfUnderGrowlEmitter: {fileID: 0}
+  wolfUnderGrowlEmitter: {fileID: 1347097652}
   extraEmitterToStop: {fileID: 0}
 --- !u!65 &1246513716
 BoxCollider:
@@ -13411,6 +13412,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1347097651}
+  - component: {fileID: 1347097652}
   m_Layer: 0
   m_Name: AE_Growl (FMOD 3D Event Emitter)
   m_TagString: Untagged
@@ -13433,6 +13435,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1839937583}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1347097652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1347097650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CollisionTag: 
+  EventReference:
+    Guid:
+      Data1: 2023377936
+      Data2: 1210773074
+      Data3: -420599632
+      Data4: 874307620
+    Path: event:/WolfGrowls3D
+  Event: 
+  EventPlayTrigger: 0
+  EventStopTrigger: 0
+  AllowFadeout: 1
+  TriggerOnce: 0
+  Preload: 0
+  NonRigidbodyVelocity: 0
+  Params: []
+  OverrideAttenuation: 0
+  OverrideMinDistance: 1
+  OverrideMaxDistance: 20
 --- !u!1 &1361829023
 GameObject:
   m_ObjectHideFlags: 0
@@ -18981,6 +19014,12 @@ MonoBehaviour:
   isInPlayerTrigger: 0
   maxStressSpeed: 9
   debugInterval: 0.1
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 0
+  groundCheckHeight: 2
+  groundSnapSpeed: 10
+  groundOffset: 0.5
 --- !u!65 &9222007891142486253
 BoxCollider:
   m_ObjectHideFlags: 0
