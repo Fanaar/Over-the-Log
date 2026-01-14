@@ -16982,6 +16982,7 @@ MonoBehaviour:
   nextSceneName: Void
   emittersToStop:
   - {fileID: 1822007244}
+  - {fileID: 1347097652}
   dogIsActive: 0
   playerIsMoving: 0
   playerIsSprinting: 0
@@ -19572,6 +19573,7 @@ MonoBehaviour:
   groundCheckHeight: 4
   groundSnapSpeed: 10
   groundOffset: 1.6
+  wolfGrowlEmitter: {fileID: 1347097652}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
