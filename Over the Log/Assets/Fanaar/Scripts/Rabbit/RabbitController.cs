@@ -29,8 +29,8 @@ public class RabbitController : MonoBehaviour
     public float jumpDelay = 0.5f;
     public float jumpForce = 6f;
 
-    [Header("Animation")]
-    public Animator animator;
+    private bool isJumping = false;
+    private bool forceUngrounded = false;
 
     private CharacterController controller;
     private Vector3 targetPosition;
@@ -49,8 +49,6 @@ public class RabbitController : MonoBehaviour
     void OnEnable()
     {
         controller = GetComponent<CharacterController>();
-        if (!animator) animator = GetComponentInChildren<Animator>();
-
         FirstPersonRabbitController.OnPlayerJump += OnPlayerJumped;
 
         if (gameObject.activeInHierarchy)
@@ -118,7 +116,9 @@ public class RabbitController : MonoBehaviour
 
             controller.Move(move * orbitSmoothSpeed * Time.deltaTime);
 
-            Vector3 tangent = -Vector3.Cross(Vector3.up, (transform.position - danceSpot.position).normalized);
+            Vector3 tangent =
+                -Vector3.Cross(Vector3.up, (transform.position - danceSpot.position).normalized);
+
             transform.rotation = Quaternion.Slerp(
                 transform.rotation,
                 Quaternion.LookRotation(tangent),
@@ -137,7 +137,6 @@ public class RabbitController : MonoBehaviour
             return;
 
         Vector3 dir = toTarget.normalized;
-
         controller.Move(dir * runSpeed * Time.deltaTime);
 
         transform.rotation = Quaternion.Slerp(
@@ -150,23 +149,33 @@ public class RabbitController : MonoBehaviour
     // -------------------------
     void ApplyGravity()
     {
-        if (controller.isGrounded)
+        if (controller.isGrounded && !forceUngrounded)
+        {
+            if (isJumping && verticalVelocity <= 0f)
+                isJumping = false;
+
             verticalVelocity = groundedSnap;
+        }
         else
+        {
             verticalVelocity += gravity * Time.deltaTime;
+            forceUngrounded = false;
+        }
     }
 
     void OnPlayerJumped()
     {
-        if (!canJump || !controller.isGrounded) return;
+        if (!canJump || !controller.isGrounded || isJumping) return;
         StartCoroutine(JumpAfterDelay());
     }
 
     IEnumerator JumpAfterDelay()
     {
+        isJumping = true;
         yield return new WaitForSeconds(jumpDelay);
+
         verticalVelocity = jumpForce;
-        animator?.SetTrigger("JumpTrigger");
+        forceUngrounded = true;
     }
 
     // -------------------------

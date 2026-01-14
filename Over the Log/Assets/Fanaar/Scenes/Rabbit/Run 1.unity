@@ -6529,6 +6529,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      propertyPath: jumpForce
+      value: 8.39
+      objectReference: {fileID: 0}
+    - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
       propertyPath: moveSpeed
       value: 2
       objectReference: {fileID: 0}
@@ -12979,6 +12983,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      propertyPath: jumpForce
+      value: 11.36
+      objectReference: {fileID: 0}
+    - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
       propertyPath: moveSpeed
       value: 2
       objectReference: {fileID: 0}
@@ -13062,6 +13070,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      propertyPath: jumpForce
+      value: 9.07
+      objectReference: {fileID: 0}
+    - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
       propertyPath: moveSpeed
       value: 2
       objectReference: {fileID: 0}
@@ -13076,6 +13088,10 @@ PrefabInstance:
     - target: {fileID: 2904380119524531242, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
       propertyPath: m_Name
       value: Hier zit een konijn verstopt (19)
+      objectReference: {fileID: 0}
+    - target: {fileID: 3732835609864072580, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.09
       objectReference: {fileID: 0}
     - target: {fileID: 4738976802494220466, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
       propertyPath: m_LocalPosition.x
@@ -13192,6 +13208,10 @@ PrefabInstance:
     - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
       propertyPath: jumpDelay
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      propertyPath: jumpForce
+      value: 9.76
       objectReference: {fileID: 0}
     - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
       propertyPath: moveSpeed
@@ -14889,6 +14909,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      propertyPath: jumpForce
+      value: 12.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
       propertyPath: moveSpeed
       value: 2
       objectReference: {fileID: 0}
@@ -15785,6 +15809,10 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      propertyPath: jumpForce
+      value: 11.81
+      objectReference: {fileID: 0}
+    - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
       propertyPath: moveSpeed
       value: 2
       objectReference: {fileID: 0}
@@ -16506,6 +16534,10 @@ PrefabInstance:
     - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
       propertyPath: jumpDelay
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      propertyPath: jumpForce
+      value: 9.6
       objectReference: {fileID: 0}
     - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
       propertyPath: moveSpeed
@@ -18286,6 +18318,10 @@ PrefabInstance:
     - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
       propertyPath: jumpDelay
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
+      propertyPath: jumpForce
+      value: 8.81
       objectReference: {fileID: 0}
     - target: {fileID: 1104108768343712805, guid: 0f58f80e38216df40a94a0b95693bc9a, type: 3}
       propertyPath: moveSpeed
