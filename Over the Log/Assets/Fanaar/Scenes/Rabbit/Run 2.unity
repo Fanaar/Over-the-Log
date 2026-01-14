@@ -17542,6 +17542,7 @@ GameObject:
   - component: {fileID: 919132149160267635}
   - component: {fileID: 9045039735592362220}
   - component: {fileID: 9045039735592362221}
+  - component: {fileID: 9045039735592362222}
   m_Layer: 0
   m_Name: Wolf
   m_TagString: Untagged
@@ -19444,6 +19445,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &9045039735592362222
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3601758332329209821}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 136f58e582693544eb21d7a441d32267, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerController: {fileID: 551310505}
+  lookTarget: {fileID: 6693419547637781612}
+  lerpToTargetTime: 1
+  holdTime: 0.5
+  lerpBackTime: 1
 --- !u!65 &9222007891142486253
 BoxCollider:
   m_ObjectHideFlags: 0
