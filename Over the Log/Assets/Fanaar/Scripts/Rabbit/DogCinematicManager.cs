@@ -24,6 +24,12 @@ public class DogCinematicManager : MonoBehaviour
     public float cameraLerpSpeed = 2f;
     public float lookFreezeDuration = 1.5f;
 
+    [Header("Second Camera Beat")]
+    public Transform finalLookTarget;
+    public float finalCameraLerpSpeed = 2.5f;
+    public float finalLerpMinDuration = 0.4f;
+
+
     [Header("Cinematic Extra Objects")]
     public GameObject dollyObject;
     public GameObject fmodAudioObject;
@@ -95,22 +101,23 @@ public class DogCinematicManager : MonoBehaviour
                 dogAnimator.SetBool("isScaryFace", true);
 
             float elapsed = 0f;
-            while (elapsed < dogFocusDuration)
-            {
-                Vector3 dir = (dogLookTarget.position - playerCamera.position).normalized;
-                Quaternion targetRot = Quaternion.LookRotation(dir);
-                playerCamera.rotation = Quaternion.Slerp(playerCamera.rotation, targetRot, Time.deltaTime * cameraLerpSpeed);
-                elapsed += Time.deltaTime;
-                yield return null;
-            }
+            yield return StartCoroutine(LerpCameraToTarget(dogLookTarget,cameraLerpSpeed,dogFocusDuration));
 
-            playerCamera.LookAt(dogLookTarget);
             chaseSirenCue?.Play();
         }
 
         yield return new WaitForSeconds(lookFreezeDuration);
 
         objectToActivateAfterFreeze?.SetActive(true);
+
+        // 🎥 SECOND CAMERA BEAT (pre-unlock)
+        if (finalLookTarget != null)
+        {
+            yield return StartCoroutine(LerpCameraToTarget(finalLookTarget,finalCameraLerpSpeed,finalLerpMinDuration));
+        }
+
+        // 🔒 Sync player look state met laatste camera rotatie
+        playerController.ForceLookRotation(playerCamera.rotation);
 
         // --- Resume player control ---
         playerController.canMove = true;
@@ -146,4 +153,43 @@ public class DogCinematicManager : MonoBehaviour
         float dot = Vector3.Dot(cameraForward, directionToDog);
         return dot >= lookAtDogThreshold;
     }
+
+    private IEnumerator LerpCameraToTarget(
+    Transform lookTarget,
+    float lerpSpeed,
+    float minDuration = 0f
+)
+    {
+        if (lookTarget == null)
+            yield break;
+
+        float elapsed = 0f;
+
+        while (true)
+        {
+            Vector3 dir = (lookTarget.position - playerCamera.position).normalized;
+            Quaternion targetRot = Quaternion.LookRotation(dir);
+
+            playerCamera.rotation = Quaternion.Slerp(
+                playerCamera.rotation,
+                targetRot,
+                Time.deltaTime * lerpSpeed
+            );
+
+            elapsed += Time.deltaTime;
+
+            // Stop wanneer:
+            // - minimale tijd voorbij is
+            // - EN camera bijna correct kijkt
+            if (elapsed >= minDuration &&
+                Quaternion.Angle(playerCamera.rotation, targetRot) < 0.5f)
+                break;
+
+            yield return null;
+        }
+
+        // Force exact eindpunt
+        playerCamera.LookAt(lookTarget);
+    }
+
 }

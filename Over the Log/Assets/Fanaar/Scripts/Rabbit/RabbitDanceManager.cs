@@ -238,7 +238,7 @@ public class RabbitDanceManager : MonoBehaviour
         {
             controller.ForceLookRotation(camTransform.rotation);
             controller.canLook = true;
-            controller.canMove = true;
+            controller.canMove = false;
         }
 
         isCameraLerping = false;

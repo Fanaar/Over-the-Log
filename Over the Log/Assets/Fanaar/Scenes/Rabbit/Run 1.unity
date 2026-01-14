@@ -313,6 +313,9 @@ MonoBehaviour:
   dogLookTarget: {fileID: 1875552271896197625}
   cameraLerpSpeed: 2
   lookFreezeDuration: 0
+  finalLookTarget: {fileID: 48877912}
+  finalCameraLerpSpeed: 2.5
+  finalLerpMinDuration: 0.4
   dollyObject: {fileID: 2027343744}
   fmodAudioObject: {fileID: 39444584}
   objectToActivateAfterFreeze: {fileID: 958502243}
