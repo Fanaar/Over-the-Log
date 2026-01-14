@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using FMODUnity;
 
 public class DogController2 : MonoBehaviour
 {
@@ -22,10 +23,20 @@ public class DogController2 : MonoBehaviour
     public float groundSnapSpeed = 10f;
     public float groundOffset = 0.5f;
 
+    [Header("Audio")]
+    [SerializeField]
+    private StudioEventEmitter wolfGrowlEmitter;
+
     // =========================
     // Internal state
     // =========================
     private bool isInAcceptanceSit = false;
+
+    void OnEnable()
+    {
+        if (wolfGrowlEmitter != null)
+            wolfGrowlEmitter.Play();
+    }
 
     void Update()
     {
@@ -33,37 +44,46 @@ public class DogController2 : MonoBehaviour
             return;
 
         StressManager stressManager = StressManager.Instance;
-        bool playerIsMoving = stressManager != null && stressManager.playerIsMoving;
+        if (stressManager == null) return;
+
+        bool isSprinting = stressManager.playerIsSprinting;
+        bool isLooking = stressManager.playerIsLookingAtDog;
 
         // =====================================================
-        // 1️⃣ ACCEPTANCE SIT (HARD LOCK)
+        // 🔥 SPRINT OVERRIDE (ABSOLUUT)
         // =====================================================
-        if (isInAcceptanceSit)
+        if (isSprinting)
         {
-            animator.SetBool("isWalking", false);
-
-            if (playerIsMoving)
+            // Breek ALLE acceptatie
+            if (isInAcceptanceSit)
             {
                 isInAcceptanceSit = false;
                 animator.SetBool("isSitting", false);
             }
 
+            // Force movement
+            HandleMovement(stressManager);
+            return;
+        }
+
+        // =====================================================
+        // 1️⃣ ACCEPTANCE SIT (HARD LOCK – GEEN SPRINT)
+        // =====================================================
+        if (isInAcceptanceSit)
+        {
+            animator.SetBool("isWalking", false);
             StickToGround();
             return;
         }
 
         // =====================================================
-        // 2️⃣ PLAYER STIL + KIJKEN = STOPPEN (IDLE)
+        // 2️⃣ KIJKEN = STOPPEN (OOK TIJDENS LOPEN)
         // =====================================================
-        if (isInPlayerTrigger && !playerIsMoving)
+        if (isInPlayerTrigger && isLooking)
         {
-            if (stressManager != null)
-                stressManager.playerIsLookingAtDog = true;
-
             animator.SetBool("isWalking", false);
 
-            // ---- ENTER acceptance sit
-            if (stressManager != null && stressManager.AcceptanceSitReached)
+            if (stressManager.AcceptanceSitReached)
             {
                 isInAcceptanceSit = true;
                 animator.SetBool("isSitting", true);
@@ -76,9 +96,6 @@ public class DogController2 : MonoBehaviour
         // =====================================================
         // 3️⃣ NORMAAL VOLGEN / LOPEN
         // =====================================================
-        if (stressManager != null)
-            stressManager.playerIsLookingAtDog = false;
-
         HandleMovement(stressManager);
     }
 
@@ -87,7 +104,7 @@ public class DogController2 : MonoBehaviour
     // =========================
     void HandleMovement(StressManager stressManager)
     {
-        float stressFactor = stressManager != null ? stressManager.stress / 100f : 0f;
+        float stressFactor = stressManager.stress / 100f;
         float dynamicSpeed = Mathf.Lerp(speed * 0.6f, maxStressSpeed, stressFactor);
 
         Vector3 direction = player.position - transform.position;

@@ -12,15 +12,15 @@ public class StressManager : MonoBehaviour
     public float stress = 0f;
 
     [Header("Rates")]
-    public float fleeRate = 15f;
-    public float restlessRate = 5f;
-    public float avoidRate = 8f;
-    public float calmRate = 10f;
+    public float fleeRate = 15f;      // sprinten
+    public float restlessRate = 5f;   // bewegen zonder te accepteren
+    public float avoidRate = 8f;      // wegkijken
+    public float calmRate = 10f;      // kalmeren
 
     [Header("Acceptance Settings")]
-    public float acceptanceTime = 10f; // seconden kijken en stil
+    public float acceptanceTime = 10f;
     private float acceptanceTimer = 0f;
-    public string nextSceneName; // hier vul je in de Inspector de scene naam in
+    public string nextSceneName;
 
     [Header("FMOD")]
     public StudioEventEmitter[] emittersToStop;
@@ -35,7 +35,7 @@ public class StressManager : MonoBehaviour
     public FirstPersonRabbitController playerController;
     public DogController2 dog;
 
-    // ----- Read-only property voor andere scripts -----
+    // ----- Read-only properties -----
     public float Acceptance01 => Mathf.Clamp01(acceptanceTimer / acceptanceTime);
     public bool AcceptanceSitReached => acceptanceTimer >= 5f;
 
@@ -48,26 +48,48 @@ public class StressManager : MonoBehaviour
     {
         if (!dogIsActive) return;
 
-        // ----- Stress berekening -----
+        HandleStress();
+        HandleAcceptance();
+
+        // Debug
+        Debug.Log($"[StressManager] Stress: {stress:F1} | AcceptanceTimer: {acceptanceTimer:F1}");
+    }
+
+    // ================================
+    // STRESS
+    // ================================
+    void HandleStress()
+    {
+        // Sprinten = paniek
         if (playerIsSprinting)
             stress += fleeRate * Time.deltaTime * 1.5f;
 
-        if (playerIsMoving)
+        // Normaal bewegen zonder acceptatie
+        if (playerIsMoving && !playerIsLookingAtDog)
             stress += restlessRate * Time.deltaTime;
 
+        // Wegkijken
         if (!playerIsLookingAtDog)
             stress += avoidRate * Time.deltaTime;
 
-        // Stress dalen alleen als speler stil staat en kijkt naar hond
-        if (playerIsLookingAtDog && inDogTrigger && !playerIsMoving)
+        // Kalmeren zolang je kijkt (ook tijdens lopen, maar niet sprinten)
+        if (playerIsLookingAtDog && inDogTrigger && !playerIsSprinting)
             stress -= calmRate * Time.deltaTime;
 
         stress = Mathf.Clamp(stress, 0f, 100f);
+    }
 
-        // ----- Acceptance -----
-        bool isStill = !playerController.isMoving;
+    // ================================
+    // ACCEPTANCE
+    // ================================
+    void HandleAcceptance()
+    {
+        bool canAccept =
+            playerIsLookingAtDog &&
+            inDogTrigger &&
+            !playerIsSprinting;
 
-        if (playerIsLookingAtDog && isStill)
+        if (canAccept)
         {
             acceptanceTimer += Time.deltaTime;
 
@@ -75,7 +97,7 @@ public class StressManager : MonoBehaviour
             {
                 Debug.Log("Acceptance complete! Laad volgende scene...");
 
-                StopFMODEmittersImmediate();   // 🔊 AUDIO STOP HIER
+                StopFMODEmittersImmediate();
 
                 if (!string.IsNullOrEmpty(nextSceneName))
                     SceneManager.LoadScene(nextSceneName);
@@ -87,11 +109,13 @@ public class StressManager : MonoBehaviour
         {
             acceptanceTimer = 0f;
         }
-
-        // Debug
-        Debug.Log($"[StressManager] Stress: {stress:F1} | AcceptanceTimer: {acceptanceTimer:F1}");
     }
 
+
+
+    // ================================
+    // FMOD
+    // ================================
     void StopFMODEmittersImmediate()
     {
         if (emittersToStop == null) return;
@@ -100,7 +124,7 @@ public class StressManager : MonoBehaviour
         {
             if (emitter == null) continue;
 
-            emitter.EventInstance.stop(FMOD.Studio.STOP_MODE.IMMEDIATE);
+            emitter.EventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
             emitter.EventInstance.release();
         }
     }
