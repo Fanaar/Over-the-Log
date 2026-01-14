@@ -94,40 +94,43 @@ public class RabbitDanceManager : MonoBehaviour
 
     private void StartRunAway()
     {
-        // Stop circle dance audio
+        // 🔴 Ontkoppel konijnen van hun container
+        foreach (var rabbit in rabbits)
+            rabbit.transform.SetParent(null, true);
+
         rabbitManager?.StopCircleDance();
+        SpawnDogClean();
 
-        SpawnDogClean();  // NEW
+        if (runStart == null || runEnd == null)
+        {
+            Debug.LogError("RunStart of RunEnd ontbreekt!");
+            return;
+        }
 
-        // Make all rabbits run
+        Vector3 runVector = runEnd.position - runStart.position;
+        float runDistance = runVector.magnitude;
+        Vector3 runDir = runVector.normalized;
+        Vector3 side = Vector3.Cross(Vector3.up, runDir);
+
         foreach (var rabbit in rabbits)
         {
-            Vector3 targetDir;
+            float forward = Random.Range(0.6f, 1f) * runDistance;
+            float sideways = Random.Range(-1.5f, 1.5f);
 
-            if (useRandomBetweenTransforms && runStart != null && runEnd != null)
-            {
-                // Bereken richting van start naar eind
-                Vector3 runVector = (runEnd.position - runStart.position).normalized;
-                float runDistance = Vector3.Distance(runStart.position, runEnd.position);
+            Vector3 target =
+                runStart.position +
+                runDir * forward +
+                side * sideways;
 
-                // Kies een random punt langs de lijn van runStart → runEnd
-                float randomDistance = Random.Range(0f, runDistance);
-                Vector3 targetPos = runStart.position + runVector * randomDistance;
+            Debug.DrawLine(rabbit.transform.position, target, Color.green, 3f);
 
-                // Direction van rabbit naar targetPos
-                targetDir = (targetPos - rabbit.transform.position).normalized;
-            }
-            else
-            {
-                targetDir = Vector3.forward;
-            }
-
-            rabbit.RunAway(targetDir);
+            rabbit.RunAwayTo(target);
         }
 
         hasRunAway = true;
         Debug.Log("🐇 Konijnen rennen weg!");
     }
+
 
     private void SpawnDogClean()
     {
