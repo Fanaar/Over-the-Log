@@ -14756,7 +14756,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: a10aa30ea3326994c8994186db5fe9e5, type: 2}
+  m_MaterialTemplate: {fileID: 2100000, guid: dcc5c5fa88cc8424f8b725274cefe901, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -20151,7 +20151,7 @@ MonoBehaviour:
   enableFog: 1
   targetFogColor: {r: 1, g: 0, b: 0, a: 1}
   targetFogDensity: 0.03
-  transitionDuration: 0.5
+  transitionDuration: 1
 --- !u!1 &2067841145
 GameObject:
   m_ObjectHideFlags: 0

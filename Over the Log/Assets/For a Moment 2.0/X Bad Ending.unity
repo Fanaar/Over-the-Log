@@ -15531,7 +15531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5655250e59dba46a3cc618070d1a0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredTriggers: 1
+  requiredTriggers: 3
   playerCamera: {fileID: 1246085681}
   lookTarget: {fileID: 1466562933}
   objectToActivate: {fileID: 892364656}
