@@ -11,6 +11,9 @@ public class FadeInFromBlack : MonoBehaviour
         fadePanel.gameObject.SetActive(true); // ensure visible
         fadePanel.alpha = 1f;                // start fully black
         StartCoroutine(FadeIn());
+
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     private IEnumerator FadeIn()
