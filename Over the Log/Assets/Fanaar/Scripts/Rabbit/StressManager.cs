@@ -25,6 +25,9 @@ public class StressManager : MonoBehaviour
     [Header("FMOD")]
     public StudioEventEmitter[] emittersToStop;
 
+    [Header("Acceptance Visual / Gameplay")]
+    public GameObject objectToDisableDuringAcceptance;
+
 
     [HideInInspector] public bool dogIsActive;
     [HideInInspector] public bool playerIsMoving;
@@ -89,6 +92,10 @@ public class StressManager : MonoBehaviour
             inDogTrigger &&
             !playerIsSprinting;
 
+        // Object aan/uit zetten
+        if (objectToDisableDuringAcceptance != null)
+            objectToDisableDuringAcceptance.SetActive(!canAccept);
+
         if (canAccept)
         {
             acceptanceTimer += Time.deltaTime;
@@ -110,6 +117,7 @@ public class StressManager : MonoBehaviour
             acceptanceTimer = 0f;
         }
     }
+
 
 
 
