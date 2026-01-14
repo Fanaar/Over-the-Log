@@ -86,6 +86,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/For a Moment 2.0/X Bad Ending.unity
     guid: 2d2ec25ff1247e54c8665fadb76c2ed8
+  - enabled: 1
+    path: Assets/For a Moment 2.0/End credits  White screen.unity
+    guid: c2da4858f517ab244a890316a8bd3119
+  - enabled: 1
+    path: Assets/For a Moment 2.0/End credits  Black screen.unity
+    guid: 84412bd81b60fd847978ff6bb9fbdce1
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 9e7be553448fa2546aea5752021cbcf7, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}

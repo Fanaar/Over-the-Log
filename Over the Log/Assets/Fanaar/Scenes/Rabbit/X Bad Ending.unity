@@ -3228,7 +3228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeCanvasGroup: {fileID: 583843156}
   fadeDuration: 0.5
-  sceneToLoad: Main Menu
+  sceneToLoad: End credits  Black screen
   objectsToDeactivate: []
   wolfUnderGrowlEmitter: {fileID: 0}
   extraEmitterToStop: {fileID: 966695920}
