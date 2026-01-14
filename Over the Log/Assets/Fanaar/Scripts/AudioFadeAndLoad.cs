@@ -5,7 +5,7 @@ using System.Collections;
 public class AudioFadeAndLoad : MonoBehaviour
 {
     [Header("Audio")]
-    public AudioClip clip;              // Voeg hier je clip in de inspector
+    public AudioClip clip;
     public float volume = 1f;
 
     [Header("Fade")]
@@ -14,6 +14,10 @@ public class AudioFadeAndLoad : MonoBehaviour
 
     [Header("Scene")]
     public string nextSceneName;
+
+    [Header("Delay Settings")]
+    [Tooltip("Seconds to wait after audio finished before fading/loading scene")]
+    public float delayAfterAudio = 0f;
 
     private bool hasStarted = false;
 
@@ -28,7 +32,7 @@ public class AudioFadeAndLoad : MonoBehaviour
         if (hasStarted) yield break;
         hasStarted = true;
 
-        // Maak een tijdelijke AudioSource
+        // Tijdelijke AudioSource
         AudioSource tempAudio = gameObject.AddComponent<AudioSource>();
         tempAudio.clip = clip;
         tempAudio.volume = volume;
@@ -39,7 +43,10 @@ public class AudioFadeAndLoad : MonoBehaviour
         // Wacht tot audio klaar is
         yield return new WaitWhile(() => tempAudio.isPlaying);
 
-        // Optioneel: verwijder de AudioSource na gebruik
+        // Extra delay na audio
+        if (delayAfterAudio > 0f)
+            yield return new WaitForSeconds(delayAfterAudio);
+
         Destroy(tempAudio);
 
         // Fade naar zwart

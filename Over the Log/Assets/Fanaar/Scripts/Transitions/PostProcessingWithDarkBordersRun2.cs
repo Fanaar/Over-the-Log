@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
@@ -16,7 +16,9 @@ public class PostProcessingWithDarkBorders : MonoBehaviour
     [SerializeField] private AnimationCurve fadeCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
 
     private Coroutine darkBordersCoroutine;
-    private bool darkBordersActive = false;
+
+    // 👇 NIEUW
+    private int darkBorderTriggerCount = 0;
 
     private void Awake()
     {
@@ -26,7 +28,7 @@ public class PostProcessingWithDarkBorders : MonoBehaviour
 
     private void Start()
     {
-        UniversalAdditionalCameraData camData = mainCamera.GetComponent<UniversalAdditionalCameraData>();
+        var camData = mainCamera.GetComponent<UniversalAdditionalCameraData>();
         camData.volumeLayerMask = ~0;
 
         if (baseVolume != null)
@@ -38,27 +40,37 @@ public class PostProcessingWithDarkBorders : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("DarkBorders"))
+        if (!other.CompareTag("DarkBorders"))
+            return;
+
+        darkBorderTriggerCount++;
+
+        if (darkBorderTriggerCount == 1)
             SetDarkBorders(true);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.CompareTag("DarkBorders"))
+        if (!other.CompareTag("DarkBorders"))
+            return;
+
+        darkBorderTriggerCount = Mathf.Max(0, darkBorderTriggerCount - 1);
+
+        if (darkBorderTriggerCount == 0)
             SetDarkBorders(false);
     }
 
     private void SetDarkBorders(bool active)
     {
-        if (darkBordersActive == active || volumeDarkBorders == null)
+        if (volumeDarkBorders == null)
             return;
-
-        darkBordersActive = active;
 
         if (darkBordersCoroutine != null)
             StopCoroutine(darkBordersCoroutine);
 
-        darkBordersCoroutine = StartCoroutine(FadeVolume(volumeDarkBorders, active ? darkBordersWeight : 0f, darkBordersFadeDuration));
+        darkBordersCoroutine = StartCoroutine(
+            FadeVolume(volumeDarkBorders, active ? darkBordersWeight : 0f, darkBordersFadeDuration)
+        );
     }
 
     private IEnumerator FadeVolume(Volume volume, float target, float duration)

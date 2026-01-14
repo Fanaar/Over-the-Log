@@ -5736,7 +5736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 551310507}
-  triggerClip: {fileID: 8300000, guid: eb56dde48ef244548bf67cf3a3d11234, type: 3}
+  triggerClip: {fileID: 8300000, guid: 877254f21c7e34442b0c890735144e94, type: 3}
 --- !u!1 &288544948
 GameObject:
   m_ObjectHideFlags: 0
@@ -11408,7 +11408,7 @@ Terrain:
   m_StaticShadowCaster: 0
   m_IgnoreQualitySettings: 0
   m_ReflectionProbeUsage: 1
-  m_MaterialTemplate: {fileID: 2100000, guid: a10aa30ea3326994c8994186db5fe9e5, type: 2}
+  m_MaterialTemplate: {fileID: 2100000, guid: dcc5c5fa88cc8424f8b725274cefe901, type: 2}
   m_BakeLightProbesForTrees: 1
   m_PreserveTreePrototypeLayers: 0
   m_DeringLightProbesForTrees: 1
@@ -15477,6 +15477,7 @@ MonoBehaviour:
   - {fileID: 130767042}
   - {fileID: 1347097652}
   objectToDisableDuringAcceptance: {fileID: 1246513713}
+  disableDelay: 5
   dogIsActive: 0
   playerIsMoving: 0
   playerIsSprinting: 0
@@ -17178,7 +17179,7 @@ Transform:
   m_GameObject: {fileID: 3601758332329209821}
   serializedVersion: 2
   m_LocalRotation: {x: 0.013671313, y: 0.6751499, z: 0.00086025306, w: 0.73755336}
-  m_LocalPosition: {x: 18.3, y: 1.8, z: -96.6}
+  m_LocalPosition: {x: 20.9, y: 1.6, z: -125.5}
   m_LocalScale: {x: 20, y: 20, z: 20}
   m_ConstrainProportionsScale: 0
   m_Children:

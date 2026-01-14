@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: a7f0e0079cba65f44b3de2f6c330e90f, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: a3754fbcc82fe55489d62612aae6f7b2, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -3228,7 +3228,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeCanvasGroup: {fileID: 583843156}
   fadeDuration: 0.5
-  sceneToLoad: Main Menu
+  sceneToLoad: End credits  Black screen
   objectsToDeactivate: []
   wolfUnderGrowlEmitter: {fileID: 0}
   extraEmitterToStop: {fileID: 966695920}
@@ -15531,7 +15531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c5655250e59dba46a3cc618070d1a0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  requiredTriggers: 1
+  requiredTriggers: 3
   playerCamera: {fileID: 1246085681}
   lookTarget: {fileID: 1466562933}
   objectToActivate: {fileID: 892364656}

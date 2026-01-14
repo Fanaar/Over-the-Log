@@ -473,12 +473,7 @@ MonoBehaviour:
   circleIndex: 1
   totalRabbits: 10
   isRunningAway: 0
-  runDirection: {x: 0, y: 0, z: 1}
   runSpeed: 5
-  spreadAmount: 1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
   gravity: -25
   groundedSnap: -2
   jumpDelay: 0.5

@@ -195,5 +195,20 @@ public class FirstPersonRabbitController : MonoBehaviour
         jumpAudioSource.PlayOneShot(randomClip);
     }
 
+    public void ForceLookRotation(Quaternion worldCameraRotation)
+    {
+        // 1. Body yaw (Y-as)
+        Vector3 bodyEuler = worldCameraRotation.eulerAngles;
+        transform.rotation = Quaternion.Euler(0f, bodyEuler.y, 0f);
+
+        // 2. Camera pitch (X-as)
+        float pitch = bodyEuler.x;
+        if (pitch > 180f) pitch -= 360f;
+
+        verticalRotation = Mathf.Clamp(pitch, -cameraClampAngle, cameraClampAngle);
+
+        // 3. Force camera local rotation
+        playerCamera.localEulerAngles = Vector3.right * verticalRotation;
+    }
 
 }
