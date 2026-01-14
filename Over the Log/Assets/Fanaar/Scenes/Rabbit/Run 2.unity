@@ -16472,6 +16472,7 @@ MonoBehaviour:
   - {fileID: 1151231506}
   - {fileID: 1347097652}
   objectToDisableDuringAcceptance: {fileID: 1246513713}
+  disableDelay: 5
   dogIsActive: 0
   playerIsMoving: 0
   playerIsSprinting: 0

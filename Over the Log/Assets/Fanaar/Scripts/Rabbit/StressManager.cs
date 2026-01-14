@@ -27,7 +27,9 @@ public class StressManager : MonoBehaviour
 
     [Header("Acceptance Visual / Gameplay")]
     public GameObject objectToDisableDuringAcceptance;
+    public float disableDelay = 5f;   // ← NIEUW: delay voordat object uitgaat
 
+    private float disableTimer = 0f;  // ← NIEUW
 
     [HideInInspector] public bool dogIsActive;
     [HideInInspector] public bool playerIsMoving;
@@ -92,13 +94,18 @@ public class StressManager : MonoBehaviour
             inDogTrigger &&
             !playerIsSprinting;
 
-        // Object aan/uit zetten
-        if (objectToDisableDuringAcceptance != null)
-            objectToDisableDuringAcceptance.SetActive(!canAccept);
-
         if (canAccept)
         {
             acceptanceTimer += Time.deltaTime;
+
+            // Timer voor object deactiveren
+            disableTimer += Time.deltaTime;
+
+            if (objectToDisableDuringAcceptance != null)
+            {
+                if (disableTimer >= disableDelay)
+                    objectToDisableDuringAcceptance.SetActive(false);
+            }
 
             if (acceptanceTimer >= acceptanceTime)
             {
@@ -114,9 +121,15 @@ public class StressManager : MonoBehaviour
         }
         else
         {
+            // Reset alles zodra acceptance stopt
             acceptanceTimer = 0f;
+            disableTimer = 0f;
+
+            if (objectToDisableDuringAcceptance != null)
+                objectToDisableDuringAcceptance.SetActive(true);
         }
     }
+
 
 
 
