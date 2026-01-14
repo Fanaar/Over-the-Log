@@ -13779,7 +13779,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1347097650}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9a6610d2e704f1648819acc8d7460285, type: 3}
   m_Name: 
@@ -16470,6 +16470,7 @@ MonoBehaviour:
   nextSceneName: Void
   emittersToStop:
   - {fileID: 1151231506}
+  - {fileID: 1347097652}
   dogIsActive: 0
   playerIsMoving: 0
   playerIsSprinting: 0
@@ -19343,6 +19344,7 @@ MonoBehaviour:
   groundCheckHeight: 4
   groundSnapSpeed: 10
   groundOffset: 1.6
+  wolfGrowlEmitter: {fileID: 1347097652}
 --- !u!65 &9222007891142486253
 BoxCollider:
   m_ObjectHideFlags: 0
