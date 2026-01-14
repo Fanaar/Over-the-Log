@@ -1510,7 +1510,7 @@ ParticleSystem:
     rateOverTime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 1000
+      scalar: 2000
       minScalar: 10
       maxCurve:
         serializedVersion: 2
@@ -6507,7 +6507,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fadeCanvasGroup: {fileID: 544326481}
   fadeDuration: 2
-  sceneToLoad: Main Menu
+  sceneToLoad: End credits  White screen
   objectsToDeactivate: []
   wolfUnderGrowlEmitter: {fileID: 0}
   extraEmitterToStop: {fileID: 1188249074}

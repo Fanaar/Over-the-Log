@@ -5736,7 +5736,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   audioSource: {fileID: 551310507}
-  triggerClip: {fileID: 8300000, guid: eb56dde48ef244548bf67cf3a3d11234, type: 3}
+  triggerClip: {fileID: 8300000, guid: f1938debd44e63e4b8dc2486a01f76ea, type: 3}
 --- !u!1 &288544948
 GameObject:
   m_ObjectHideFlags: 0
