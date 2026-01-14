@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class RabbitDanceManager : MonoBehaviour
 {
@@ -38,6 +39,13 @@ public class RabbitDanceManager : MonoBehaviour
     [Header("Managers")]
     public RabbitManager rabbitManager;
 
+    [Header("Camera Lerp Settings")]
+    public Transform cameraLookTarget;   // waar de camera naartoe kijkt
+    public float cameraLerpSpeed = 2f;   // hoe snel de lerp gaat
+    public float cameraHoldTime = 0.5f;  // hoe lang hij blijft hangen (optioneel)
+
+    private bool isCameraLerping = false;
+
     [SerializeField] private bool allReady = false;  // blijft in inspector zichtbaar
     public bool AllReady => allReady;               // read-only voor andere scripts
 
@@ -76,19 +84,19 @@ public class RabbitDanceManager : MonoBehaviour
         }
 
         // Check if rabbits can start running
-        if (!hasRunAway && completedRotations >= roundsBeforeRunAway && PlayerLookingAtRunDirection() && playerInTrigger)
+        if (!hasRunAway && completedRotations >= roundsBeforeRunAway && playerInTrigger)
         {
+            hasRunAway = true; // 🔒 lock meteen
+
             var controller = player.GetComponent<FirstPersonRabbitController>();
             if (controller != null)
             {
                 controller.canMove = false;
-                controller.canLook = true;
+                controller.canLook = false; // tijdelijk uit
             }
 
             StartRunAway();
 
-            if (dogCinematicManager != null)
-                dogCinematicManager.StartCinematic();
         }
     }
 
@@ -99,7 +107,6 @@ public class RabbitDanceManager : MonoBehaviour
             rabbit.transform.SetParent(null, true);
 
         rabbitManager?.StopCircleDance();
-        SpawnDogClean();
 
         if (runStart == null || runEnd == null)
         {
@@ -127,8 +134,12 @@ public class RabbitDanceManager : MonoBehaviour
             rabbit.RunAwayTo(target);
         }
 
-        hasRunAway = true;
         Debug.Log("🐇 Konijnen rennen weg!");
+
+        if (cameraLookTarget != null && !isCameraLerping)
+        {
+            StartCoroutine(LerpCameraToTarget());
+        }
     }
 
 
@@ -192,6 +203,50 @@ public class RabbitDanceManager : MonoBehaviour
     public void PlayerExitedTrigger()
     {
         playerInTrigger = false;
+    }
+
+
+    private IEnumerator LerpCameraToTarget()
+    {
+        isCameraLerping = true;
+
+        Camera cam = Camera.main;
+        if (cam == null)
+            yield break;
+
+        Transform camTransform = cam.transform;
+        Quaternion startRot = camTransform.rotation;
+
+        Vector3 dir = (cameraLookTarget.position - camTransform.position).normalized;
+        Quaternion targetRot = Quaternion.LookRotation(dir);
+
+        float t = 0f;
+
+        while (t < 1f)
+        {
+            t += Time.deltaTime * cameraLerpSpeed;
+            camTransform.rotation = Quaternion.Slerp(startRot, targetRot, t);
+            yield return null;
+        }
+
+        // Kleine cinematic pauze
+        if (cameraHoldTime > 0f)
+            yield return new WaitForSeconds(cameraHoldTime);
+
+        var controller = player.GetComponent<FirstPersonRabbitController>();
+        if (controller != null)
+        {
+            controller.ForceLookRotation(camTransform.rotation);
+            controller.canLook = true;
+            controller.canMove = true;
+        }
+
+        isCameraLerping = false;
+
+        SpawnDogClean();
+
+        if (dogCinematicManager != null)
+            dogCinematicManager.StartCinematic();
     }
 
 }

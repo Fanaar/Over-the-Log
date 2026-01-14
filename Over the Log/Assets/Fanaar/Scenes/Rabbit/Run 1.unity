@@ -474,7 +474,7 @@ GameObject:
   m_Component:
   - component: {fileID: 48877912}
   m_Layer: 0
-  m_Name: Dog Look Target
+  m_Name: Player Look Target
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -19126,6 +19126,9 @@ MonoBehaviour:
   dogCinematicManager: {fileID: 39444585}
   playerRunTrigger: {fileID: 1998402739}
   rabbitManager: {fileID: 1057375733}
+  cameraLookTarget: {fileID: 48877912}
+  cameraLerpSpeed: 2
+  cameraHoldTime: 0.5
   allReady: 0
 --- !u!4 &1766627586
 Transform:
