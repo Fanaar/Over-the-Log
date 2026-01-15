@@ -15,7 +15,6 @@ public class DogBehaviour : MonoBehaviour
     [Header("References")]
     public FirstPersonRabbitController playerController;
     public Animator animator;
-    public DogJumpMimic jumpMimic;
 
     [Header("Circling Voice Audio")]
     public AudioSource voiceSource;
@@ -37,7 +36,6 @@ public class DogBehaviour : MonoBehaviour
     [Header("Post Processing")]
     public SimplePostProcessingWithDarkBorders postProcessing;
     private bool postProcessingTriggered = false;
-
 
     // ──────────────────────────────
     // Internal state
@@ -104,10 +102,6 @@ public class DogBehaviour : MonoBehaviour
             playerController.canMove = false;
     }
 
-    // ──────────────────────────────
-    // Update
-    // ──────────────────────────────
-
     void Update()
     {
         if (approaching)
@@ -159,7 +153,6 @@ public class DogBehaviour : MonoBehaviour
 
     void CircleAroundPlayer()
     {
-        // Start emotional music (once)
         if (!emotionalMusicStarted && emotionalMusicClip != null && emotionalMusicSource != null)
         {
             emotionalMusicSource.volume = 0f;
@@ -184,14 +177,12 @@ public class DogBehaviour : MonoBehaviour
 
         circlingTimer += Time.deltaTime;
 
-        // Talking animation
         if (!talkingSet && circlingTimer >= talkingDelay)
         {
             animator.SetBool("isTalking", true);
             talkingSet = true;
         }
 
-        // Voice clips
         if (!audioStarted && circlingTimer >= audioDelay && circlingClips.Length > 0 && voiceSource != null)
         {
             voiceSource.clip = circlingClips[currentClipIndex];
@@ -256,22 +247,14 @@ public class DogBehaviour : MonoBehaviour
         RotateTowards(dir);
     }
 
-    // ──────────────────────────────
-    // Emotional music logic
-    // ──────────────────────────────
-
     void HandleEmotionalMusicFade()
     {
         if (!emotionalMusicStarted || emotionalMusicFinished || emotionalMusicSource == null)
             return;
 
-        if (emotionalMusicFadeTimer < emotionalMusicFadeDuration)
-        {
-            emotionalMusicFadeTimer += Time.deltaTime;
-            float t = emotionalMusicFadeTimer / emotionalMusicFadeDuration;
-            emotionalMusicSource.volume =
-                Mathf.Lerp(0f, emotionalMusicTargetVolume, t);
-        }
+        emotionalMusicFadeTimer += Time.deltaTime;
+        float t = emotionalMusicFadeTimer / emotionalMusicFadeDuration;
+        emotionalMusicSource.volume = Mathf.Lerp(0f, emotionalMusicTargetVolume, t);
     }
 
     void CheckEmotionalMusicFinished()
@@ -288,10 +271,6 @@ public class DogBehaviour : MonoBehaviour
         }
     }
 
-    // ──────────────────────────────
-    // Flowers
-    // ──────────────────────────────
-
     void HandleFallingFlowers()
     {
         if (!circling || flowersActivated || fallingFlowers == null)
@@ -303,10 +282,6 @@ public class DogBehaviour : MonoBehaviour
             flowersActivated = true;
         }
     }
-
-    // ──────────────────────────────
-    // Finish
-    // ──────────────────────────────
 
     void FinishEncounter()
     {
@@ -320,9 +295,6 @@ public class DogBehaviour : MonoBehaviour
 
         if (playerController != null)
             playerController.canMove = true;
-
-        if (jumpMimic != null)
-            jumpMimic.enabled = true;
 
         if (voiceSource != null && voiceSource.isPlaying)
             voiceSource.Stop();
