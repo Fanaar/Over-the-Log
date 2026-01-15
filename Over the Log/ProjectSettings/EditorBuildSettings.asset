@@ -42,15 +42,6 @@ EditorBuildSettings:
     path: Assets/For a Moment 2.0/Run 7.unity
     guid: c0f5b916adc14d742b0492a5a993b365
   - enabled: 1
-    path: Assets/For a Moment 2.0/Run 8.unity
-    guid: 5349cdc9fa698c947aa01912cac1d53d
-  - enabled: 1
-    path: Assets/For a Moment 2.0/Run 9.unity
-    guid: 7248634846eb705409ddcd2e453bd05f
-  - enabled: 1
-    path: Assets/For a Moment 2.0/Run 10.unity
-    guid: 2955ebdd59e4f9d489eae1098de15502
-  - enabled: 1
     path: Assets/For a Moment 2.0/Void.unity
     guid: a0abfecc8709ee6488a30e1efb6694e1
   - enabled: 1
@@ -74,15 +65,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/For a Moment 2.0/Dog Bite 7.unity
     guid: 1ba522fb13661ff4da405116803c754c
-  - enabled: 1
-    path: Assets/For a Moment 2.0/Dog Bite 8.unity
-    guid: 462ea290ab1754e4f97970ec59eac169
-  - enabled: 1
-    path: Assets/For a Moment 2.0/Dog Bite 9.unity
-    guid: 1e4dc0d497dcf2e46974ade1f890305b
-  - enabled: 1
-    path: Assets/For a Moment 2.0/Dog Bite 10.unity
-    guid: fac6f45338ecfcd46842b7dfb75516be
   - enabled: 1
     path: Assets/For a Moment 2.0/X Bad Ending.unity
     guid: aa61f3438878a934699a00e627d684ee

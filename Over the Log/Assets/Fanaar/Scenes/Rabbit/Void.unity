@@ -8151,14 +8151,13 @@ MonoBehaviour:
   clockwise: 0
   playerController: {fileID: 1247382612}
   animator: {fileID: 1784256583}
-  jumpMimic: {fileID: 1520131937}
   voiceSource: {fileID: 1520131939}
   circlingClips:
   - {fileID: 8300000, guid: 6b398854160976e42a9f6a18c50bdaf4, type: 3}
   audioDelay: 2
   talkingDelay: 3
   emotionalMusicSource: {fileID: 1719740714}
-  emotionalMusicClip: {fileID: 8300000, guid: 938f9734fe87c504586be29a9f296259, type: 3}
+  emotionalMusicClip: {fileID: 8300000, guid: 9697afed7a37f354aa629c5f7b070296, type: 3}
   emotionalMusicFadeDuration: 4
   emotionalMusicTargetVolume: 1
   objectToActivateAfterMusic: {fileID: 638370905}
